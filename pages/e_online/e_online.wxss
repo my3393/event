@@ -1,0 +1,57 @@
+/* pages/yl_online/yl_online.wxss */
+@import '../e_artist/e_artist';
+.types{
+    width: calc(100% - 40rpx);
+    height: 100rpx;
+    margin-left: 20rpx;
+    margin-top: 20rpx;
+    overflow: scroll;
+    -webkit-overflow-scrolling: touch;
+    white-space: nowrap;
+    margin-bottom: 30rpx;
+    box-sizing: border-box;
+}
+.yact{
+    background-color: #fe5ba9 !important;
+    color: white !important;
+}
+.types view{
+    width: 100rpx;
+    height: 100rpx;
+    border-radius: 100rpx;
+    background-color: #E6E6E6;
+    line-height: 100rpx;
+    text-align: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 28rpx;
+    color: #999;
+    margin-right: 20rpx;
+    display: inline-block;
+}
+.ccfee{
+    padding: 0 20rpx;
+    box-sizing: border-box;
+    font-size: 28rpx;
+    margin-bottom: 30rpx;
+    color: #333;
+}
+.btitle{
+    font-size: 32rpx;
+    color: #333;
+    letter-spacing: 2rpx;
+    padding: 0 20rpx;
+    margin-bottom: 30rpx;
+    box-sizing: border-box;
+}
+input{
+    width: 100%;
+    height: 80rpx;
+    background-color: #f8f8f8;
+    padding: 10rpx;
+    box-sizing: border-box;
+    border-radius: 10rpx;
+    font-size: 24rpx;
+    letter-spacing: 1rpx;
+}

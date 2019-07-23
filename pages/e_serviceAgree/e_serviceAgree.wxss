@@ -1,0 +1,18 @@
+/* pages/e_serviceAgree/e_serviceAgree.wxss */
+.cds{
+  padding: 20rpx 20rpx;
+  box-sizing: border-box;
+}
+.h1{
+  font-size: 40rpx;
+  margin: 30rpx 0;
+  
+}
+.h5{
+  width: 100%;
+  text-align: center;
+}
+.adi{
+  color: red;
+  margin-top: 20rpx;
+}

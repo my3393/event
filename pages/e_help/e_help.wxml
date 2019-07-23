@@ -1,0 +1,52 @@
+<!--pages/e_help/e_help.wxml-->
+<view class="top clearfix">
+  <view class="prot">
+    <image src='{{players.headPhotoOssPath}}'></image>
+  </view>
+  <view class="name">
+    <text class="names">{{players.username}}</text> 编号：
+    <text class="serial">{{players.id}}</text>
+  </view>
+  <view class="num">
+    星值：
+     <text class="nums">{{players.starValue}}</text>
+    票数:
+    <text class="nums">{{players.totalVotes}}</text>
+     助力数:
+    <text>{{players.refuelNumber}}</text>
+
+  </view>
+</view>
+<view class="nav">
+  <view class="nav-list {{choo == index?'active':''}}" wx:for="{{gift}}" data-index='{{index}}' 
+  id='{{item.id}}' data-price='{{item.price}}' data-name='{{item.name}}'  bindtap='choose'>
+
+    <view class="gift-fig">
+      <image src='{{item.photoOssPath}}'></image>
+    </view>
+    <view class="gift-num">
+      +
+      <text class="gift-nums">{{item.voteNumber}}</text>票
+    </view>
+    <view class="pice">
+      <text >{{item.name}}</text>
+      <text>￥</text>
+      <text>{{item.price}}</text>
+    </view>
+  </view>
+  
+  
+
+  <view class="prompt">
+    活动重在参与，意在宣传推广，不提倡购买！ 支付成功不支持退款，请谨慎操作！
+  </view>
+
+</view>
+<view class="footer">
+				<view class="waht">
+					<text class="spec">{{name}}</text> <text>￥</text> <text class="pric">{{price}}</text>
+				</view>
+				<view class="pay" bindtap='pay'>
+					前往支付
+				</view>
+</view>

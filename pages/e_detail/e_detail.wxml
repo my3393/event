@@ -1,0 +1,306 @@
+<!--pages/e_detail/e_detail.wxml-->
+<view>
+  <swiper class="banner" indicator-dots="true" autoplay="true" duration="1000" indicator-color="#a7a7a7" indicator-active-color="#fe5ba9">
+    <block wx:for='{{photos}}'>
+      <swiper-item id="{{item.ids}}" bindtap="enters" class='swiper'>
+        <image class="banner_img" src="{{item}}"></image>
+      </swiper-item>
+    </block>
+
+  </swiper>
+
+</view>
+<view>
+   
+</view>
+<view class='nav clearfix'>
+  <!-- <view class='headport'>
+    <image src='{{detail.headPhotoOssPath}}'></image>
+  </view>
+  <view class='title'>{{detail.name}}</view>
+  <view class='hot'>
+    <view class='hottop' bindtap='hotTop'>置顶</view>
+    <view class='hots' bindtap='hots'>上热门</view>
+  </view> -->
+  <view>
+      <text class='sai-num'>{{detail.seasonName}}</text> <text class='sai-n'>#{{detail.typeName}}#</text>
+     {{detail.competitionTitle}}
+   </view>
+   <view class='di'>
+      <view>主办方：{{detail.organizerName}}</view>
+      <view>
+        <view class='hotre'> <image src='../../images/din.png'></image> </view>
+        <text>{{detail.cityName}}</text>
+      </view>
+   </view>
+</view>
+<view class='countdown'>
+  <view class='conuttime' wx:if="{{istime == 1}}">
+    <text></text>
+    <view class='ctimes' >
+       报名开始时间：{{detail.startDate}}
+    </view>
+
+  </view>
+  <view class='conuttime' wx:if="{{istime == 2}}">
+    <text>距离报名结束：</text>
+    <view class='ctimes' >
+      <text class='days'>{{days}} 天</text>
+      <text class='days'>{{hours}} 时</text>
+      <text class='days'>{{min}} 分</text>
+      <text class='days'>{{miao}} 秒</text> 
+    </view>
+
+  </view>
+  <view class='conuttime' wx:if="{{istime == 3 || istime == 4}}">
+    <text>距离{{detail.seasonName}}结束：</text>
+    <view class='ctimes' >
+      <text class='days'>{{daySea}} 天</text>
+      <text class='days'>{{hourSea}} 时</text>
+      <text class='days'>{{minSea}} 分</text>
+      <text class='days'>{{miaoSea}} 秒</text> 
+    </view>
+                  
+  </view>
+  
+
+  
+  <view class='partic'>
+    <view>
+      <view>参与人数</view> 
+      <view class='sum'>{{detail.participateNumber}}</view>
+    </view>
+    <view hidden='{{istp == 1}}'>
+      <view>总投票数</view>
+      <view class='sum'>{{detail.totalVotes}}</view>
+    </view>
+    <view>
+      <view>总访问数</view>
+      <view class='sum'>{{detail.accessNumber}}</view>
+    </view>
+  </view>
+  <view class='sai-time'>{{detail.seasonName}}时间：{{detail.seasonStartDate}}~{{detail.seasonEndtDate}}</view>
+</view>
+<view class='navs'>
+<view class='nav-list'>
+  <view wx:for="{{tag}}" wx:for-index="idx" bindtap="tag" data-num='{{idx}}' class='{{tar == idx?"active":""}}'>{{item.name}}</view>
+</view> 
+
+<!-- 动态 -->
+<view wx:if='{{tab == 0}}'>
+    <view  wx:if='{{dynamic.length != 0}}'>
+        <view class='dynam' wx:for='{{dynamic}}' wx:for-index='idx'>
+            <view class='rank clearfix gifts'>
+            <view class='rankhead' >
+              <image src='{{item.headPhotoOssPath}}'></image>
+            </view>
+            <view class='rankm'>
+            {{dynamic.name}}
+            </view>
+            <view class='ranktime'>{{item.createDate}}</view>
+          </view>
+          <view class='jies'>{{item.content}}</view>
+          <view class='clearfix'>
+              <view class='dynamtu clearfix' wx:for='{{item.dynamicphotos}}' wx:for-index='indexs' bindtap='imgsrc'                  data-index='{{indexs}}' data-num='{{widx}}' data-src='{{item}}'>
+                <image src='{{item}}'></image>
+              </view>            
+              <view class='com'>
+                  <view class='heng'></view>
+                  <view class='comments'>
+                    <view class='comtu'><image src='../../images/pl.png'></image></view>
+                    <text >{{item.comments}}</text>
+                  </view>
+                  <view class='comments'>
+                    <view class='comtu' bindtap='praise' id='{{item.id}}'><image src='../../images/zan.png'></image></view>
+                    <text >{{item.thumbs}}</text>
+                  </view>
+              </view>
+          </view>
+        </view>
+    </view>
+</view>
+
+<!-- 参赛选手 -->
+<view wx:elif='{{tab == 1}}'>
+  <view >
+    <view class='evesai'>
+      <view class='saiq'>赛区：{{competitionName}} <text class='turn' bindtap='bind'>点击切换</text>
+      </view> 
+      <view class='top-num'>晋级人数： 前{{qualifiedNumber}}名</view> 
+    </view>
+    <view class='search'>
+      <input type='text' class='seainp' confirm-type='search' placeholder='搜索编号/姓名' bindinput='searchinp'></input>
+     
+    </view>
+    <view wx:if='{{isSearch == false}}' >
+      
+      
+        <view class='player clearfix' wx:for='{{players}}' id='{{item.id}}' bindtap='detail' data-saiid='{{id}}'>
+          <view class='playhead'>
+            <image src='{{item.headPhotoOssPath}}'></image>
+          </view>
+          <view class='bian'>编号：
+            <text class='haom'>{{item.playerNumber}}</text> </view>
+          <view class='bian'>选手：
+            <text class='haom'>{{item.userName}}</text> </view>
+          <view class='bian'>票数：
+            <text class='haom'>{{item.totalVotes}}</text> </view>
+          <view class='zhi' catchtap='top' id="{{item.id}}">置顶</view>
+          <view class='zlp'>
+            <view class='zl' catchtap='help' id="{{item.id}}" hidden='{{istp == 1}}'>助力</view>
+            <view class='zl' catchtap='vote' id="{{item.id}}" hidden='{{istp == 1}}'>投他一票</view>
+          </view>
+        </view>
+    
+    </view>
+    <view wx:else class='oj'>
+       <view class='baodc' wx:if='{{splayer.length == 0}}'>该选手还没报名，赶快报名吧!</view>   
+       <view wx:else>
+        <view class='player clearfix' wx:for='{{splayer}}' id='{{item.id}}' bindtap='detail'>
+          <view class='playhead'>
+            <image src='{{item.headPhotoOssPath}}'></image>
+          </view>
+          <view class='bian'>编号：
+            <text class='haom'>{{item.playerNumber}}</text> </view>
+          <view class='bian'>选手：
+            <text class='haom'>{{item.userName}}</text> </view>
+          <view class='bian'>票数：
+            <text class='haom'>{{item.totalVotes}}</text> </view>
+          <view class='zhi' catchtap='top' id="{{item.id}}">置顶</view>
+          <view class='zlp'>
+            <view class='zl' catchtap='help' id="{{item.id}}" hidden='{{istp == 1}}'>助力</view>
+            <view class='zl' catchtap='vote' id="{{item.id}}" hidden='{{istp == 1}}'>投他一票</view>
+          </view>
+        </view>
+       </view>  
+    </view>
+  </view>
+
+</view>
+
+<!-- 排行榜 -->
+
+<view wx:elif='{{tab == 2}}' hidden='{{istp == 1}}'>
+  <view class='evesai'>
+    <view class='saiq'>赛区：{{competitionName}} <text class='turn' bindtap='bind'>点击切换</text>
+    </view> 
+    <view class='top-num'>晋级人数： 前{{qualifiedNumber}}名</view> 
+  </view>
+  <view class='top_3'>
+    <view class='top_list' wx:if="{{top_2.length == 0}}">
+      <view class='top_head'>
+        <image src='../../images/xu.png'></image>
+      </view>
+      <view class='top-2'>No.2</view>
+      <view class='sex'>虚位以待
+        <text></text>
+      </view>
+    </view>
+    <view class='top_list' wx:else>
+      <view class='top_head'>
+        <image src='{{top_2.headPhotoOssPath}}'></image>
+      </view>
+      <view class='top-2'>No.2</view>
+      <view class='sex'>{{top_2.username}}
+        <text>{{top_2.totalVotes}}票</text>
+      </view>
+    </view>
+    <view class='top_list' wx:if="{{top_1.length == 0}}">
+      <view class='top_heads'>
+        <image src='../../images/xu.png'></image>
+      </view>
+      <view class='top-1'>No.1</view>
+      <view class='sex'>虚位以待
+        <text></text>
+      </view>
+    </view>
+    <view class='top_list' wx:else>
+      <view class='top_heads'>
+        <image src='{{top_1.headPhotoOssPath}}'></image>
+      </view>
+      <view class='top-1'>No.1</view>
+      <view class='sex'>{{top_1.username}}
+        <text>{{top_1.totalVotes}}票</text>
+      </view>
+    </view>
+    <view class='top_list' wx:if="{{top_3.length == 0}}">
+      <view class='top_head'>
+        <image src='../../images/xu.png'></image>
+      </view>
+      <view class='top-2'>No.3</view>
+      <view class='sex'>虚位以待
+        <text></text>
+      </view>
+    </view>
+    <view class='top_list' wx:else>
+      <view class='top_head'>
+        <image src='{{top_3.headPhotoOssPath}}'></image>
+      </view>
+      <view class='top-2'>No.3</view>
+      <view class='sex'>{{top_3.username}}
+        <text>{{top_3.totalVotes}}票</text>
+      </view>
+    </view>
+  </view>
+  <view class='top-4' wx:if="{{ranklist.length != 0}}">
+    <view class='rank clearfix' wx:for="{{ranklist}}" wx:key='{{item.index}}'>
+      <view class='pai'>4.</view>
+      <view class='rankhead'>
+        <image src='{{item.headPhotoOssPath}}'></image>
+      </view>
+      <view class='rankm'>马里奥</view>
+      <view class='ranksum'> 1242票</view>
+    </view>
+  </view>
+
+</view>
+
+<!-- 活动视频 -->
+<view wx:elif='{{tab == 3}}' >
+  <view wx:if='{{video.length != "0"}}'>
+    <view class='videoes' wx:for="{{video}}" wx:for-index='idx' id="{{video[idx].id}}" data-ids='{{video[idx].videoOssPath}}' bindtap='seevideo'>
+      <image src='{{item.coverOssPath}}'></image>
+    </view>
+  </view>
+</view>
+
+<!-- 活动介绍 -->
+<view wx:elif='{{tab == 4}}'>
+   <view class='introduce'>
+     <rich-text  nodes="{{rich}}">
+  
+     </rich-text>
+   </view>
+</view>
+</view>
+<view class='apply' >
+    <view class='gohot' bindtap='hots'>
+       <view> <image src='../../images/hot.png'></image> </view>
+       <text>帮TA上热门</text>
+    </view>
+     <view class='gohot' bindtap='hotTop'>
+       <view> <image src='../../images/zhi-1.png'></image> </view>
+       <text>帮TA置顶</text>
+    </view>
+     <view class='gohot'>
+       <view class='shop' wx:if="{{istime == 1}}">报名还未开始</view>
+       <view class='shop sunb' bindtap='submit' wx:if="{{istime == 2}}" data-num="{{isNewUserPay}}" data-art="{{isArtistUserPay}}">立即报名</view>
+       <view class='shop' wx:if="{{istime == 3}}">报名截止</view>
+
+       <!-- <text bindtap='submit'>立即报名</text> -->
+    </view>
+</view>
+
+
+
+
+<!-- 预览视频 -->
+<view class='mask' catchtouchmove='true' hidden='{{isvideo}}' catchtap='hidevideo'>
+</view>
+<video class='maskvideo' hidden='{{isvideo}}' src='{{play}}'></video>
+
+<view class="sai-yds" hidden='{{isSai}}'>
+			<view class="sai-yd">
+			   <view class='divis {{tas == index?"act":""}}' wx:for="{{narea}}" id='{{item.id}}' data-index='{{index}}'  data-name='{{item.competitionName}}' data-num='{{item.qualifiedNumber}}'  bindtap='narea'>{{item.competitionName}}</view>
+			</view>
+</view>

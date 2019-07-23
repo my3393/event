@@ -1,0 +1,23 @@
+/* pages/aaa/aaa.wxss */
+.pric{
+  display: inline-block;
+  width: calc((100% - 80rpx)/3);
+  margin-left: 20rpx;
+  height: 75rpx;
+  background: #E6E6E6;
+  line-height: 75rpx;
+  text-align: center;
+  border-radius: 10rpx;
+  margin-top: 20rpx;
+  box-sizing: border-box;
+}
+.inp{
+  margin-top: 10rpx;
+}
+.cole{
+  color: #e65099;
+}
+.active{
+  background: #FF5CAB;
+  color: #fff;
+}

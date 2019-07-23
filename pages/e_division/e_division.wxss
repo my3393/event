@@ -1,0 +1,81 @@
+
+/* pages/e_division/e_division.wxss */
+page{
+  background: #f2f2f2;
+}
+.top{
+  padding-left: 20rpx;
+  box-sizing: border-box;
+  margin-top: 30rpx;
+}
+.topfd{
+  color: #B4B4B4;
+  font-size: 28rpx;
+  margin-top: 20rpx;
+}
+.divis{
+  width: calc((100% - 100rpx)/4);
+  margin-left: 20rpx;
+  background: #D8D8D8;
+  color: #fff;
+  display: inline-block;
+  text-align: center;
+  height: 80rpx;
+  line-height: 80rpx;
+  margin-top: 20rpx;
+  overflow: hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+.subm{
+  position: fixed;
+  bottom: 30rpx;
+  left: 0rpx;
+  width: calc(100% - 40rpx);
+  margin-left: 20rpx;
+  border-radius: 40rpx;
+  height: 80rpx;
+  background:#F861AA;
+  color: #fff;
+  font-size: 34rpx;
+  text-align: center;
+  line-height: 80rpx;
+}
+.active{
+  background: #F861AA!important;
+}
+.yds{
+   width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 12;
+}
+.yd{
+	position:absolute;
+  width: 500rpx;
+  background: #fff;
+  text-align: center;
+  font-size: 28rpx;
+  padding-top: 40rpx;
+	top: 50%;
+	left: 50%;
+  transform: translate(-50%,-50%)
+}
+.baodc{
+width:100%;
+text-align:center;
+margin-top:30rpx;
+color: #F861AA;
+}
+.xioe{
+  margin-top: 50rpx;
+  line-height: 70rpx;
+  display: flex;
+  justify-content: space-around
+}
+.deter{
+  color: #F861AA;
+}

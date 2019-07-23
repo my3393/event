@@ -1,0 +1,49 @@
+<view class='top'>
+<view class='rank clearfix'>
+      <view class='rankhead'>
+        <image src='{{players.competitionLogoOssPath}}'></image>
+      </view>
+      <view class='rankm'>{{players.competitionTitle}}</view>
+</view>
+   <view>
+       <view class='jie'>
+    <view class='heng'></view>
+     推广给更多用户
+    </view>
+    <view class='instr' bindtap='close'>说明</view>
+   </view>
+   <view class='mins'>推广海报（此处显示娱乐圈banner尺寸</view>
+   <view class='instrtu' bindtap="chooseImage"> <image src='{{posters}}'></image> </view>
+   <view>推广天数</view>
+   <view class='inpu'> (<input type='number' class='inp' bindinput='inputs'></input>) 
+    <view class='tina'>天</view>
+   </view>
+</view>
+<view class='tkos'>
+  <radio-group class="radio-group">
+    <label class="radio" catchtap='checked'>
+      <radio checked="{{checked}}" color='#e65099' v/>
+        <view class='mar'>我已阅读并同意</view> <view class='cole' catchtap='chak'>《服务协议》</view>
+    </label>
+  </radio-group>
+</view>
+<view class='footer'>
+   <view wx:if='{{price == ""}}'>--</view>
+   <view wx:else>{{price}}</view>
+   <view class='pay' bindtap='pay'>去支付</view>
+</view>
+
+<view class='mark' hidden='{{isshow}}'>
+  
+  <view class='markron'>
+   <view class='marktop'>上热门说明</view>
+  <view>
+    1、用户提交后，推广服务次日生效，推广服
+    务失效时间由推广天树来决定。</view>     
+
+<view>  2、推广1天，即全天24小时进行推广。</view>
+<view>3、该推广服务支付后不支持退款。</view>
+                        
+  </view>
+  <view class='close' bindtap='close'><image src='../../images/closed.png'></image> </view>
+</view>

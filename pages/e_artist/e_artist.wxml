@@ -1,0 +1,88 @@
+<view class='wrap'>
+    <view class='title'>艺人：</view>
+    <input placeholder='请输入艺名' bindinput='geititle' maxlength='15'></input>
+</view>
+
+<view class='wrap'>
+    <view class="section snitem">
+        所在省：
+        <picker bindchange="getprov" class='snlabels' value="{{province[poindex].id}}" data-selecthx="{{province[poindex].name}}" range="{{province}}" range-key="{{'name'}}">
+            <view class="picker">
+                {{province[poindex].name}}
+            </view>
+        </picker>
+    </view>
+    <view class="section snitem" style='border-bottom:0;' hidden='{{iscity}}'>
+        所在市：
+        <picker bindchange="getcity" class='snlabels' value="{{city[cindex].id}}" data-selecthx="{{city[cindex].name}}" range="{{city}}" range-key="{{'name'}}">
+            <view class="picker">
+                {{city[cindex].name}}
+            </view>
+        </picker>
+    </view>
+    <view class="section snitem" style='border-bottom:0;' hidden='{{isqu}}'>
+        所在区：
+        <picker bindchange="getarea" class='snlabels' value="{{area[aindex].id}}" data-selecthx="{{area[aindex].name}}" range="{{area}}" range-key="{{'name'}}">
+            <view class="picker">
+                {{area[aindex].name}}
+            </view>
+        </picker>
+    </view>
+    <view class="section snitem" style='border-bottom:0;' hidden='{{isjie}}'>
+        所在街：
+        <picker bindchange="gettown" class='snlabels' value="{{town[tindex].id}}" data-selecthx="{{town[tindex].name}}" range="{{town}}" range-key="{{'name'}}">
+            <view class="picker">
+                {{town[tindex].name}}
+            </view>
+        </picker>
+    </view>
+</view>
+<view class='wrap'>
+    <view class='snitem' style='border-bottom: 0;'>
+        艺人类型： 
+        <text class='snlabels' adjust-position='true' style='width:auto;height:70rpx;' bindtap='showlabel'>{{artist_type}}</text>
+    </view>
+</view>
+<view class='wrap'>
+    <view class='title'>个人介绍：</view>
+    <input placeholder='请输入个人介绍' bindinput='getperson' maxlength='500'></input>
+</view>
+<view class='wrap'>
+    <view class='title'>个人照片：</view>
+    <image wx:for="{{imgs}}" wx:for-index="idx" data-idx="{{idx}}" bindtap="handleImagePreview" src='{{imgs[idx]}}' hidden='{{showimg}}' style='margin-right:20rpx;'></image>
+    <image src='{{posters}}' bindtap="chooseImage" hidden='{{showadd}}'></image>
+</view>
+<view class='wrap'>
+    <view class='title'>授权视频(来段10s的精彩介绍)</view>
+    <view style='display: inline-block;margin-right: 20rpx;position:relative;'>
+        <image src='../../images/head.jpg'></image>
+        <view class='vmask' bindtap='showvideo' id='http://xt-ylsj.oss-cn-shenzhen.aliyuncs.com/file/fd2d1bb73ec44273b19106f4022d9ab7.mp4'>
+            示例
+        </view>
+    </view>
+    <image src='../../images/plays.png' bindtap='showvideo' id='{{tvideo}}' hidden='{{!showadds}}'></image>
+    <image src='../../images/upimg.png' bindtap="chooseVideo" hidden='{{showadds}}'></image>
+</view>
+
+
+
+<view class='mask' hidden='{{showlabels}}'>
+    <view class='ilebels'>
+        <view class='tops'>
+            <text class='quxiao' bindtap='quxiao'>取消</text>
+            <text class='sure' bindtap='sure'>确定</text>
+        </view>
+        <view class='ilablein'>
+            <text wx:for='{{labels}}' data-name="{{labels[idx].name}}" data-index='{{idx}}' wx:for-index="idx" id='{{labels[idx].label_id}}' class='{{labels[idx].selected == false?"iact":""}}' bindtap='chooselabel'>{{labels[idx].name}}</text>
+        </view>
+    </view>
+</view>
+
+
+<!-- 预览视频 -->
+<view class='mask' hidden='{{isvideo}}' catchtap='hidevideo'>
+</view>
+<video class='maskvideo' hidden='{{isvideo}}' src='{{play}}'></video>
+
+
+<view class='subnotice' bindtap='subnotice'>申请入驻</view>

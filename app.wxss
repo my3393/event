@@ -1,0 +1,165 @@
+/**app.wxss**/
+/* .container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 200rpx 0;
+  box-sizing: border-box;
+}  */
+/* 首页 */
+page{
+  font-size: 30rpx;
+}
+
+.clearfix:after {content: ""; display: block; height:0; clear:both; visibility: hidden;}
+swiper image{
+    width: 100%;
+}
+swiper{
+    height: 400rpx;
+}
+.item{
+    width: 100%;
+    height: 440rpx;
+    padding: 39rpx 20rpx;
+    box-sizing: border-box;
+    background-color: white;
+    position: relative;
+    margin-bottom: 20rpx;
+}
+.headimg{
+    width: 80rpx;
+    height: 80rpx;
+    background-color: #f0f0f0;
+    border-radius: 80rpx;
+    float: left;
+    margin-right: 15rpx;
+    position: relative;
+    overflow: hidden;
+}
+.headimg image{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+.uname{
+    font-size: 28rpx;
+    color: #333333;
+    letter-spacing: 1px;
+}
+.time{
+    font-size: 24rpx;
+    color: #b3b3b3;
+    margin-top: 6rpx;
+}
+.bigtitle{
+    font-size: 28rpx;
+    color: #333333;
+    margin-top: 30rpx;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    letter-spacing: 1px;
+    margin-bottom: 35rpx;
+}
+
+.sitem{
+    color: #808080;
+    font-size: 24rpx;
+    margin-bottom: 16rpx;
+}
+.sitem>text{
+    margin-right: 25rpx;
+    color: #b3b3b3;
+    font-size: 24rpx;
+    margin-top: 35rpx;
+}
+.lbes text{
+    color: #fe5ba9;
+    font-size: 26rpx;
+}
+.lbes image{
+    width: 24rpx;
+    height: 32rpx;
+    margin-right: 22rpx;
+    position: relative;
+    top: 5rpx;
+}
+.label{
+    width: calc(100% - 40rpx);
+    height: 513rpx;
+    background: white;
+    border-radius: 10rpx;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
+.ltit{
+    text-align: center;
+    font-size: 30rpx;
+    color: #333333;
+    line-height: 80rpx;
+    border-bottom: 1px solid #CCCCCC;
+}
+.label image{
+    width: 28rpx;
+    height: 28rpx;
+    position: absolute;
+    right: 18rpx;
+    top: 18rpx;
+}
+.labels{
+    width: 100%;
+    height: 420rpx;
+    overflow: scroll;
+    -webkit-overflow-scrolling: touch;
+    padding: 30rpx;
+    box-sizing: border-box;
+}
+.labels text{
+    display: inline-block;
+    padding: 13rpx;
+    box-sizing: border-box;
+    font-size: 24rpx;
+    border: 1px solid #dddddd;
+    color: #666666;
+    border-radius: 6rpx;
+    margin-right: 20rpx;
+    margin-bottom: 20rpx;
+}
+.city{
+    display: inline-block;
+    margin-left: 10rpx;
+}
+/* 首页 */
+::-webkit-scrollbar{
+    width: 0;
+    height: 0;
+    background: transparent;
+}
+.mask{
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.2);
+    z-index: 12;
+    /* display: none;  */
+}
+.shows{
+    display: block;
+}
+.floatbtn{
+    width: 121rpx;
+    height: 167rpx;
+    position: fixed;
+    bottom: 10rpx;
+    right: 20rpx;
+    z-index: 999;
+}

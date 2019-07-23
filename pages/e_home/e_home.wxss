@@ -1,0 +1,78 @@
+/* pages/e_home/e_home.wxss */
+page{
+  background: #f2f2f2;
+}
+.h-top{
+  position: fixed;
+  bottom: 50rpx;
+  right:20rpx;
+  width: 192rpx;
+  height: 82rpx;
+  text-align: center;
+  background: #F861AA;
+  line-height: 82rpx;
+  color: #fff;
+  border-radius: 10rpx;
+}
+.h-fb{
+  display: inline-block;
+  vertical-align: top;
+  margin-right: 10rpx;
+}
+.h-ckeii{
+  display: inline-block;
+  vertical-align: middle;
+}
+.h-fb image{
+  width: 30rpx;
+  height: 30rpx;
+  vertical-align: middle;
+}
+.eve{
+ 
+}
+.event{
+  margin-top: 20rpx;
+  width: 100%;
+  padding: 20rpx 20rpx;
+  box-sizing: border-box;
+  background: #fff;
+}
+.event-head{
+  width: 100%;
+  height: 350rpx;
+  border-radius: 20rpx;
+  overflow: hidden;
+}
+.event-head image{
+  width: 100%;
+  height: 100%;
+}
+.hotm{
+  margin-top: 30rpx;
+  display: flex;
+  justify-content: space-between;
+}
+.hotname{
+  width: 520rpx;
+  overflow: hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+.hotre{
+  display: inline-block;
+  margin-right: 10rpx;
+}
+.hotre image{
+  width: 17rpx;
+  height: 24rpx;
+}
+.hot{
+  color: #F861AA;
+}
+.sta{
+  color: #000;
+}
+.end{
+  color: #A6A6A6;
+}

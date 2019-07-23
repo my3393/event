@@ -1,0 +1,114 @@
+/* pages/e_help/e_help.wxss */
+page{
+  background: #f2f2f2;
+}
+.active{
+  border: 1rpx solid #F861A9;
+  box-sizing: border-box;
+}
+.top{
+	position: fixed;
+    top: 0px;
+    width: 100%;
+	padding: 20rpx 20rpx;
+	box-sizing: border-box;
+	background: #FFFFFF;
+}
+.prot{
+	width: 90rpx;
+	height: 90rpx;
+	float: left;
+	margin-right: 20rpx;
+}
+.prot>image{
+	width: 100%;
+	height: 100%;
+}
+.name{
+	font-size: 30rpx;
+	color: #000000;
+	font-weight: 700;
+}
+.num{
+	margin-top: 20rpx;
+	font-size: 24rpx;
+	color: #B7B7B7;
+}
+.nums{
+	margin-right: 40rpx;
+}
+.nav{
+	margin-top: 140rpx;
+	padding-bottom: 80rpx;
+	box-sizing: border-box;
+	width: 100%;
+	
+}
+.nav-list{
+	margin-top: 20rpx;
+	display: inline-block;
+	width: calc((100% - 80rpx)/3);
+
+	background: #FFFFFF;
+	text-align: center;
+	margin-left: 20rpx;
+	padding: 20rpx 10rpx;
+	box-sizing: border-box;
+}
+.bord{
+	border: 2px solid #FF0000;
+  box-sizing: border-box;
+}
+.gift-fig{
+	overflow: hidden;
+}
+.gift-fig image{
+	width: 100%;
+  height:200rpx;
+}
+.gift-num{
+	line-height: 60prx;
+	color: #F861A9;
+	font-size: 26rpx;
+}
+.prompt{
+	width: calc(100% - 296rpx);
+	margin-left: 148rpx;
+	margin-top: 20rpx;
+	margin-bottom: 20rpx;
+	text-align: center;
+	color: #8D8D8D;
+	font-size: 22rpx;
+}
+.footer{
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	height: 80rpx;
+	width: 100%;
+	background: #FFFFFF;
+	line-height: 80rpx;
+}
+.waht{
+	float: left;
+	margin-left: 20rpx;
+	color: #000000;
+	
+}
+.pay{
+	float: right;
+	background: #F861A9;
+	width: 180rpx;
+	height: 80rpx;
+	text-align: center;
+	color: #FFFFFF;
+}
+.waht{
+  color: #F861A9;
+}
+.pice{
+  font-size: 26rpx;
+}
+.spec{
+  color: #000000;
+}

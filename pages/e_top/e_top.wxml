@@ -1,0 +1,52 @@
+<view class='top'>
+<view class='rank clearfix'>
+      <view class='rankhead'>
+        <image src='{{players.headPhotoOssPath}}'></image>
+      </view>
+      <view class='rankm'>{{players.username}}</view>
+</view>
+   <view>
+       <view class='jie'>
+    <view class='heng'></view>
+      艺人排名置顶
+    </view>
+    <view class='instr' bindtap='close'>说明</view>
+   </view>
+    <view>
+        <view class='choo clearfix'>选择置顶价格</view>
+        <view class='li clearfix'>立即生效</view>
+    </view>
+    <view class='pri'>
+       <view class='pric {{tar == index?"active":""}}' data-price='{{item.name}}' bindtap='chact' data-index='{{index}}' wx:for="{{tag}}" >￥{{item.name}}元</view>
+       <view class='pric {{tar == 5?"active":""}}'data-index='{{5}}'  bindtap='chacts'>自定义</view>
+    </view>
+    <view hidden='{{ismon}}'>
+      <input class='inp' type='number' placeholder='请输入自定义金额' bindinput='pric'></input>
+    </view>
+  </view>
+  <view class='agree'>
+  <radio-group class="radio-group">
+    <label class="radio" catchtap='checked'>
+      <radio checked="{{checked}}" color='#e65099' v/>
+                            我已阅读并同意
+                        <text class='cole' catchtap='chak'>《服务协议》</text>
+    </label>
+  </radio-group>
+</view>
+<view class='pay' bindtap='pay'>去支付</view>
+
+<view class='mark' hidden='{{isshow}}'>
+  
+  <view class='markron'>
+   <view class='marktop'>艺人置顶说明</view>
+  <view>1. 置顶规则：按被置顶艺人花费的置
+顶总费用，高往低进行排序。</view>     
+
+<view>2. 艺人置顶功能在娱乐圈板块各艺人
+列表页均有效。</view>
+<view>3. 置顶服务一旦购买，立即生效，不
+支持退款。</view>
+                        
+  </view>
+  <view class='close' bindtap='close'><image src='../../images/closed.png'></image> </view>
+</view>

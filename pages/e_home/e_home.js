@@ -1,0 +1,188 @@
+// pages/e_home/e_home.js
+var app = getApp();
+var detail = [];
+
+Page({
+
+  /**
+   * 页面的初始数据
+   */
+  data: {
+    currentPage:1,
+    totalPage: '',
+    detail:[],
+    isshow:'',
+    startDatas:[],
+    endDatas:[],
+    status:'',
+  },
+
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function (options) {
+      if(options.detailId){
+        wx.navigateTo({
+          url: '../e_detail/e_detail?id=' + options.detailId,
+        })
+      }
+      
+  },
+
+  /**
+   * 生命周期函数--监听页面初次渲染完成
+   */
+  onReady: function () {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow: function () {
+    var that = this;
+    that.getdetail();
+  },
+
+  /**
+   * 生命周期函数--监听页面隐藏
+   */
+  onHide: function () {
+     var that = this;
+     that.setData({
+       currentPage: 1,
+       totalPage: '',
+       detail: [],
+       isshow: '',
+       startDatas: [],
+       endDatas: [],
+     })
+     detail = [];
+  },
+
+  /**
+   * 生命周期函数--监听页面卸载
+   */
+  onUnload: function () {
+    var that = this;
+    that.setData({
+      currentPage: 1,
+      totalPage: '',
+      detail: [],
+      isshow: '',
+      startDatas: [],
+      endDatas: [],
+    })
+    detail = [];
+  },
+
+  /**
+   * 页面相关事件处理函数--监听用户下拉动作
+   */
+  onPullDownRefresh: function () {
+   // wx.showNavigationBarLoading() //在标题栏中显示加载
+    wx.showToast({
+      title: '刷新中',
+      icon: "none"
+    })
+    var that = this;
+    //模拟加载
+    setTimeout(function () {
+
+      that.setData({
+        detail: [],
+        currentPage: 1,
+        totalPage: '',
+        isShelf: '',
+      })
+      that.getdetail();
+      // complete
+      wx.hideNavigationBarLoading() //完成停止加载
+      wx.stopPullDownRefresh() //停止下拉刷新
+
+    },1000);
+  },
+
+  // 上拉触底
+  onReachBottom: function () {
+    var that = this;
+    if (that.data.currentPage == that.data.totalPage) {
+      wx.showToast({
+        title: '没有更多了',
+        icon: 'none'
+      })
+    } else {
+      that.setData({
+        currentPage: that.data.currentPage + 1,
+      })
+      that.getdetail();
+     
+    }
+  },
+
+  /**
+   * 用户点击右上角分享
+   */
+  onShareAppMessage: function () {
+
+  },
+  getdetail:function(e){
+    var that = this;
+    wx.request({
+      url: app.data.urlmall + "/appcompetition/homelist.do",
+      data: {
+        currentPage: that.data.currentPage,
+        token:wx.getStorageSync('etoken')
+      },
+      method: 'POST',
+      header: {
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+      dataType: 'json',
+      success: function (res) {
+        console.log(res.data.data)
+        if (res.data.status === 100) {
+          for (var i in res.data.data.data) {
+            
+            var date = Date.parse(new Date())
+            var endDatas = Date.parse(res.data.data.data[i].endDate)
+            var startDatas = Date.parse(res.data.data.data[i].startDate)
+            var t2 = date - endDatas;
+            var t1 = date - startDatas;
+            if(t1 < 0){
+              res.data.data.data[i].isshow = 1
+            }else if(t1 > 0 && t2 < 0){
+              res.data.data.data[i].isshow = 2
+            } else if ( t2 > 0) {
+              res.data.data.data[i].isshow = 3
+             
+            }
+            detail.push(res.data.data.data[i])
+          }
+         
+          that.setData({
+            detail: detail,
+            totalPage: res.data.data.totalPage
+          })
+          console.log(that.data.endDatas)
+        } else {
+          wx.showToast({
+            title: res.data.msg,
+            icon: 'none'
+          })
+        }
+      }
+    })
+  },
+  sumb:function(e){
+    wx.navigateTo({
+      url: '../e_release/e_release',
+    })
+  },
+  trun: function (e) {
+    console.log(e)
+      wx.navigateTo({
+        url: '../e_detail/e_detail?id=' + e.currentTarget.dataset.id,
+      })
+  },
+})
