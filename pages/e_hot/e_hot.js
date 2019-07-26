@@ -66,7 +66,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    console.log(wx.getStorageSync('etoken'))
   },
 
   /**
@@ -140,6 +140,7 @@ Page({
     })
   },
   chooseImage(e) {
+    console.log(wx.getStorageSync('etoken'))
     var that = this;
     wx.chooseImage({
       count: 1,
@@ -149,6 +150,7 @@ Page({
         console.log(res.tempFilePaths[0]);
         var tempFilePaths = res.tempFilePaths;
         wx.showLoading();
+        console.log(wx.getStorageSync('etoken'))
         wx.uploadFile({
           url: app.data.urlmall + '/appylsjfile/xcxfileprogerssupload.do', // 仅为示例，非真实的接口地址
           filePath: tempFilePaths[0],
@@ -158,16 +160,20 @@ Page({
             'accept': 'application/json',
           },
           formData: {
-            'token': wx.getStorageSync("etoken"),
-            'file': tempFilePaths[0]
+            'token': wx.getStorageSync('etoken')
           },
           dataType: 'json',
-          success(res) { 
+          success(res) {
+            console.log(res)
             let datas = JSON.parse(res.data)
-            console.log(datas.data.fileName)
+            console.log(datas)
             poster = datas.data.fileName;
             console.log(poster)
             wx.hideLoading();
+            wx.showToast({
+              title: '上传成功',
+              icon: 'none'
+            })
             // do something
           }
         })
@@ -194,6 +200,11 @@ Page({
     if (that.data.days == '') {
       wx.showToast({
         title: '请选择天数',
+        icon: 'none'
+      })
+    } else if (that.data.days == '0') {
+      wx.showToast({
+        title: '请选择正确天数',
         icon: 'none'
       })
     } else if (that.data.checked == false) {

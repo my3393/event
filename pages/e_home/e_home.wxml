@@ -7,14 +7,14 @@
    data-id='{{item.id}}'>
     <view class='event-head'> <image src='{{item.competitionLogoOssPath}}'></image> </view>
     <view class='hotm'>{{item.competitionTitle}}</view>
-    <view class='hotm'>
+    <view class='hotm'>  
       <view class='hotname'>
           <view class='hotre'> <image src='../../images/din.png'></image> </view>
           <text>{{item.cityName}}</text>
       </view>
       <view class='hot' wx:if='{{item.status == 0}}'>
           
-         <text class='sta'>即将开始</text>
+         <text class='sta'>报名中</text>
       </view>
       <view class='hot' wx:if='{{item.status == 1}}'>
          <view class='hotre'> <image src='../../images/hot.png'></image> </view>

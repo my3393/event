@@ -4,8 +4,8 @@
     <image src='{{players.headPhotoOssPath}}'></image>
   </view>
   <view class="name">
-    <text class="names">{{players.username}}</text> 编号：
-    <text class="serial">{{players.id}}</text>
+    <text class="names">{{players.userName}}</text> 编号：
+    <text class="serial">{{players.playerNumber}}</text>
   </view>
   <view class="num">
     星值：

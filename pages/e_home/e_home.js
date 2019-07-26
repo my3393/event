@@ -21,11 +21,18 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-      if(options.detailId){
-        wx.navigateTo({
-          url: '../e_detail/e_detail?id=' + options.detailId,
-        })
-      }
+    var that = this;
+    that.getdetail();
+      // if(options.detailId){
+      //   wx.navigateTo({
+      //     url: '../e_detail/e_detail?id=' + options.detailId,
+      //   })
+      // } else if (options.playId && options.saiId){
+      //   wx.navigateTo({
+      //     url: '../e_player/e_player?id=' + options.detailId + '&saiid=' + options.saiId ,
+      //   })
+      // }
+   
       
   },
 
@@ -35,13 +42,15 @@ Page({
   onReady: function () {
 
   },
-
+   
   /**
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    var that = this;
-    that.getdetail();
+    var that = this;  
+    // setTimeout(function(){
+    //   that.getdetail();
+    // },500)
   },
 
   /**
@@ -49,15 +58,15 @@ Page({
    */
   onHide: function () {
      var that = this;
-     that.setData({
-       currentPage: 1,
-       totalPage: '',
-       detail: [],
-       isshow: '',
-       startDatas: [],
-       endDatas: [],
-     })
-     detail = [];
+    //  that.setData({
+    //    currentPage: 1,
+    //    totalPage: '',
+    //    detail: [],
+    //    isshow: '',
+    //    startDatas: [],
+    //    endDatas: [],
+    //  })
+    //  detail = [];
   },
 
   /**
@@ -88,7 +97,7 @@ Page({
     var that = this;
     //模拟加载
     setTimeout(function () {
-
+      detail = [];
       that.setData({
         detail: [],
         currentPage: 1,
@@ -128,6 +137,7 @@ Page({
   },
   getdetail:function(e){
     var that = this;
+    console.log(wx.getStorageSync('etoken'))
     wx.request({
       url: app.data.urlmall + "/appcompetition/homelist.do",
       data: {

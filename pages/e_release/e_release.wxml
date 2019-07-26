@@ -14,12 +14,12 @@
   </view>
    <view class='infor'>
     <view class='inform'>赛事类型</view>
-    <view class='inforin ' adjust-position='true'> <input type='text'  value='{{artist_type}}'
+    <view class='inforin ' > <input disabled='true' type='text'  value='{{artist_type}}'
      bindtap='showlabel'></input> </view>
       <view class='enter'> <image src='../../images/enter.png'></image> </view>
   </view>
   <view class='jgtx pho'>
-    <view class='jgtu'>活动赛事LOGO</view>
+    <view class='jgtu'>活动赛事封面</view>
     <view class='photo'>
       <image src='{{posters}}' bindtap="chooseImage"></image>
     </view>
@@ -84,7 +84,7 @@
   </view>
   <view class='jgtx xfdf'>
       <view class='tit'>活动赛事介绍</view>
-      <textarea class='evedetil' auto-height placeholder='请详细描述下此活动赛事' bindinput='evedetail' maxlength='200'>
+      <textarea hidden='{{istext}}' class='evedetil' auto-height placeholder='请详细描述下此活动赛事' bindinput='evedetail' maxlength='200'>
       </textarea>
   </view>
 </view>
@@ -98,7 +98,7 @@
   </view>
    <view class='infor'>
     <view class='inform'>微信号</view>
-    <view class='inforin'> <input type='number' placeholder='请输入联系人微信号' bindinput='num'></input> </view>
+    <view class='inforin'> <input type='text' placeholder='请输入微信号（选填）' bindinput='num'></input> </view>
   </view>
 </view>
 <view class='submit' bindtap='submit'>
@@ -107,7 +107,7 @@
 
 <!-- 赛事类型 -->
 
-<view class='mask' hidden='{{showlabels}}'>
+<view class='yds' hidden='{{showlabels}}'>
     <view class='ilebels'>
         <view class='tops'>
             <text class='quxiao' bindtap='quxiao'>取消</text>

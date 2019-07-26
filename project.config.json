@@ -13,7 +13,7 @@
 		"checkInvalidKey": true
 	},
 	"compileType": "miniprogram",
-	"libVersion": "2.6.5",
+	"libVersion": "2.7.1",
 	"appid": "wx4cef4fe6585f5bfd",
 	"projectname": "FunEvent",
 	"debugOptions": {

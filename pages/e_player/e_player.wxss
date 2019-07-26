@@ -77,6 +77,7 @@ page{
 	width: 100%;
 	overflow: scroll;
 	white-space: nowrap;
+  -webkit-overflow-scrolling: touch;
 	text-align: center;
   margin-bottom: 20rpx;
 }
@@ -376,10 +377,11 @@ height:75rpx;
 }
 .giftm{
   display: inline-block;
-  width: 220rpx;
+  max-width: 160rpx;
   overflow: hidden;
   text-overflow:ellipsis;
   white-space:nowrap;
+  vertical-align: top;
 }
 .gifts{
   font-size: 28rpx;
@@ -388,10 +390,11 @@ height:75rpx;
   display: inline-block;
   margin-top: -1rpx;
   margin-left: 6rpx;
+  vertical-align: top;
 }
 .ranktime{
   float: right;
-  margin-top:30rpx;
+  margin-top:14rpx;
   color: #A7A7A7;
   font-size: 28rpx;
 }
@@ -400,7 +403,7 @@ height:75rpx;
   height: 40rpx;
   display: inline-block;
   position: relative;
-  top: 4rpx;
+  top: 6rpx;
   left: 10rpx;
   margin-right: 8rpx;
 }

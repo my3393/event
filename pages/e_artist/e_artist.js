@@ -258,7 +258,7 @@ Page({
               let datas = JSON.parse(res.data)
               console.log(datas)
               wx.hideLoading();
-              simages.push(datas.data.url)
+              simages.push(datas.data.fileName)
               console.log(simages)
               // do something
               console.log(simages)
@@ -289,45 +289,55 @@ Page({
     })
     wx.chooseVideo({
       sourceType: ['album', 'camera'],
-      maxDuration: 20,
+      maxDuration:60,
       camera: 'back',
       success(res) {
         wx.showLoading({
           title: '视频上传中...',
         })
-        console.log(res.tempFilePath)
+        console.log(res)
         var tempFilePathss = res.tempFilePaths;
         that.setData({
           showadds: !that.data.showadds
         })
-        wx.uploadFile({ 
-          url: app.data.urlmall + '/appylsjfile/fileprogerssupload.do', // 仅为示例，非真实的接口地址
-          filePath: res.tempFilePath,
-          name: 'file',
-          header: {
-            "Content-Type": "multipart/form-data",
-            'accept': 'application/json',
-          },
-         
-          formData: {
-            'token': wx.getStorageSync('etoken')
-          },
-          dataType: 'json',
-          success(res) {
-            console.log(token)
-            let datas = JSON.parse(res.data)
-            console.log(datas)
-            
-            wx.hideLoading();
-            wx.showToast({
-              title: '上传成功',
-              icon: 'success'
-            })
-            that.setData({
-              tvideo: datas.data.url
-            })
-          }
-        })
+        if(res.duration < 20){
+          wx.uploadFile({
+            url: app.data.urlmall + '/appylsjfile/fileprogerssupload.do', // 仅为示例，非真实的接口地址
+            filePath: res.tempFilePath,
+            name: 'file',
+            header: {
+              "Content-Type": "multipart/form-data",
+              'accept': 'application/json',
+            },
+
+            formData: {
+              'token': wx.getStorageSync('etoken')
+            },
+            dataType: 'json',
+            success(res) {
+              console.log(res)
+              let datas = JSON.parse(res.data)
+              console.log(datas)
+
+              wx.hideLoading();
+              wx.showToast({
+                title: '上传成功',
+                icon: 'success'
+              })
+              that.setData({
+                tvideo: datas.data.fileName
+              })
+            }
+          })
+        }else{
+          wx.showToast({
+            title: '请选择20s以内',
+            icon:'none'
+          })
+          that.setData({
+          showadds: !that.data.showadds
+         })
+        }
       }
     })
   },
@@ -707,9 +717,9 @@ Page({
                 })
                  setTimeout(function(){
                    wx.redirectTo({
-                     url: '../e_detail/e_detail',
+                     url: '../e_home/e_home',
                    })
-                 },3000)
+                 },2000)
                   
               } else {
                 wx.showToast({
@@ -754,13 +764,15 @@ Page({
                     paySign: res.data.data.sign.paySign,
                     success(res) {
                       wx.showToast({
-                        title: '支付成功',
+                        title: '报名成功',
                         icon: 'none',
                         duration: 1000
                       })
-                      wx.redirectTo({
-                        url: '../e_detail/e_detail',
-                      })
+                      setTimeout(function () {
+                        wx.redirectTo({
+                          url: '../e_home/e_home',
+                        })
+                      }, 2000)
                     },
                     fail(res) {
                       wx.showToast({

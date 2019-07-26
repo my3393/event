@@ -150,7 +150,18 @@ Page({
               wx.showToast({
                 title: '报名成功',
               })
-
+              var pages = getCurrentPages();//当前页面栈
+              if (pages.length > 1) {
+                var beforePage = pages[pages.length - 2];//获取上一个页面实例对象
+                var currPage = pages[pages.length - 1]; // 当前页面，若不对当前页面进行操作，可省去
+                // beforePage.setData({       //如果需要传参，可直接修改A页面的数据，若不需要，则可省去这一步
+                //   id: res.data.data
+                // })
+                beforePage.changeData();//触发父页面中的方法
+              }
+              wx.navigateBack({
+                delta: 1
+              })
             } else {
               wx.showToast({
                 title: res.data.msg,
@@ -185,7 +196,17 @@ Page({
                     title: '报名成功',
                     icon: 'none',
                     duration: 1000
+                    
                   })
+                  var pages = getCurrentPages();//当前页面栈
+                  if (pages.length > 1) {
+                    var beforePage = pages[pages.length - 2];//获取上一个页面实例对象
+                    var currPage = pages[pages.length - 1]; // 当前页面，若不对当前页面进行操作，可省去
+                    // beforePage.setData({       //如果需要传参，可直接修改A页面的数据，若不需要，则可省去这一步
+                    //   id: res.data.data
+                    // })
+                    beforePage.changeData();//触发父页面中的方法
+                  }
                   wx.navigateBack({
                     delta: 1
                   })

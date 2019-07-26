@@ -1,4 +1,4 @@
-/* pages/e_detail/e_detail.wxss */
+
 page{
   background: #f2f2f2;
   width: 100%;
@@ -229,6 +229,11 @@ page{
 .rankm{
   display: inline-block;
   vertical-align: middle;
+  width: 320rpx;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
 }
 .ranksum{
   float: right;
@@ -242,10 +247,23 @@ page{
   border-radius: 10rpx;
   overflow: hidden;
   margin-top: 20rpx;
+  position: relative;
 }
 .videoes image{
   width: 100%;
   height: 100%;
+}
+.play{
+  width: 70rpx;
+  height: 70rpx;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%,-50%);
+}
+.play image{
+  width: 100%;
+  height: 100%
 }
 .apply{
   width: 100%;
@@ -309,7 +327,7 @@ page{
   font-size: 28rpx;
 }
 .ranktime{
-  float: right;
+ 
   margin-top:30rpx;
   color: #A7A7A7;
   font-size: 28rpx;
@@ -505,4 +523,34 @@ color: #F861AA;
 }
 .sunb{
   background: #F861AA;
+}
+.gz{
+  margin-top: 10rpx;
+  font-size: 22rpx;
+}
+.csx{
+  width: 100%!important;
+  overflow-x: hidden!important;
+
+}
+/* 跑马灯 */
+.example {
+  display: inline-block;
+  width: 440rpx;
+  height: 33rpx;
+  overflow: hidden;
+}
+.marquee_box { 
+  width: 100%; 
+  position: relative; 
+  font-size: 28rpx!important;
+}
+.marquee_text {
+  white-space: nowrap;
+  position: absolute; 
+  top: 0;
+  font-size: 28rpx!important;
+}
+.dis{
+  display: inline-block;
 }

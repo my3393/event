@@ -1,6 +1,7 @@
 {
   "pages": [
     "pages/e_home/e_home",
+    "pages/e_upwork/e_upwork",
     "pages/e_division/e_division",
     "pages/aaa/aaa",
     "pages/e_top/e_top",
@@ -22,5 +23,8 @@
     "navigationBarTitleText": "艺赛联盟",
     "navigationBarTextStyle": "white"
   },
+  "navigateToMiniProgramAppIdList": [
+    "wxf556b39ee9c934b4"
+  ],
   "sitemapLocation": "sitemap.json"
 }

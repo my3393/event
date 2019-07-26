@@ -51,6 +51,7 @@ Page({
     saiType:[],
     sex:'2000',
     typeid:'',
+    istext:false,
   },
 
   /**
@@ -325,7 +326,8 @@ Page({
   showlabel: function (e) {
     var that = this;
     that.setData({
-      showlabels: !that.data.showlabels
+      showlabels: !that.data.showlabels,
+      istext:!that.data.istext
     })
   },
   quxiao: function (e) {
@@ -333,7 +335,7 @@ Page({
     ids = '';
     that.setData({
       showlabels: !that.data.showlabels,
-      
+      istext: !that.data.istext
     })
     console.log(moren)
   },
@@ -342,7 +344,8 @@ Page({
     that.setData({
       showlabels: !that.data.showlabels,
       artist_type: names,
-      typeid:ids
+      typeid:ids,
+      istext: !that.data.istext
     })
   },
   chooselabel:function(e){
@@ -642,12 +645,6 @@ Page({
     } else if (that.data.scope == '') {
       wx.showToast({
         title: '请输入手机号',
-        icon: 'none'
-      })
-      return false
-    }else if (that.data.numb == '') {
-      wx.showToast({
-        title: '请输入微信号',
         icon: 'none'
       })
       return false

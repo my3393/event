@@ -16,4 +16,4 @@ const formatNumber = n => {
 
 module.exports = {
   formatTime: formatTime
-}
+};

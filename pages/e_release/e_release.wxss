@@ -95,6 +95,7 @@ page{
   height: 130rpx;
   line-height: 40rpx!important;
   overflow-x:visible;
+  z-index: 1;
 }
 
 
@@ -105,6 +106,7 @@ page{
     position: fixed;
     bottom: 0;
     left: 0;
+    z-index: 99;
 }
 .tops{
     display: flex;
@@ -167,4 +169,13 @@ page{
     background: rgba(0, 0, 0, 0.2);
     z-index: 12;
     /* display: none;  */
+}
+.yds{
+   width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 999;
 }

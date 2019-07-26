@@ -29,6 +29,8 @@ Page({
     artId:false,
     user:[],
     saiId:'',//赛事id
+    is_actor:'',
+    text:'',
   },
 
   /**
@@ -41,6 +43,7 @@ Page({
       })
       console.log(this.data.saiId)
       this.getdetail();
+      this.getdetailss();
       this.getrefue();
       this.getvote();
       this.getphoto();
@@ -69,6 +72,9 @@ Page({
       key: 'userinfo',
       success: function (res) {
         bcode = res.data.user_id;
+        that.setData({
+          is_actor: res.data.is_actor
+        })
         console.log(bcode)
       },
     })
@@ -79,10 +85,10 @@ Page({
    */
   onHide: function () {
     var that =this;
-    list= []
-    that.setData({
-      refue: [],
-    })
+    // list= []
+    // that.setData({
+    //   refue: [],
+    // })
    
     
   },
@@ -130,13 +136,36 @@ Page({
   onShareAppMessage: function () {
     var that = this;
       return {
-        title: '我是' + that.data.id + '号' + that.data.detail.userName + '我正在参加' + that.data.detail.competitionName + '活动赛事，快来投我一票吧' ,
-        path: '/pages/e_home/e_home?detailId=' + that.data.id,
+        title: '我是' + that.data.detail.playerNumber + '号' + that.data.detail.userName + '我正在参加' + that.data.text + '快来投我一票吧' ,
+        path: '/pages/e_home/e_home?playId=' + that.data.id + '&saiId=' + that.data.saiId,
         success: function (res) {
           // 转发成功
           wx.showToast({
             title: '转发成功',
 
+          })
+          wx.request({
+            url: app.data.urlmall + "/apppcompetitionplayer/addforward.do",
+            data: {
+              id: that.data.id,
+              token: wx.getStorageSync('etoken')
+            },
+            method: 'POST',
+            header: {
+              'content-type': 'application/x-www-form-urlencoded'
+            },
+            dataType: 'json',
+            success: function (res) {
+              console.log(res.data.data)
+              if (res.data.status === 100) {
+               
+              } else {
+                wx.showToast({
+                  title: res.data.msg,
+                  icon: 'none'
+                })
+              }
+            }
           })
         },
         fail: function (res) {
@@ -172,6 +201,7 @@ Page({
       isyds: !that.data.isyds
     })
   },
+  
   //查看作品
   hidevideo: function (e) {
     var that = this;
@@ -218,6 +248,35 @@ Page({
             
           })
           
+        } else {
+          wx.showToast({
+            title: res.data.msg,
+            icon: 'none'
+          })
+        }
+      }
+    })
+  },
+  //赛事详情
+  getdetailss: function (e) {
+    var that = this;
+    wx.request({
+      url: app.data.urlmall + "/appcompetition/detail.do",
+      data: {
+        id: that.data.saiId,
+        token: wx.getStorageSync('etoken')
+      },
+      method: 'POST',
+      header: {
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+      dataType: 'json',
+      success: function (res) {
+        console.log(res.data.data)
+        if (res.data.status === 100) {
+           that.setData({
+             text: res.data.data.competitionTitle
+           })
         } else {
           wx.showToast({
             title: res.data.msg,
@@ -401,19 +460,30 @@ Page({
   },
   //预约
   online:function(e){
-    wx.navigateTo({
-      url: '../e_online/e_online?id=' + e.currentTarget.id,
+    // wx.navigateTo({
+    //   url: '../e_online/e_online?id=' + e.currentTarget.id,
+    // })
+    wx.navigateToMiniProgram({
+      appId: 'wxf556b39ee9c934b4',
+      path: 'pages/funcicle_detail/funcicle_detail?user_id=' + e.currentTarget.id,
+      extraData: {
+        foo: 'bar'
+      },
+      envVersion: 'release',
+      success(res) {
+        // 打开成功
+      }
     })
   },
   //首页
   home: function (e) {
-    wx.navigateTo({
+    wx.reLaunch({
       url: '../e_home/e_home',
     })
   },
   //查看赛事
   sai: function (e) {
-    wx.navigateTo({
+    wx.redirectTo({
       url: '../e_detail/e_detail?id=' + this.data.saiId,
     })
   },

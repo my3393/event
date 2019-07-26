@@ -1,10 +1,10 @@
 <view class="nwrap">
 					<view class="ntops">
 						{{detail.playerNumber}}号     {{detail.userName}}
-						<text bindtap='online'>预约TA</text>
+						<text bindtap='online' id='{{id}}' hidden='{{is_actor == 2}}'>预约TA</text>
 					</view>
 					<view class="contents">
-					我正在参加{{detail.competitionName}}的评选，快投我一票吧！
+					我正在参加{{text}} {{detail.competitionName}}的评选，快投我一票吧！
 					</view>
 </view>
   <view class="tmenu">
@@ -13,10 +13,14 @@
       <view wx:if='{{tab == 0}}'>
          <view class="te" >
 					<view class="te-photo" >
-						<view class="te-pho" wx:for="{{photos}}">
-             <image src="{{item.fileOssPath}}"></image>
-						</view>
-					
+					  <swiper class="te-pho"  indicator-dots="true" autoplay="false" duration="1000" indicator-color="#a7a7a7" indicator-active-color="#fe5ba9">
+    <block  wx:for="{{photos}}">
+      <swiper-item id="{{item.ids}}" bindtap="enters" class='swiper'>
+       <image src="{{item.fileOssPath}}"></image>
+      </swiper-item>
+    </block>
+
+  </swiper>
 						
 					</view>
 					<view class='zuo'>
@@ -29,8 +33,7 @@
           <view wx:if='{{videos.length == 0}}'>
             <view class="play-kon" wx:if="{{artId}}">
               <view class="work-kon">
-                  <image src='../../images/none-work.png'></image>
-                
+                  <image src='../../images/none-work.png'></image>               
               </view>
               <view style="color: #AAAAAA;margin: 10px 0;">
                 你还未上传视频作品
@@ -55,6 +58,7 @@
 						<view class="work-vid">
 							 <view class="work-video" wx:for="{{videos}}" bindtap='seevideo' id='{{item.id}}' data-src="{{item.fileOssPath}}">
 							   	<image src='{{item.coverOssPath}}'></image>
+                   
 							 	  <view class="work-play">
 							 	  	 <image src='../../images/art-play.png'></image>
 							 	</view>
@@ -146,7 +150,8 @@
           <image src='{{item.headPhoto}}'></image>
         </view>
         <view class='rankm'>
-          <view class='giftm'>{{item.userName}}</view>
+          <view class='giftm'>{{item.userName}}  </view>
+           <view class='pnum'>赠送</view>
           <view class='gitf'>
             <image src='{{item.refuelGiftPhotoOssPath}}'></image>
           </view>

@@ -3,7 +3,7 @@
       <view class='rankhead'>
         <image src='{{players.headPhotoOssPath}}'></image>
       </view>
-      <view class='rankm'>{{players.username}}</view>
+      <view class='rankm'>{{players.userName}}</view>
 </view>
    <view>
        <view class='jie'>

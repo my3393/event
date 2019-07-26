@@ -100,7 +100,7 @@ Page({
   getplayer: function (e) {
     var that = this;
     wx.request({
-      url: app.data.urlmall + "/appparticipateuser/detail.do",
+      url: app.data.urlmall + "/apppcompetitionplayer/detail.do",
       data: {
         id: that.data.id,
         token: wx.getStorageSync('etoken')

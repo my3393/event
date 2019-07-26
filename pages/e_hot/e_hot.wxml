@@ -12,7 +12,7 @@
     </view>
     <view class='instr' bindtap='close'>说明</view>
    </view>
-   <view class='mins'>推广海报（此处显示娱乐圈banner尺寸</view>
+   <view class='mins'>推广海报</view>
    <view class='instrtu' bindtap="chooseImage"> <image src='{{posters}}'></image> </view>
    <view>推广天数</view>
    <view class='inpu'> (<input type='number' class='inp' bindinput='inputs'></input>) 
@@ -39,7 +39,7 @@
    <view class='marktop'>上热门说明</view>
   <view>
     1、用户提交后，推广服务次日生效，推广服
-    务失效时间由推广天树来决定。</view>     
+    务失效时间由推广天数来决定。</view>     
 
 <view>  2、推广1天，即全天24小时进行推广。</view>
 <view>3、该推广服务支付后不支持退款。</view>

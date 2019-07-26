@@ -4,6 +4,10 @@ var app = getApp();
 var play = [];
 var rich;
 var video = [];
+var dynamic = [];
+var bcode;
+var usid;
+var seasonStartDate;
 Page({
 
   /**
@@ -61,7 +65,27 @@ Page({
     narea:'',
     competitionName:'',//赛区名称
     qualifiedNumber:'',//晋级人数
-    seasonEndtDate:'',//复赛结束时间
+    seaEndtDate:'',//复赛结束时间
+    competitionType:'',//赛事类型
+    x_totalPage:'',//选手总条数
+    p_totalPage :'',//排行榜总条数
+    d_totalPage:'',//动态总条数
+    h_totalPage : '',//活动视频总条数
+    d_currentPage:1,
+    h_currentPage:1,
+    x_currentPage:1,
+    seasonStartDate:'',
+    //
+    text: '这是一条会滚动的文字滚来滚去的文字跑马灯，哈哈哈哈哈哈哈哈',
+    marqueePace: 1,//滚动速度
+    marqueeDistance: 0,//初始滚动距离
+    marqueeDistance2: 0,
+    marquee2copy_status: false,
+    marquee2_margin: 20,
+    size: 12,
+    orientation: 'left',//滚动方向
+    interval: 20 ,// 时间间隔
+    competitionTitle:''
   },
 
   /**
@@ -71,6 +95,7 @@ Page({
      var that = this;
     // 调用函数时，传入new Date()参数，返回值是日期和时间
     var time = util.formatTime(new Date());
+    console.log(time)
     // 再通过setData更改Page()里面的data，动态更新页面的数据
      that.setData({
        id:options.id,
@@ -107,6 +132,9 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
+    
+    var a = this.data.time
+    console.log(a.split("-"))
     var that = this;
     setTimeout(function () {
       console.log(that.data)
@@ -117,12 +145,34 @@ Page({
     wx.getStorage({
       key: 'userinfo',
       success: function (res) {
-        console.log(res.data.is_actor)
+        bcode = res.data.user_id;
         that.setData({
           is_actor: res.data.is_actor
         })
-      }
+        console.log(bcode)
+      },
     })
+    var vm = this;
+    setTimeout(function(){
+     
+      console.log(vm.data.competitionTitle)
+      var length = vm.data.competitionTitle.length * vm.data.size;//文字长度
+      var windowWidth = 220;// 屏幕宽度
+
+      vm.setData({
+        length: length,
+        windowWidth: windowWidth,
+        marquee2_margin: length < windowWidth ? windowWidth - length : vm.data.marquee2_margin//当文字长度小于屏幕长度时，需要增加补白
+      });
+
+      console.log(length)
+      console.log(windowWidth)
+      console.log(vm.data.marquee2_margin)
+      if(length >= windowWidth){
+        vm.run1();// 水平一行字滚动完了再按照原来的方向滚动
+        vm.run2();// 第一个字消失后立即从右边出现
+      }
+    },500)
   },
 
   /**
@@ -152,7 +202,85 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
+    // wx.showNavigationBarLoading() //在标题栏中显示加载
+    wx.showToast({
+      title: '刷新中',
+      icon: "none"
+    })
+    var that = this;
+     play = [];
+     rich;
+     video = [];
+     dynamic = [];
+     seasonStartDate;
+    //模拟加载
+    setTimeout(function () {
+      detail = [];
+      that.setData({
+        id: '',
+        detail: [],
+        photos: [],
+        players: [],
+        dynamic: [],
+        dynamicphotos: [],
+        currentPage: 1,
+        totalPage: '',
+        ranklist: [],
+        top_1: '',
+        top_2: '',
+        top_3: '',
+        video: [],
+        days: '',
+        hours: '',
+        min: '',
+        miao: '',
+        daySea: '',
+        hourSea: '',
+        minSea: '',
+        miaoSea: '',
+        istime: 1,
+        endDate: '',
+        time: '',
+        is_actor: '',
+        isSearch: false,
+        splayer: [],
+        isart: true,
+        isSai: true,
+        isvideo: true,
+        play: '',
+        isArtistUserPay: '',//艺人是否付费
+        isNewUserPay: '',//新用户是否付费
+        rich: '',
+        eventId: '',
+        v_totalPage: '',//
+        competitionAreaId: '',//赛区id
+        narea: '',
+        competitionName: '',//赛区名称
+        qualifiedNumber: '',//晋级人数
+        seaEndtDate: '',//复赛结束时间
+        competitionType: '',//赛事类型
+        x_totalPage: '',//选手总条数
+        p_totalPage: '',//排行榜总条数
+        d_totalPage: '',//动态总条数
+        h_totalPage: '',//活动视频总条数
+        d_currentPage: 1,
+        h_currentPage: 1,
+        x_currentPage: 1,
+        seasonStartDate: ''
+      })
+      that.getdetail();
+      setTimeout(function () {
+        that.getplayer();
+        that.getdynamic();
+        that.getranklist();
+        that.getvideo();
+        that.getintroduce();
+      }, 500)
+      // complete
+      wx.hideNavigationBarLoading() //完成停止加载
+      wx.stopPullDownRefresh() //停止下拉刷新
 
+    }, 1000);
   },
 
   /**
@@ -160,16 +288,58 @@ Page({
    */
   onReachBottom: function () {
     var that = this;
-    if (that.data.currentPage == that.data.totalPage) {
+    //动态
+    if (that.data.d_currentPage == that.data.d_totalPage) {
+      wx.showToast({
+        title: '已经到底了哦',
+        icon: 'none'
+      })
+    } else {
+      console.log(that.data.d_currentPage)
+      console.log(that.data.d_totalPage)
+      that.setData({
+        d_currentPage: that.data.d_currentPage + 1,
+      })
+      that.getdynamic();
+
+    }
+    //选手
+    if (that.data.x_currentPage == that.data.x_totalPage) {
       wx.showToast({
         title: '已经到底了哦',
         icon: 'none'
       })
     } else {
       that.setData({
-        currentPage: that.data.currentPage + 1,
+        x_currentPage: that.data.x_currentPage + 1,
       })
-      that.getdetail();
+      that.getplayer();
+
+    }
+    //排行榜
+    // if (that.data.currentPage == that.data.p_totalPage) {
+    //   wx.showToast({
+    //     title: '已经到底了哦',
+    //     icon: 'none'
+    //   })
+    // } else {
+    //   that.setData({
+    //     currentPage: that.data.currentPage + 1,
+    //   })
+    //   that.getranklist();
+
+    // }
+    //活动视频
+    if (that.data.h_currentPage == that.data.h_totalPage) {
+      wx.showToast({
+        title: '已经到底了哦',
+        icon: 'none'
+      })
+    } else {
+      that.setData({
+        h_currentPage: that.data.h_currentPage + 1,
+      })
+      that.getvideo();
 
     }
   },
@@ -190,16 +360,26 @@ Page({
     var that = this;
     console.log(e.currentTarget.dataset.num);
     play= [];
+    dynamic=[];
+    video=[];
     that.setData({
       isSearch:false,
       splayer:[],
       players:[],
+      dynamic:[],
+      video:[],
+      h_currentPage:1,
+      d_currentPage:1,
+      x_currentPage:1,
+      
       tar: e.currentTarget.dataset.num,
       tab: e.currentTarget.dataset.num
     })
     
     that.getplayer();
     that.getranklist();
+    that.getdynamic();
+    that.getvideo();
   },
   getdetail: function (e) {
     var that = this;
@@ -226,11 +406,17 @@ Page({
             })
             
           }
-          var date = Date.parse(new Date())
-          var endDatas = Date.parse(res.data.data.endDate)
-          var startDatas = Date.parse(res.data.data.startDate)
-          var seasonEndtDate = Date.parse(res.data.data.seasonEndtDate)
-          var seasonStartDate = Date.parse(res.data.data.seasonStartDate)
+            seasonStartDate = res.data.data.seasonStartDate.split(' ')
+           var seasonEndtDate = res.data.data.seasonEndtDate.split(' ')
+          var star = seasonStartDate[0]
+          var eND = seasonEndtDate[0]
+          
+          var date = Date.parse(that.data.time)
+          var endDatas = Date.parse(res.data.data.endDate.replace(/-/g, '/'))
+          var startDatas = Date.parse(res.data.data.startDate.replace(/-/g, '/'))
+          var seasonEndtDate = Date.parse(res.data.data.seasonEndtDate.replace(/-/g, '/'))
+          var seasonStartDate = Date.parse(res.data.data.seasonStartDate.replace(/-/g, '/'))
+         
           var t2 = date - endDatas;
           var t1 = date - startDatas;
           var t3 = date - seasonStartDate;
@@ -256,8 +442,8 @@ Page({
               istime: 5
             })
           };
-         
-          console.log(res.data.data.competitionAreaId)
+          
+          console.log(that.data.istime)
           that.setData({
             competitionAreaId: res.data.data.competitionAreaId,
             competitionName: res.data.data.competitionAreaName,
@@ -267,9 +453,13 @@ Page({
             endDate: res.data.data.endDate,
             seasonEndtDate: res.data.data.seasonEndtDate,
             isNewUserPay: res.data.data.isNewUserPay,
-            isArtistUserPay: res.data.data.isArtistUserPay
+            isArtistUserPay: res.data.data.isArtistUserPay,
+            competitionType: res.data.data.competitionType,
+            seasonStartDate: star,
+            seaEndtDate : eND,
+            competitionTitle:res.data.data.competitionTitle
           })
-         
+          console.log(that.data.seasonStartDate)
         } else {
           wx.showToast({
             title: res.data.msg,
@@ -303,7 +493,7 @@ Page({
          
           that.setData({
             players:play,
-            totalPage: res.data.data.totalPage
+            x_totalPage: res.data.data.totalPage
           })
          
         } else {
@@ -323,7 +513,7 @@ Page({
       data: {
         id: that.data.id,
         token: wx.getStorageSync('etoken'),
-        currentPage:that.data.currentPage
+        currentPage:that.data.d_currentPage
       },
       method: 'POST',
       header: {
@@ -334,12 +524,16 @@ Page({
         console.log(res.data.data.data)
            
         if (res.data.status === 100) {
+          for(var i in res.data.data.data){
+            dynamic.push(res.data.data.data[i])
+          }
            
           that.setData({
-            dynamic: res.data.data.data,
+            dynamic: dynamic,
+            d_totalPage:res.data.data.totalPage,
            // dynamicphotos: res.data.data.data.photos
           })
-
+         console.log(that.data.d_totalPage)
         } else {
           wx.showToast({
             title: res.data.msg,
@@ -366,7 +560,14 @@ Page({
       success: function (res) {
         console.log(res.data.data)
         if (res.data.status === 100) {
-          that.getdetail();
+          wx.showToast({
+            title: res.data.msg,
+          })
+          dynamic=[];
+          that.setData({
+            dynamic:[]
+          })
+          that.getdynamic();
         } else {
           wx.showToast({
             title: res.data.msg,
@@ -462,7 +663,8 @@ Page({
            top_1 : res.data.data.data.splice(0, 1)[0],
            top_2 : res.data.data.data.splice(0, 1)[0],
            top_3 :res.data.data.data.splice(0, 1)[0],
-            ranklist: res.data.data.data,           
+            ranklist: res.data.data.data,
+         //   p_totalPage:res.data.data.totalPage           
           })
           
           console.log(that.data.top_1)
@@ -483,7 +685,7 @@ Page({
       data: {
         id: that.data.id,
         token: wx.getStorageSync('etoken'),
-        currentPage:that.data.currentPage
+        currentPage:that.data.h_currentPage
       },
       method: 'POST',
       header: {
@@ -498,7 +700,7 @@ Page({
           }
           that.setData({
             video:video,
-            v_totalPage:res.data.data.totalPage
+            h_totalPage:res.data.data.totalPage
           })
 
         } else {
@@ -526,9 +728,9 @@ Page({
       },
       dataType: 'json',
       success: function (res) {
-       
+       //  console.log(res.data.data)
         if (res.data.status === 100) {
-          rich = res.data.data
+          rich = res.data.data.replace(/\<img/gi, '<img style="max-width:100%;height:auto"')
           that.setData({
             rich:rich
           })
@@ -542,15 +744,22 @@ Page({
       }
     })
   },
-  //初赛倒计时
+  //报名倒计时
   gettime: function countDown() {
     var that = this
-    var nspt = that.data.time.split(' ');
-    var timer3 = nspt[0].split('-');
+    var aaa = that.data.time.replace(/-/g, '/');
+    var nspt = aaa.split(' ')  
+    var timer3 = nspt[0].split('/');
     var timer4 = nspt[1].split(':');  
     var start = new Date(timer3[0], timer3[1], timer3[2], timer4[0], timer4[1], timer4[2])
-    var spt = that.data.endDate.split(' ');
-    var timer1 = spt[0].split('-');
+    var bbb = that.data.endDate.replace(/-/g, '/');
+    
+    var spt = bbb.split(' ');
+    var timer1 = spt[0].split('/');
+    if (spt[1] == undefined) {
+      spt[1] = '00:00:00'
+     
+    }
     var timer2 = spt[1].split(':');
     var end = new Date(timer1[0], timer1[1], timer1[2], timer2[0],timer2[1],timer2[2])
     var oft = Math.round((end - start) / 1000);
@@ -589,13 +798,23 @@ Page({
   //复赛倒计时
   settime: function countDown() {
     var that = this
-    var nspt = that.data.time.split(' ');
-    var timer3 = nspt[0].split('-');
+    var aaa = that.data.time.replace(/-/g, '/');
+   
+    var nspt = aaa.split(' ')  
+    var timer3 = nspt[0].split('/');
     var timer4 = nspt[1].split(':');
     var start = new Date(timer3[0], timer3[1], timer3[2], timer4[0], timer4[1], timer4[2])
-    var spt = that.data.seasonEndtDate.split(' ');
-    var timer1 = spt[0].split('-');
+    var bbb = that.data.seasonEndtDate.replace(/-/g, '/');
+    
+    var spt = bbb.split(' ');
+    
+    var timer1 = spt[0].split('/');
+    if (spt[1] == undefined) {
+      spt[1] = '00:00:00'
+      
+    }
     var timer2 = spt[1].split(':');
+   
     var end = new Date(timer1[0], timer1[1], timer1[2], timer2[0], timer2[1], timer2[2])
     var oft = Math.round((end - start) / 1000);
     var ofd = parseInt(oft / 3600 / 24);
@@ -732,6 +951,18 @@ Page({
       url: '../e_hot/e_hot?id=' + that.data.id,
     })
   },
+  //刷新报名
+  changeData: function () {
+    play = [];
+    this.setData({
+      ranklist: [],
+      players:[]
+    })
+    //var options = { 'id': this.data.id }
+    //this.onLoad(options);//最好是只写需要刷新的区域的代码，onload也可，效率低，有点low
+    this.getplayer();
+    this.getranklist();
+  },
   //报名弹窗
   cance:function(){
     var that = this;
@@ -748,91 +979,33 @@ Page({
   submit:function(e){
     console.log(e)
     var that = this;
-    if(that.data.is_actor == 3){
-      if (that.data.isArtistUserPay == 0){
-        wx.request({
-          url: app.data.urlmall + "/apppcompetitionsignup/artistjoin.do",
-          data: {
-            id: that.data.id,
-            token: wx.getStorageSync('etoken')
-          },
-          method: 'POST',
-          header: {
-            'content-type': 'application/x-www-form-urlencoded'
-          },
-          dataType: 'json',
-          success: function (res) {
-            console.log(res.data.data)
-            if (res.data.status === 100) {
-              wx.showToast({
-                title: '报名成功',
-              })
-
-            } else {
-              wx.showToast({
-                title: res.data.msg,
-                icon: 'none'
-              })
-            }
-          }
-        })
-      }else{
-        wx.request({
-          url: app.data.urlmall + "/apppcompetitionsignup/artistjoin/xcxpay.do",
-          data: {
-            id: that.data.id,
-            token: wx.getStorageSync('etoken')
-          },
-          method: 'POST',
-          header: {
-            'content-type': 'application/x-www-form-urlencoded'
-          },
-          dataType: 'json',
-          success: function (res) {
-            console.log(res.data.data)
-            if (res.data.status === 100) {
-              wx.requestPayment({
-                timeStamp: res.data.data.sign.timeStamp,
-                nonceStr: res.data.data.sign.nonceStr,
-                package: res.data.data.sign.package,
-                signType: 'MD5',
-                paySign: res.data.data.sign.paySign,
-                success(res) {
-                  wx.showToast({
-                    title: '报名成功',
-                    icon: 'none',
-                    duration: 1000
-                  })
-                  wx.navigateBack({
-                    delta: 1
-                  })
-                },
-                fail(res) {
-                  wx.showToast({
-                    title: '支付失败',
-                    icon: 'none',
-                    duration: 1000
-                  })
-                }
-              })
-
-
-            } else {
-              wx.showToast({
-                title: res.data.msg,
-                icon: 'none'
-              })
-            }
-          }
-        })
-      }
-      
-    }else{
+     that.data.players.find(item => {
+       usid = item.userId
+        
+     });
+    if (usid == bcode) {
+      wx.showToast({
+        title: '你以报名',
+        icon: 'none'
+      })
+    } else {
       wx.navigateTo({
         url: '../e_division/e_division?id=' + that.data.id + '&num=' + e.currentTarget.dataset.num + '&art=' + e.currentTarget.dataset.art,
       })
-      
     }
+      // if (that.data.players.indexOf(bcode) > -1){
+      //   wx.showToast({
+      //     title: '你以报名',
+      //     icon:'none'
+      //   })
+      // }else{
+      //   wx.navigateTo({
+      //     url: '../e_division/e_division?id=' + that.data.id + '&num=' + e.currentTarget.dataset.num + '&art=' + e.currentTarget.dataset.art,
+      //   })
+      // }
+    
+     
+      
   },
   hidevideo: function (e) {
     var that = this;
@@ -853,11 +1026,54 @@ Page({
     console.log(e)
     var num = e.currentTarget.dataset.num;
     var selectindex = e.currentTarget.dataset.src;//获取data-src
-    var imgList = this.data.dynamic[num].img;//获取data-list
+    var imgList = this.data.dynamic[num].photos;//获取data-list
     //图片预览
     wx.previewImage({
       current: selectindex, // 当前显示图片的http链接   
       urls: imgList // 需要预览的图片http链接列表
     })
   },
+  run1: function () {
+    var vm = this;
+    var interval = setInterval(function () {
+      if (-vm.data.marqueeDistance < vm.data.length) {
+        vm.setData({
+          marqueeDistance: vm.data.marqueeDistance - vm.data.marqueePace,
+        });
+      } else {
+        clearInterval(interval);
+        vm.setData({
+          marqueeDistance: vm.data.windowWidth
+        });
+        vm.run1();
+      }
+    }, vm.data.interval);
+  },
+
+  run2: function () {
+    var vm = this;
+    var interval = setInterval(function () {
+      if (-vm.data.marqueeDistance2 < vm.data.length) {
+        // 如果文字滚动到出现marquee2_margin=30px的白边，就接着显示
+        vm.setData({
+          marqueeDistance2: vm.data.marqueeDistance2 - vm.data.marqueePace,
+          marquee2copy_status: vm.data.length + vm.data.marqueeDistance2 <= vm.data.windowWidth + vm.data.marquee2_margin,
+        });
+      } else {
+        if (-vm.data.marqueeDistance2 >= vm.data.marquee2_margin) { // 当第二条文字滚动到最左边时
+          vm.setData({
+            marqueeDistance2: vm.data.marquee2_margin // 直接重新滚动
+          });
+          clearInterval(interval);
+          vm.run2();
+        } else {
+          clearInterval(interval);
+          vm.setData({
+            marqueeDistance2: -vm.data.windowWidth
+          });
+         vm.run2();
+        }
+      }
+    }, vm.data.interval);
+  }
 })

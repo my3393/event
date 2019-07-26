@@ -1,0 +1,18 @@
+<view class='top'>
+   <view>添加作品</view>
+   <view class='video' bindtap='chooseVideo'>
+    <image src='{{video}}' hidden='{{showadds}}' ></image>
+     <image src='../../images/plays.png' catchtap='showvideo' id='{{tvideo}}' hidden='{{!showadds}}'></image>
+   </view>
+</view>
+
+<view class='top'>
+   <view>添加封面</view>
+   <view class='video' bindtap='chooseImage'>
+    <image src='{{posters}}'></image>
+   </view>
+</view>
+
+  <view class='uplo'>
+    <view class='up'>上传</view>
+  </view>
