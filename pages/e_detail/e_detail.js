@@ -1,5 +1,6 @@
 // pages/e_detail/e_detail.js
 var util = require('../../utils/util.js');
+
 var app = getApp();
 var play = [];
 var rich;
@@ -8,6 +9,8 @@ var dynamic = [];
 var bcode;
 var usid;
 var seasonStartDate;
+var cleartime;
+var detail = [];
 Page({
 
   /**
@@ -22,6 +25,12 @@ Page({
       { id: 1, name: '动态' },
       { id: 2, name: '参赛选手' },
       { id: 3, name: '排行榜' },
+      { id: 4, name: '活动视频' },
+      { id: 5, name: '活动介绍' },
+    ],
+    tag2: [
+      { id: 1, name: '动态' },
+      { id: 2, name: '参赛选手' },
       { id: 4, name: '活动视频' },
       { id: 5, name: '活动介绍' },
     ],
@@ -85,7 +94,8 @@ Page({
     size: 12,
     orientation: 'left',//滚动方向
     interval: 20 ,// 时间间隔
-    competitionTitle:''
+    competitionTitle:'',
+    fullScreenFlag : false,
   },
 
   /**
@@ -125,7 +135,8 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-
+    var that = this;
+    that.Player = wx.createLivePlayerContext('player');
   },
 
   /**
@@ -217,7 +228,7 @@ Page({
     setTimeout(function () {
       detail = [];
       that.setData({
-        id: '',
+       
         detail: [],
         photos: [],
         players: [],
@@ -238,7 +249,7 @@ Page({
         hourSea: '',
         minSea: '',
         miaoSea: '',
-        istime: 1,
+        
         endDate: '',
         time: '',
         is_actor: '',
@@ -268,13 +279,16 @@ Page({
         x_currentPage: 1,
         seasonStartDate: ''
       })
-      that.getdetail();
+      
       setTimeout(function () {
+        that.getdetail();
         that.getplayer();
         that.getdynamic();
         that.getranklist();
         that.getvideo();
         that.getintroduce();
+        that.gettime();
+        that.settime();
       }, 500)
       // complete
       wx.hideNavigationBarLoading() //完成停止加载
@@ -354,6 +368,57 @@ Page({
        title: that.data.detail.competitionTitle + '正在火热进行中，快来报名参加吧!',
        path: '/pages/e_home/e_home?detailId=' + that.data.id,
      }
+  },
+  statechange(e) {
+    console.log('live-player code:', e.detail.code)
+  },
+  error(e) {
+    console.error('live-player error:', e.detail.errMsg)
+  },
+  //全屏
+  bindfull:function(){
+   //var play =  wx.createLivePlayerContext('Player', this)
+    // livePlayerContext.requestFullScreen({
+      
+    // })
+    var that = this;
+    //全屏
+   
+    var fullScreenFlag = that.data.fullScreenFlag;
+    if (fullScreenFlag) {
+      fullScreenFlag = false;
+    } else {
+      fullScreenFlag = true;
+    }
+    if (fullScreenFlag) {
+      //全屏
+      that.Player.requestFullScreen({
+        direction: 90,
+        success: res => {
+          that.setData({
+            fullScreenFlag: fullScreenFlag
+          });
+          console.log('我要执行了');
+        },
+        fail: res => {
+          console.log('fullscreen fail');
+        }
+      });
+
+    } else {
+      //缩小
+      that.Player.exitFullScreen({
+        success: res => {
+          console.log('fullscreen success');
+          that.setData({
+            fullScreenFlag: fullScreenFlag
+          });
+        },
+        fail: res => {
+          console.log('exit fullscreen success');
+        }
+      });
+    }
   },
   //商品切换
   tag: function (e) {
@@ -521,7 +586,7 @@ Page({
       },
       dataType: 'json',
       success: function (res) {
-        console.log(res.data.data.data)
+        console.log(res.data.data)
            
         if (res.data.status === 100) {
           for(var i in res.data.data.data){
@@ -1075,5 +1140,59 @@ Page({
         }
       }
     }, vm.data.interval);
-  }
+  },
+  bindPlayerPlay() {
+    this.Player.play({
+      success: res => {
+        console.log('play success')
+      },
+      fail: res => {
+        console.log('play fail', res)
+      }
+    })
+  },
+  bindPlayerPause() {
+    console.log('进入暂停')
+    this.Player.pause({
+      success: res => {
+        console.log('pause success')
+      },
+      fail: res => {
+        console.log('pause fail')
+      }
+    })
+  },
+  bindPlayerStop() {
+    console.log('进入停止')
+    this.Player.stop({
+      success: res => {
+        console.log('stop success')
+      },
+      fail: res => {
+        console.log('stop fail')
+      }
+    })
+  },
+  bindPlayerResume() {
+    console.log('进入恢复')
+    this.Player.resume({
+      success: res => {
+        console.log('resume success')
+      },
+      fail: res => {
+        console.log('resume fail')
+      }
+    })
+  },
+  bindPlayerMute() {
+    console.log('进入静音')
+    this.Player.mute({
+      success: res => {
+        console.log('mute success')
+      },
+      fail: res => {
+        console.log('mute fail')
+      }
+    })
+  },
 })

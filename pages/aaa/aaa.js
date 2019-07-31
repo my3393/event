@@ -17,6 +17,7 @@ Page({
 
     ],
   },
+  
   chact: function (e) {
     var that = this;
    

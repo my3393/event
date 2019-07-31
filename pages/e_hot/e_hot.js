@@ -101,7 +101,10 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-
+    return {
+      title: '艺赛联盟',
+      path: '/pages/e_home/e_home'
+    }
   },
   close: function () {
     var that = this;

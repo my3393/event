@@ -12,6 +12,7 @@ Page({
     id:'',
     detail:[],
     photos:[],
+    
     before:'',
     fileType:'1',//照片文件类型
     votelist:[],
@@ -31,6 +32,9 @@ Page({
     saiId:'',//赛事id
     is_actor:'',
     text:'',
+    systemInfo:'',
+    ishelp:true,
+
   },
 
   /**
@@ -454,8 +458,31 @@ Page({
   },
   //助力
   help: function () {
-    wx.navigateTo({
-      url: '../e_help/e_help?id=' + this.data.id,
+    var that = this;
+    wx.getSystemInfo({
+      success: function (res) {
+        that.setData({
+          systemInfo: res,
+        })
+        if (res.platform == "ios") {
+           that.setData({
+             ishelp: !that.data.ishelp
+           })
+          console.log('IOS')  
+        } else {
+          wx.navigateTo({
+            url: '../e_help/e_help?id=' + that.data.id,
+          })  
+          
+        } 
+      }
+    })
+    
+  },
+  tis:function(){
+    var that = this;
+    that.setData({
+      ishelp: !that.data.ishelp
     })
   },
   //预约

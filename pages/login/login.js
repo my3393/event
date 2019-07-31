@@ -1,4 +1,6 @@
 let avater = '';
+let iv='';
+let encryptedData = '';
 const app = getApp();
 Page({
     data: {
@@ -11,16 +13,25 @@ Page({
                 console.log(res)
                 if (res.authSetting['scope.userInfo']) {
                     // 已经授权，可以直接调用 getUserInfo 获取头像昵称
-
                     wx.login({
                         success: function(res) {
                             wx.getUserInfo({
                                 success: function(res) {
                                     console.log(res)
+                                    iv = res.iv
+                                    encryptedData = res.encryptedData
                                     avater = JSON.parse(res.rawData)
                                     wx.setStorage({
-                                        key: 'avater',
-                                        data: avater,
+                                      key: 'avater',
+                                      data: avater,
+                                    })
+                                    wx.setStorage({
+                                      key: 'encryptedData',
+                                      data: encryptedData,
+                                    })
+                                    wx.setStorage({
+                                      key: 'iv',
+                                      data: iv,
                                     })
                                 }
                             })
@@ -37,7 +48,9 @@ Page({
                                         data: {
                                             code: res.code,
                                             nickName: avater.nickName,
-                                            headimgurl: avater.avatarUrl
+                                            headimgurl: avater.avatarUrl,
+                                            encryptedData: encryptedData,
+                                            iv: iv
                                         },
                                         method: 'POST',
                                         header: {
@@ -61,7 +74,7 @@ Page({
                                                 // } else {
                                                     
                                                 // }
-                                          wx.navigateTo({
+                                          wx.redirectTo({
                                               url: '../e_home/e_home'
                                             })
                                         }
@@ -89,10 +102,20 @@ Page({
                             wx.getUserInfo({
                                 success: function(res) {
                                     console.log(res)
+                                    iv = res.iv
+                                    encryptedData = res.encryptedData
                                     avater = JSON.parse(res.rawData)
                                     wx.setStorage({
                                         key: 'avater',
                                         data: avater,
+                                    })
+                                    wx.setStorage({
+                                      key: 'encryptedData',
+                                      data: encryptedData,
+                                    })
+                                    wx.setStorage({
+                                      key: 'iv',
+                                      data: iv,
                                     })
                                 }
                             })
@@ -101,7 +124,7 @@ Page({
                                 data: res.code,
                             })
                             if (res.code) {
-                                console.log(1)
+                              console.log(res.iv)
                                 console.log(res.code)
                                 setTimeout(function () {
                                     wx.request({
@@ -109,7 +132,9 @@ Page({
                                         data: {
                                             code: res.code,
                                             nickName: avater.nickName,
-                                            headimgurl: avater.avatarUrl
+                                            headimgurl: avater.avatarUrl,
+                                            encryptedData:encryptedData,
+                                            iv: iv
                                         },
                                         method: 'POST',
                                         header: {
@@ -135,7 +160,7 @@ Page({
                                                 // } else {
 
                                                 // }
-                                                wx.navigateTo({
+                                               wx.redirectTo({
                                                   url: '../e_home/e_home'
                                                 })
                                             }else{

@@ -184,3 +184,11 @@
 <view class='mask' catchtouchmove='true' hidden='{{isvideo}}' catchtap='hidevideo'>
 </view>
 <video class='maskvideo' hidden='{{isvideo}}' src='{{play}}'></video>
+
+<view class='ishe' hidden='{{ishelp}}'>
+  <view class='tis'>
+     <view class='tis-top'>提示</view>
+     <view class='tis-j'>由于小程序限制苹果手机支付，你可前往“娱乐世界”公众号进行支付</view>
+     <view class='tis-know' bindtap='tis'>我知道了</view>
+  </view>
+</view>

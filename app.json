@@ -1,9 +1,9 @@
 {
   "pages": [
     "pages/e_home/e_home",
+    "pages/aaa/aaa",
     "pages/e_upwork/e_upwork",
     "pages/e_division/e_division",
-    "pages/aaa/aaa",
     "pages/e_top/e_top",
     "pages/e_hot/e_hot",
     "pages/e_help/e_help",
@@ -15,7 +15,8 @@
     "pages/e_artist/e_artist",
     "pages/e_etop/e_etop",
     "pages/e_online/e_online",
-    "pages/e_serviceAgree/e_serviceAgree"
+    "pages/e_serviceAgree/e_serviceAgree",
+    "pages/login/login"
   ],
   "window": {
     "backgroundTextStyle": "light",

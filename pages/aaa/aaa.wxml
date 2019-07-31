@@ -1,1 +1,2 @@
- <view class='pric {{item.istrue?"active":""}}'    data-istrue='{{item.istrue}}'  data-price='{{item.name}}' bindtap='chact' data-index='{{index}}' wx:for="{{tag}}" >￥{{item.name}}元</view>
+ <!-- <view class='pric {{item.istrue?"active":""}}'    data-istrue='{{item.istrue}}'  data-price='{{item.name}}' bindtap='chact' data-index='{{index}}' wx:for="{{tag}}" >￥{{item.name}}元</view> -->
+

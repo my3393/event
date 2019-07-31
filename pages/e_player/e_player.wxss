@@ -486,3 +486,34 @@ height:75rpx;
     transform: translate(-50%,-50%)  !important;
     z-index: 9999 !important;
 }
+.ishe{
+   width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.2);
+    z-index: 12;
+}
+.tis{
+ 	width: calc(100% - 200rpx);
+   background: #fff;
+   text-align: center;
+   position: absolute;
+   top: 40%;
+   left: 50%;
+   transform: translate(-50%,-50%)
+}
+.tis-top{
+  line-height: 70rpx;
+  font-size: 24rpx;
+}
+.tis-j{
+  padding: 20rpx;
+  box-sizing: border-box;
+}
+.tis-know{
+  width: 100%;
+  border-top: 1rpx solid #f2f2f2;
+  line-height: 75rpx;
+}

@@ -248,7 +248,10 @@ Page({
    */
   onShareAppMessage: function () {
     console.log(wx.getStorageSync("userinfo").is_actor)
-   
+    return {
+      title: '艺赛联盟',
+      path: '/pages/e_home/e_home'
+    }
   },
   choosefee: function (e) {
     console.log(e)

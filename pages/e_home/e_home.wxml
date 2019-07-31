@@ -3,7 +3,7 @@
   <view class='h-ckeii'>发布</view>
 </view>
 <view class='eve'>
-<view class='event' wx:for='{{detail}}' bindtap='trun' data-type='{{item.competitionType}}'
+<view class='event' wx:for='{{detail}}' wx:key='{{index}}' bindtap='trun' data-type='{{item.competitionType}}'
    data-id='{{item.id}}'>
     <view class='event-head'> <image src='{{item.competitionLogoOssPath}}'></image> </view>
     <view class='hotm'>{{item.competitionTitle}}</view>

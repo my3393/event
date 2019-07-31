@@ -133,56 +133,70 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-
+    return {
+      title: '艺赛联盟',
+      path: '/pages/e_home/e_home'
+    }
   },
   getdetail:function(e){
     var that = this;
     console.log(wx.getStorageSync('etoken'))
-    wx.request({
-      url: app.data.urlmall + "/appcompetition/homelist.do",
-      data: {
-        currentPage: that.data.currentPage,
-        token:wx.getStorageSync('etoken')
-      },
-      method: 'POST',
-      header: {
-        'content-type': 'application/x-www-form-urlencoded'
-      },
-      dataType: 'json',
-      success: function (res) {
-        console.log(res.data.data)
-        if (res.data.status === 100) {
-          for (var i in res.data.data.data) {
-            
-            var date = Date.parse(new Date())
-            var endDatas = Date.parse(res.data.data.data[i].endDate)
-            var startDatas = Date.parse(res.data.data.data[i].startDate)
-            var t2 = date - endDatas;
-            var t1 = date - startDatas;
-            if(t1 < 0){
-              res.data.data.data[i].isshow = 1
-            }else if(t1 > 0 && t2 < 0){
-              res.data.data.data[i].isshow = 2
-            } else if ( t2 > 0) {
-              res.data.data.data[i].isshow = 3
-             
+    if (!wx.getStorageSync('etoken')){
+      wx.redirectTo({
+        url: '/pages/login/login',
+      })
+    }else{
+      wx.request({
+        url: app.data.urlmall + "/appcompetition/homelist.do",
+        data: {
+          currentPage: that.data.currentPage,
+          token: wx.getStorageSync('etoken')
+        },
+        method: 'POST',
+        header: {
+          'content-type': 'application/x-www-form-urlencoded'
+        },
+        dataType: 'json',
+        success: function (res) {
+          console.log(res.data.data)
+          if (res.data.status === 100) {
+            for (var i in res.data.data.data) {
+
+              var date = Date.parse(new Date())
+              var endDatas = Date.parse(res.data.data.data[i].endDate)
+              var startDatas = Date.parse(res.data.data.data[i].startDate)
+              var t2 = date - endDatas;
+              var t1 = date - startDatas;
+              if (t1 < 0) {
+                res.data.data.data[i].isshow = 1
+              } else if (t1 > 0 && t2 < 0) {
+                res.data.data.data[i].isshow = 2
+              } else if (t2 > 0) {
+                res.data.data.data[i].isshow = 3
+
+              }
+              detail.push(res.data.data.data[i])
             }
-            detail.push(res.data.data.data[i])
+
+            that.setData({
+              detail: detail,
+              totalPage: res.data.data.totalPage
+            })
+            console.log(that.data.endDatas)
+          } else if (res.data.status === 103) {
+            wx.redirectTo({
+              url: '/pages/login/login',
+            })
+
+          } else {
+            wx.showToast({
+              title: res.data.msg,
+              icon: 'none'
+            })
           }
-         
-          that.setData({
-            detail: detail,
-            totalPage: res.data.data.totalPage
-          })
-          console.log(that.data.endDatas)
-        } else {
-          wx.showToast({
-            title: res.data.msg,
-            icon: 'none'
-          })
         }
-      }
-    })
+      })
+    }
   },
   sumb:function(e){
     wx.navigateTo({
