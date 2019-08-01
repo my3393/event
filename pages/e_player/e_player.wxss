@@ -159,6 +159,9 @@ page{
 .subm{
 	color: #F861AA;
 }
+.jiez{
+  color: #ccc;
+}
 .xie{
 	display: inline-block;
     width: 2rpx;

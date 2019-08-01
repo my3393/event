@@ -2,9 +2,6 @@
  <view wx:if='{{detail.isLive == 1}}'>
   <live-player id='player' class='banner' bindtap='bindfull' src="{{detail.tomliveUrl}}"   mode="RTC" autoplay='flase' bindstatechange="statechange" binderror="error"  />
  
- <view>
-  
-  </view>
  </view>
   
 <view wx:else>
@@ -89,6 +86,7 @@
     </view>
   </view>
   <view class='sai-time'>{{detail.seasonName}}时间：{{seasonStartDate}}~{{seaEndtDate}}</view>
+  <view class='' wx:if='{{competitionType == 1}}'>获奖人数 ： {{qualifiedNumber}} 名</view>
 </view>
 <view class='navs'>
   <view class='nav-list' wx:if='{{competitionType == 2}}'>
@@ -337,7 +335,7 @@
           <view wx:if='{{isSearch == false}}' >
             <view class='baodc' wx:if='{{players.length == 0}}'>还没人参加快去试试~</view>
             <view wx:else>
-              <view class='player clearfix' wx:for='{{players}}' id='{{item.id}}' bindtap='detail' data-saiid='{{id}}'>
+              <view class='player clearfix' wx:for='{{players}}' id='{{item.id}}' bindtap='detail'data- data-saiid='{{id}}'>
                 <view class='playhead'>
                   <image src='{{item.headPhotoOssPath}}'></image>
                 </view>

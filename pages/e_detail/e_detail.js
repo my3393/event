@@ -935,6 +935,12 @@ Page({
             title: '感谢你宝贵的一票',
             icon:'none'
           })
+          play=[];
+          that.setData({
+            players:[]
+          })
+          that.getplayer();
+          that.getdetail();
         } else if (res.data.status === 101){
           wx.showToast({
             title: '投票已上限，请明天再来吧',
@@ -950,8 +956,24 @@ Page({
     })
   },
   help:function(e){
-    wx.navigateTo({
-      url: '../e_help/e_help?id=' + e.currentTarget.id,
+    var that = this;
+    wx.getSystemInfo({
+      success: function (res) {
+        that.setData({
+          systemInfo: res,
+        })
+        if (res.platform == "ios") {
+          that.setData({
+            ishelp: !that.data.ishelp
+          })
+          console.log('IOS')
+        } else {
+          wx.navigateTo({
+            url: '../e_help/e_help?id=' + that.data.id,
+          })
+
+        }
+      }
     })
   },
   //搜索
@@ -1050,7 +1072,7 @@ Page({
      });
     if (usid == bcode) {
       wx.showToast({
-        title: '你以报名',
+        title: '该赛事你已报名，去看看别的赛事吧',
         icon: 'none'
       })
     } else {

@@ -156,9 +156,17 @@ Page({
   pric: function (e) {
     var that = this;
     console.log(e)
-    that.setData({
-      price: e.detail.value
-    })
+    if (e.detail.value == 0){
+      wx.showToast({
+        title: '金额需大于0',
+        icon:'none'
+      })
+    }else{
+      that.setData({
+        price: e.detail.value
+      })
+    }
+    
   },
   pay: function () {
     var that = this;

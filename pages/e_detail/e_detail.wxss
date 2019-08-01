@@ -495,7 +495,7 @@ color: #F861AA;
 	position:absolute;
   width: calc(100% - 40rpx);
   right:20rpx;
-	top: 25%;
+	top: 36%;
   background: #fff;
   padding: 20rpx 0;
   padding-bottom: 40rpx;

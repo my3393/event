@@ -169,7 +169,8 @@
 				<view bindtap='sai'>查看赛事
 				      <view class="xie"></view> 
 				</view>
-				<view class="subm" bindtap='subm'>我要报名</view>
+				<view class="subm" bindtap='subm' wx:if='{{event.status == 0}}'>我要报名</view>
+        <view class="jiez"  wx:else>报名截止</view>
 	</view>
 
 

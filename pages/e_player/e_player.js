@@ -2,6 +2,7 @@
 var app = getApp();
 var list= [];
 var bcode;
+var usid;
 Page({
 
   /**
@@ -34,7 +35,7 @@ Page({
     text:'',
     systemInfo:'',
     ishelp:true,
-
+    players:[]
   },
 
   /**
@@ -52,6 +53,7 @@ Page({
       this.getvote();
       this.getphoto();
       this.getvideo();
+      this.getplayer();
   },
 
   /**
@@ -82,6 +84,7 @@ Page({
         console.log(bcode)
       },
     })
+   
   },
 
   /**
@@ -113,7 +116,31 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
+    // wx.showNavigationBarLoading() //在标题栏中显示加载
+    wx.showToast({
+      title: '刷新中',
+      icon: "none"
+    })
+    var that = this;
+    //模拟加载
+     list=[];
+    setTimeout(function () {
+    
+      that.setData({
+        detail: [],
+        votelist: [],
+        refue: [],
+        videos:[],
+      })
+      that.getdetail();
+      that.getvote();
+      that.getrefue();
+      that.getvideo();
+      // complete
+      wx.hideNavigationBarLoading() //完成停止加载
+      wx.stopPullDownRefresh() //停止下拉刷新
 
+    }, 1000);
   },
 
   /**
@@ -139,38 +166,17 @@ Page({
    */
   onShareAppMessage: function () {
     var that = this;
-      return {
-        title: '我是' + that.data.detail.playerNumber + '号' + that.data.detail.userName + '我正在参加' + that.data.text + '快来投我一票吧' ,
+      var abc = {
+        title: '我是' + that.data.detail.playerNumber + '号' + that.data.detail.userName + '我正在参加' + that.data.text + ',快来投我一票吧' ,
         path: '/pages/e_home/e_home?playId=' + that.data.id + '&saiId=' + that.data.saiId,
         success: function (res) {
           // 转发成功
+          console.log(res)
           wx.showToast({
             title: '转发成功',
 
           })
-          wx.request({
-            url: app.data.urlmall + "/apppcompetitionplayer/addforward.do",
-            data: {
-              id: that.data.id,
-              token: wx.getStorageSync('etoken')
-            },
-            method: 'POST',
-            header: {
-              'content-type': 'application/x-www-form-urlencoded'
-            },
-            dataType: 'json',
-            success: function (res) {
-              console.log(res.data.data)
-              if (res.data.status === 100) {
-               
-              } else {
-                wx.showToast({
-                  title: res.data.msg,
-                  icon: 'none'
-                })
-              }
-            }
-          })
+          
         },
         fail: function (res) {
           // 转发失败
@@ -179,7 +185,30 @@ Page({
             icon : 'none'
           })
         }
-      }     
+      }  
+    wx.request({
+      url: app.data.urlmall + "/apppcompetitionplayer/addforward.do",
+      data: {
+        id: that.data.id,
+        token: wx.getStorageSync('etoken')
+      },
+      method: 'POST',
+      header: {
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+      dataType: 'json',
+      success: function (res) {
+        console.log(res.data.data)
+        if (res.data.status === 100) {
+
+        } else {
+          wx.showToast({
+            title: res.data.msg,
+            icon: 'none'
+          })
+        }
+      }
+    })   
   },
   //照片作品切换
   tag: function (e) {
@@ -218,6 +247,37 @@ Page({
     that.setData({
       isvideo: !that.data.isvideo,
       play: e.currentTarget.dataset.src
+    })
+  },
+  getplayer: function (e) {
+    var that = this;
+    wx.request({
+      url: app.data.urlmall + "/apppcompetitionplayer/playerlist.do",
+      data: {
+        id: that.data.id,
+        token: wx.getStorageSync('etoken'),
+        competitionAreaId: that.data.saiId
+      },
+      method: 'POST',
+      header: {
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+      dataType: 'json',
+      success: function (res) {
+        console.log(res.data.data)
+        if (res.data.status === 100) {
+          that.setData({
+            players: res.data.data.data,
+           
+          })
+
+        } else {
+          wx.showToast({
+            title: res.data.msg,
+            icon: 'none'
+          })
+        }
+      }
     })
   },
   //详情
@@ -279,7 +339,8 @@ Page({
         console.log(res.data.data)
         if (res.data.status === 100) {
            that.setData({
-             text: res.data.data.competitionTitle
+             text: res.data.data.competitionTitle,
+             event:res.data.data
            })
         } else {
           wx.showToast({
@@ -442,6 +503,8 @@ Page({
             title: '感谢你宝贵的一票',
             icon: 'none'
           })
+          that.getdetail();
+          that.getvote();
         } else if (res.data.status === 101) {
           wx.showToast({
             title: '你已投票，请明天再来吧',
@@ -516,8 +579,22 @@ Page({
   },
   //报名
   subm: function (e) {
-    wx.navigateTo({
-      url: '../e_division/e_division?id=' + this.data.saiId,
-    })
+    var that = this;
+    that.data.players.find(item => {
+      usid = item.userId
+      console.log(usid)
+    });
+    
+    if (usid == bcode) {
+      wx.showToast({
+        title: '该赛事你已报名，去看看别的赛事吧',
+        icon: 'none'
+      })
+    } else {
+      wx.navigateTo({
+        url: '../e_division/e_division?id=' + this.data.saiId,
+      })
+    }
+    
   },
 })
