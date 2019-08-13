@@ -1,0 +1,43 @@
+<view class="top">
+  <image src='../../images/banner.png'></image>
+</view>
+<view id="nav">
+  <view class="titl">
+    本次活动邀请的助阵艺人
+  </view>
+  <view class="list">
+    <view class="nav-list">
+      <view class="list-img">
+        <image src='../../images/head.jpg'></image>
+      </view>
+      <view class="list-name">
+        没我可
+      </view>
+      <view class="list-bi">
+        歌手，艺人
+      </view>
+    </view>
+    <view class="nav-list">
+      <view class="list-img">
+         <image src='../../images/head.jpg'></image>
+      </view>
+      <view class="list-name">
+        没我可
+      </view>
+      <view class="list-bi">
+        歌手，艺人
+      </view>
+    </view>
+    <view class="nav-list">
+      <view class="list-img">
+         <image src='../../images/head.jpg'></image>
+      </view>
+      <view class="list-name">
+        没我可
+      </view>
+      <view class="list-bi">
+        歌手，艺人
+      </view>
+    </view>
+  </view>
+</view>

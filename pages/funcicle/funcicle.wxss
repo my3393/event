@@ -1,0 +1,231 @@
+/* pages/funcicle/funcicle.wxss */
+
+.tlebels{
+    width: 100%;
+    background-color: white;
+    overflow: scroll;
+    -webkit-overflow-scrolling: touch;
+    white-space: nowrap;
+    padding: 0 20rpx;
+    font-size: 0;
+    box-sizing: border-box;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 999;
+}
+.tlebels view{
+    display: inline-block;
+    line-height: 96rpx;
+    margin-right: 43rpx;
+    font-size: 28rpx;
+    color: #333;
+}
+.active{
+    color: #fe5ba9 !important;
+    font-size: 34rpx !important;
+    border-bottom: 1px solid #fe5ba9;
+}
+.wrap{
+    padding: 0rpx 15rpx 15rpx 15rpx;
+    box-sizing: border-box;
+    margin-top: 50rpx;
+}
+.fitem{
+    width: 100%;
+    height: 498rpx;
+    background-color: white;
+    border-radius: 12rpx;
+    box-shadow: 0 0 5px #afa5a5;
+    overflow: hidden;
+    margin-bottom: 20rpx;
+}
+.zz{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    border-top-left-radius: 12rpx;
+    border-top-right-radius: 12rpx;
+    left: 0;
+    z-index: 99;
+}
+.video{
+    position: relative;
+    height: 400rpx;
+    width: 100%;
+    border-top-left-radius: 12rpx;
+    border-top-right-radius: 12rpx;
+    overflow: hidden;
+}
+.video image{
+    width: 100%;
+    height: 100%;
+}
+.ibottom{
+    width: 100%;
+    padding: 0 20rpx;
+    line-height: 94rpx;
+    box-sizing: border-box;
+}
+.ibottom text{
+    float: left;
+    font-size: 28rpx;
+    color: #333;
+}
+.ibottom view{
+    display: inline-block;
+    font-size: 24rpx;
+    color: #fe5ba9;
+}
+.heat{
+    width: 20rpx;
+    height: 28rpx;
+    position: relative;
+    top: 2rpx;
+    margin-left: 10rpx;
+    margin-right: 10rpx;
+}
+.fhead{
+    width: 60rpx;
+    height: 60rpx;
+    position: relative;
+    overflow: hidden;
+    border-radius: 60rpx;
+    float: left;
+    margin-top: 20rpx;
+    margin-right: 20rpx;
+}
+.fhead image{
+    width: 100%;
+    height: 100%;
+}
+.heats{
+    position: relative;
+    top: -2px;
+}
+.flabel{
+    float: right;
+    color: #808080 !important;
+    font-size: 26rpx !important;
+}
+.searchs{
+    width: calc(100% - 30rpx);
+    margin-left: 15rpx;
+    font-size: 24rpx;
+    border: 1px solid #ddd;
+    border-radius: 64rpx;
+    height: 64rpx;
+    line-height: 64rpx !important;
+    padding: 0 20rpx;
+    box-sizing: border-box;
+}
+.allvideos{
+    margin-top: 120rpx;
+}
+.wraps{
+    margin-top: 120rpx;
+    padding: 15rpx;
+    box-sizing: border-box;
+    background-color: #f0f0f0;
+}
+.fuitem{
+    width: 100%;
+    padding: 50rpx 20rpx;
+    background-color: white;
+    box-sizing: border-box;
+    margin-bottom: 15rpx;
+    border-radius: 12rpx;
+    box-shadow: 0 0 5px #afa5a5;
+}
+.fuitem:last-child{
+    margin-bottom: 0;
+}
+.fuheadimg{
+    width: 80rpx;
+    height: 80rpx;
+    overflow: hidden;
+    border-radius: 80rpx;
+    float: left;
+    margin-right: 12rpx;
+}
+.fuheadimg image{
+    width: 100%;
+    height: 100%;
+}
+.firstrow{
+    font-size: 28rpx;
+    color: #333;
+    letter-spacing: 2rpx;
+}
+.firstrow view{
+    display: inline-block;
+    background-color: #fe5ba9;
+    color: white;
+    font-size: 20rpx;
+    padding: 5rpx 10rpx;
+    border-radius: 6rpx;
+    box-sizing: border-box;
+}
+.firstrow image{
+    width: 15rpx;
+    height: 23rpx;
+    margin-left: 15rpx;
+    margin-right: 15rpx;
+}
+.firstrow text{
+    font-size: 24rpx;
+}
+.secondrow{
+    font-size: 24rpx;
+    color: #999;
+    margin-top: 6rpx;
+    margin-bottom: 60rpx;
+}
+.mains{
+    overflow: scroll;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+}
+.mains view{
+    display: inline-block;
+    width: 220rpx;
+    height: 220rpx;
+    margin-right: 10rpx;
+    
+}
+.mains view image{
+    width: 220rpx;
+    height: 220rpx;
+}
+
+.mask{
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.2);
+    z-index: 999;
+    /* display: none;  */
+}
+.maskvideo{
+    width: 100%;
+    position: fixed !important;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%,-50%)  !important;
+    z-index: 9999 !important;
+}
+.kon{
+  width: 100%;
+  text-align: center;
+}
+.konimg{
+  width: 300rpx;
+  height: 225rpx;
+}
+.konimg>image{
+  width: 100%;
+  height: 100%;
+}

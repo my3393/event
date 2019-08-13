@@ -1,0 +1,41 @@
+<!--pages/fucicle_detail/fucicle_detail.wxml-->
+<video src='{{datas.authorizedVideo}}' poster='{{datas.videoCover}}' objectFit="contain"></video>
+<!-- 个人头像 -->
+<view class='fperson'>
+    <view class='headimg' style='width: 88rpx;height: 88rpx;' wx:if="{{datas.headPhoto == ''}}">
+        <image src='../../images/head.jpg'></image>
+    </view>
+    <view class='headimg' style='width: 88rpx;height: 88rpx;' wx:elif="{{datas.headPhoto == null}}">
+        <image src='../../images/head.jpg'></image>
+    </view>
+    <view class='headimg' style='width: 88rpx;height: 88rpx;' wx:else>
+        <image mode='aspectFill' src='{{datas.headPhoto}}'></image>
+    </view>
+    <view class='pname'>{{datas.userName}}</view>
+    <view class='plabel'>{{datas.labelName}}</view>
+    <!-- 预约按钮 -->
+    <view class='yybtn' bindtap='yuyue'>预约Ta</view>
+</view>
+<!-- detail -->
+<view class='notice-detail'>
+    <text>个人信息</text>
+    <view style='border-bottom: 1px dotted #dddddd;' wx:if="{{datas.artistIntroduce == ''}}">
+        暂无个人信息
+    </view>
+    <view style='border-bottom: 1px dotted #dddddd;' wx:elif="{{datas.artistIntroduce == null}}">
+        暂无个人信息
+    </view>
+    <view style='border-bottom: 1px dotted #dddddd;' wx:else>
+        {{datas.artistIntroduce}}
+    </view>
+    <text style='margin-top: 50rpx;'>个人作品</text>
+    <view wx:if="{{datas.workDisplay == null}}">
+        暂无个人作品
+    </view>
+    <view wx:elif="{{datas.workDisplay == ''}}">
+        暂无个人作品
+    </view>
+    <view wx:else>
+        {{datas.workDisplay}}    
+    </view>
+</view>

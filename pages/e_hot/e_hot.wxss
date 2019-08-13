@@ -47,7 +47,7 @@ page{
 .instrtu{
   margin-top: 20rpx;
   width: 100%;
-  height: 300rpx;
+  height: 350rpx;
   margin-bottom: 20rpx;
 }
 .instrtu image{
@@ -56,7 +56,6 @@ page{
 }
 .inpu{
   margin-top: 20rpx;
- 
 }
 .inp{
   display: inline-block;

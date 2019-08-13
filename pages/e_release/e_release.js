@@ -21,7 +21,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    artist_type: "请选择赛事类型",
+    artist_type: '',
     posters: '../../images/chuan_03.png',
     postersies: '../../images/chuan_03.png',
     post:'../../images/upimg.png',
@@ -320,6 +320,7 @@ Page({
     var that = this;
     const idx = e.target.dataset.idx
     const images = that.data.imgs
+    console.log(simages[idx])
     wx.previewImage({
       current: images[idx],  //当前预览的图片
       urls: images,  //所有要预览的图片

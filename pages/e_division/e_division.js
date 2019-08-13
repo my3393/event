@@ -14,6 +14,7 @@ Page({
     pay:'',
     is_actor:'',
     art:'',
+    issai:false,
   },
 
   /**
@@ -55,6 +56,7 @@ Page({
         }
       }
     })
+   
   },
 
   /**
@@ -84,14 +86,18 @@ Page({
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
-
+     this.setData({
+       issai:false,
+     })
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
-
+    this.setData({
+      issai: false,
+    })
   },
 
   /**
@@ -128,78 +134,63 @@ Page({
   //提交
   submit:function(e){
     var that = this;
+        //  wx.showToast({
+        //   title: '由于相关规范，ios功能暂不可用',
+        //   icon:'none'
+        //  })
+
     console.log(that.data.is_actor)
     if(that.data.id == ''){
        wx.showToast({
          title: '请选择赛区',
          icon:'none'
        })
-    }else if (that.data.is_actor == 2) {
-      if (that.data.art == 0) {
-        wx.request({
-          url: app.data.urlmall + "/apppcompetitionsignup/artistjoin.do",
-          data: {
-            id: that.data.id,
-            token: wx.getStorageSync('etoken')
-          },
-          method: 'POST',
-          header: {
-            'content-type': 'application/x-www-form-urlencoded'
-          },
-          dataType: 'json',
-          success: function (res) {
-            console.log(res.data.data)
-            if (res.data.status === 100) {
-              wx.showToast({
-                title: '报名成功',
-              })
-              var pages = getCurrentPages();//当前页面栈
-              if (pages.length > 1) {
-                var beforePage = pages[pages.length - 2];//获取上一个页面实例对象
-                var currPage = pages[pages.length - 1]; // 当前页面，若不对当前页面进行操作，可省去
-                // beforePage.setData({       //如果需要传参，可直接修改A页面的数据，若不需要，则可省去这一步
-                //   id: res.data.data
-                // })
-                beforePage.changeData();//触发父页面中的方法
-              }
-              wx.navigateBack({
-                delta: 1
-              })
-            } else {
-              wx.showToast({
-                title: res.data.msg,
-                icon: 'none'
-              })
-            }
+    } else{
+      wx.request({
+        url: app.data.urlmall + "/apppcompetitionsignup/isjoin.do",
+        data: {
+          id: that.data.id,
+          token: wx.getStorageSync('etoken')
+        },
+        method: 'POST',
+        header: {
+          'content-type': 'application/x-www-form-urlencoded'
+        },
+        dataType: 'json',
+        success: function (res) {
+          console.log(res.data.data)
+          if (res.data.status === 100) {
+            that.setData({
+              issai:!that.data.issai
+            })
+           
+          }else{
+            wx.showToast({
+              title: res.data.msg,
+              icon: 'none'
+            }) 
           }
-        })
-      } else {
-        wx.request({
-          url: app.data.urlmall + "/apppcompetitionsignup/artistjoin/xcxpay.do",
-          data: {
-            id: that.data.id,
-            token: wx.getStorageSync('etoken')
-          },
-          method: 'POST',
-          header: {
-            'content-type': 'application/x-www-form-urlencoded'
-          },
-          dataType: 'json',
-          success: function (res) {
-            console.log(res.data.data)
-            if (res.data.status === 100) {
-              wx.requestPayment({
-                timeStamp: res.data.data.sign.timeStamp,
-                nonceStr: res.data.data.sign.nonceStr,
-                package: res.data.data.sign.package,
-                signType: 'MD5',
-                paySign: res.data.data.sign.paySign,
-                success(res) {
+        }
+      })
+      if(that.data.issai == true){
+        if (that.data.is_actor == 2) {
+          if (that.data.art == 0) {
+            wx.request({
+              url: app.data.urlmall + "/apppcompetitionsignup/artistjoin.do",
+              data: {
+                id: that.data.id,
+                token: wx.getStorageSync('etoken')
+              },
+              method: 'POST',
+              header: {
+                'content-type': 'application/x-www-form-urlencoded'
+              },
+              dataType: 'json',
+              success: function (res) {
+                console.log(res.data.data)
+                if (res.data.status === 100) {
                   wx.showToast({
                     title: '报名成功',
-                    icon: 'none',
-                    duration: 1000
-                    
                   })
                   var pages = getCurrentPages();//当前页面栈
                   if (pages.length > 1) {
@@ -213,32 +204,80 @@ Page({
                   wx.navigateBack({
                     delta: 1
                   })
-                },
-                fail(res) {
+                } else {
                   wx.showToast({
-                    title: '支付失败',
-                    icon: 'none',
-                    duration: 1000
+                    title: res.data.msg,
+                    icon: 'none'
                   })
                 }
-              })
+              }
+            })
+          } else {
+            wx.request({
+              url: app.data.urlmall + "/apppcompetitionsignup/artistjoin/xcxpay.do",
+              data: {
+                id: that.data.id,
+                token: wx.getStorageSync('etoken')
+              },
+              method: 'POST',
+              header: {
+                'content-type': 'application/x-www-form-urlencoded'
+              },
+              dataType: 'json',
+              success: function (res) {
+                console.log(res.data.data)
+                if (res.data.status === 100) {
+                  wx.requestPayment({
+                    timeStamp: res.data.data.sign.timeStamp,
+                    nonceStr: res.data.data.sign.nonceStr,
+                    package: res.data.data.sign.package,
+                    signType: 'MD5',
+                    paySign: res.data.data.sign.paySign,
+                    success(res) {
+                      wx.showToast({
+                        title: '报名成功',
+                        icon: 'none',
+                        duration: 1000
 
-
-            } else {
-              wx.showToast({
-                title: res.data.msg,
-                icon: 'none'
-              })
-            }
+                      })
+                      var pages = getCurrentPages();//当前页面栈
+                      if (pages.length > 1) {
+                        var beforePage = pages[pages.length - 2];//获取上一个页面实例对象
+                        var currPage = pages[pages.length - 1]; // 当前页面，若不对当前页面进行操作，可省去
+                        // beforePage.setData({       //如果需要传参，可直接修改A页面的数据，若不需要，则可省去这一步
+                        //   id: res.data.data
+                        // })
+                        beforePage.changeData();//触发父页面中的方法
+                      }
+                      wx.navigateBack({
+                        delta: 1
+                      })
+                    },
+                    fail(res) {
+                      wx.showToast({
+                        title: '支付失败',
+                        icon: 'none',
+                        duration: 1000
+                      })
+                    }
+                  })
+                } else {
+                  wx.showToast({
+                    title: res.data.msg,
+                    icon: 'none'
+                  })
+                }
+              }
+            })
           }
-        })
+        } else {
+          this.setData({
+            isart: !that.data.isart
+          })
+
+        }
       }
-
-    }else {
-      this.setData({
-        isart: !that.data.isart
-      })
-
+      
     }
   },
   //报名弹窗

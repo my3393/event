@@ -1,33 +1,39 @@
-<view class='h-top' bindtap='sumb'>
-  <view class='h-fb'><image src='../../images/fb-2.png'></image></view>
-  <view class='h-ckeii'>发布</view>
-</view>
-<view class='eve'>
-<view class='event' wx:for='{{detail}}' wx:key='{{index}}' bindtap='trun' data-type='{{item.competitionType}}'
-   data-id='{{item.id}}'>
-    <view class='event-head'> <image src='{{item.competitionLogoOssPath}}'></image> </view>
-    <view class='hotm'>{{item.competitionTitle}}</view>
-    <view class='hotm'>  
-      <view class='hotname'>
-          <view class='hotre'> <image src='../../images/din.png'></image> </view>
-          <text>{{item.cityName}}</text>
-      </view>
-      <view class='hot' wx:if='{{item.status == 0}}'>
-          
-         <text class='sta'>报名中</text>
-      </view>
-      <view class='hot' wx:if='{{item.status == 1}}'>
-         <view class='hotre'> <image src='../../images/hot.png'></image> </view>
-         <text>火热进行中</text>
-      </view>
-      <view class='hot' wx:if='{{item.status == 2}}'>
-         
-         <text class='end'>已结束</text>
-      </view>
-    </view>
-</view>
-</view>
 
-<!-- 发布 -->
+
+<!-- 艺赛联盟 -->
+
+<view class='one'>
+  <view class='h-top' bindtap='sumb'>
+    <view class='h-fb'><image src='../../images/fb-2.png'></image></view>
+    <view class='h-ckeii'>发布</view>
+  </view>
+  <view class='eve'>
+    <view class='event' wx:for='{{detail}}' wx:key='{{index}}' bindtap='trun' data-type='{{item.competitionType}}'
+      data-id='{{item.id}}'>
+        <view class='event-head'> <image src='{{item.competitionLogoOssPath}}'></image> </view>
+        <view class='hotm'>{{item.competitionTitle}}</view>
+        <view class='hotm'>  
+          <view class='hotname'>
+              <view class='hotre'> <image src='../../images/din.png'></image> </view>
+              <text>{{item.cityName}}</text>
+          </view>
+          <view class='hot' wx:if='{{item.status == 0}}'>
+              
+            <text class='sta'>报名中</text>
+          </view>
+          <view class='hot' wx:if='{{item.status == 1}}'>
+            <view class='hotre'> <image src='../../images/hot.png'></image> </view>
+            <text>火热进行中</text>
+          </view>
+          <view class='hot' wx:if='{{item.status == 2}}'>
+            
+            <text class='end'>已结束</text>
+          </view>
+        </view>
+    </view>
+  </view>
+</view>
+<!-- 娱乐世界 -->
+
 
 

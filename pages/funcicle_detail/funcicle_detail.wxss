@@ -1,0 +1,63 @@
+/* pages/fucicle_detail/fucicle_detail.wxss */
+.notice-detail{
+    padding: 40rpx;
+    background-color: white;   
+}
+.notice-detail text{
+    display: block;
+    font-size: 28rpx;
+    color: #333333;
+    margin-bottom: 50rpx;
+}
+.notice-detail view{
+    font-size: 26rpx;
+    color: #808080;
+    letter-spacing: 2rpx;
+    line-height: 40rpx;
+    padding-bottom: 30rpx;
+    box-sizing: border-box;
+}
+
+page{
+    background-color: #f0f0f0;
+}
+video{
+    width: 100%;
+    height: 450rpx;
+    background-color: white;
+}
+.fperson{
+    width: 100%;
+    height: 140rpx;
+    background-color: white;
+    padding: 26rpx 21rpx;
+    box-sizing: border-box;
+    position: relative;
+    margin-bottom: 20rpx;
+}
+.pname{
+    font-size: 28rpx;
+    margin-top: 5rpx;
+    color: #333333;
+}
+.plabel{
+    font-size: 24rpx;
+    color: #808080;
+    margin-top: 10rpx;
+}
+.yybtn{
+    width: 180rpx;
+    line-height: 58rpx;
+    border: 1px solid #fe5ba8;
+    color: #fe5ba8;
+    border-radius: 6rpx;
+    text-align: center;
+    position: absolute;
+    right: 21rpx;
+    top: 41rpx;
+    font-size: 24rpx;
+}
+.yybtn:active{
+    background-color: #fe5ba8;
+    color: white !important;
+}

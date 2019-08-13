@@ -435,7 +435,6 @@ color: #F861AA;
   display: inline-block;
   line-height: 47rpx;
   text-align: center;
-  width: 96rpx;
   height: 47rpx;
   background: #F861AA;
   color: #fff;
@@ -495,7 +494,7 @@ color: #F861AA;
 	position:absolute;
   width: calc(100% - 40rpx);
   right:20rpx;
-	top: 25%;
+	top: 36%;
   background: #fff;
   padding: 20rpx 0;
   padding-bottom: 40rpx;
@@ -553,4 +552,36 @@ color: #F861AA;
 }
 .dis{
   display: inline-block;
+}
+
+.ishe{
+   width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.2);
+    z-index: 12;
+}
+.tis{
+ 	width: calc(100% - 200rpx);
+   background: #fff;
+   text-align: center;
+   position: absolute;
+   top: 40%;
+   left: 50%;
+   transform: translate(-50%,-50%)
+}
+.tis-top{
+  line-height: 70rpx;
+  font-size: 24rpx;
+}
+.tis-j{
+  padding: 20rpx;
+  box-sizing: border-box;
+}
+.tis-know{
+  width: 100%;
+  border-top: 1rpx solid #f2f2f2;
+  line-height: 75rpx;
 }

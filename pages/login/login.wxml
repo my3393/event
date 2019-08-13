@@ -1,6 +1,6 @@
 <!--pages/login/login.wxml-->
 
-<image src='../../images/loginbgs.png' class='logos'></image>
+<image src='../../images/loginbg.png' class='logos'></image>
 <view class='titles'>申请获得以下权限</view>
 <view class='stipss'>·获得您的公开信息(昵称、头像等)</view>
 <!-- 需要使用 button 来授权登录 -->
@@ -8,6 +8,7 @@
   wx:if="{{canIUse}}"
   open-type="getUserInfo"
   bindgetuserinfo="bindGetUserInfo"
+ 
 >
   授权登录
 </button>

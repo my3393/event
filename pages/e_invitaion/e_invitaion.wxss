@@ -1,0 +1,49 @@
+/* pages/e_invitaion/e_invitaion.wxss */
+page{
+  background: #f2f2f2;
+}
+.top{
+	width: 100%;
+	height: 360rpx;
+}
+.top image{
+	width: 100%;
+	height: 100%;
+}
+#nav{
+	width: 100%;
+}
+.titl{
+	width: 100%;
+	text-align: center;
+	margin: 20rpx 0;
+	box-sizing: border-box;
+	font-size: 32rpx;
+	font-weight: 700;
+}
+.nav-list{
+	width: calc((100% - 60rpx)/2);
+	background: #FFFFFF;
+	margin-left: 20rpx;
+	text-align: center;
+	float: left;
+	margin-top: 20rpx;
+}
+.list-img{
+	width: 100%;
+	height: 340rpx;
+}
+.list-img image{
+	width: 100%;
+	height: 100%;
+}
+.list-name{
+	font-size: 30rpx;
+	color: #000000;
+	margin: 12rpx 0;
+	box-sizing: border-box;
+}
+.list-bi{
+	padding-bottom: 12rpx;
+	box-sizing: border-box;
+}

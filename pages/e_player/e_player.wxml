@@ -1,7 +1,7 @@
 <view class="nwrap">
 					<view class="ntops">
 						{{detail.playerNumber}}号     {{detail.userName}}
-						<text bindtap='online' id='{{id}}' hidden='{{is_actor == 2}}'>预约TA</text>
+						<text bindtap='online' id='{{id}}' >预约TA</text>
 					</view>
 					<view class="contents">
 					我正在参加{{text}} {{detail.competitionName}}的评选，快投我一票吧！
@@ -169,7 +169,8 @@
 				<view bindtap='sai'>查看赛事
 				      <view class="xie"></view> 
 				</view>
-				<view class="subm" bindtap='subm'>我要报名</view>
+				<view class="subm" bindtap='subm' wx:if='{{event.status == 0}}'>我要报名</view>
+        <view class="jiez"  wx:else>报名截止</view>
 	</view>
 
 
@@ -188,7 +189,7 @@
 <view class='ishe' hidden='{{ishelp}}'>
   <view class='tis'>
      <view class='tis-top'>提示</view>
-     <view class='tis-j'>由于小程序限制苹果手机支付，你可前往“娱乐世界”公众号进行支付</view>
+     <view class='tis-j'>由于相关规定，小程序ios功能暂不可用</view>
      <view class='tis-know' bindtap='tis'>我知道了</view>
   </view>
 </view>

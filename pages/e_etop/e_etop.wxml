@@ -38,14 +38,11 @@
 <view class='mark' hidden='{{isshow}}'>
   
   <view class='markron'>
-   <view class='marktop'>艺人置顶说明</view>
-  <view>1. 置顶规则：按被置顶艺人花费的置
-顶总费用，高往低进行排序。</view>     
+   <view class='marktop'>UP+赛事置顶说明</view>
+  <view>1. 置置顶规则：按被置顶的赛事花费的置顶总费用，从高往低进行排序。</view>     
 
-<view>2. 艺人置顶功能在娱乐圈板块各艺人
-列表页均有效。</view>
-<view>3. 置顶服务一旦购买，立即生效，不
-支持退款。</view>
+<view>2. .成功置顶的活动赛事后，可前往“娱乐圈---活动赛事”页面查看。</view>
+<view>3. 置顶服务一旦购买，立即生效，本订单不支持退款。</view>
                         
   </view>
   <view class='close' bindtap='close'><image src='../../images/closed.png'></image> </view>

@@ -140,6 +140,7 @@ Page({
   },
   getdetail:function(e){
     var that = this;
+    var tok = wx.getStorageSync('etoken')
     console.log(wx.getStorageSync('etoken'))
     if (!wx.getStorageSync('etoken')){
       wx.redirectTo({
@@ -209,4 +210,18 @@ Page({
         url: '../e_detail/e_detail?id=' + e.currentTarget.dataset.id,
       })
   },
+  //娱乐世界
+  goylsj:function(){
+    wx.navigateToMiniProgram({
+      appId: 'wxf556b39ee9c934b4',
+      path: 'pages/funcicle/funcicle',
+      extraData: {
+        
+      },
+      envVersion: 'release',
+      success(res) {
+        // 打开成功
+      }
+    })
+  }
 })

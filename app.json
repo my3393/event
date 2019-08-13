@@ -1,6 +1,9 @@
 {
   "pages": [
+    "pages/e_artist/e_artist",
     "pages/e_home/e_home",
+    "pages/funcicle/funcicle",
+    "pages/funcicle_detail/funcicle_detail",
     "pages/aaa/aaa",
     "pages/e_upwork/e_upwork",
     "pages/e_division/e_division",
@@ -12,11 +15,12 @@
     "pages/e_detail/e_detail",
     "pages/index/index",
     "pages/logs/logs",
-    "pages/e_artist/e_artist",
     "pages/e_etop/e_etop",
     "pages/e_online/e_online",
     "pages/e_serviceAgree/e_serviceAgree",
-    "pages/login/login"
+    "pages/login/login",
+    "pages/e_invitaion/e_invitaion",
+    "pages/bindphone/bindphone"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -24,8 +28,32 @@
     "navigationBarTitleText": "艺赛联盟",
     "navigationBarTextStyle": "white"
   },
+  
   "navigateToMiniProgramAppIdList": [
     "wxf556b39ee9c934b4"
   ],
+  "tabBar": {
+    "color": "#808080",
+    "selectedColor": "#fe5ba9",
+    "borderStyle": "white",
+    "list": [
+      {
+        "selectedIconPath": "images/mystar.png",
+        "iconPath": "images/ico-star.png",
+        "pagePath": "pages/e_home/e_home",
+        "text": "赛事联盟"
+      },
+      {
+        "selectedIconPath": "images/ico-entertainment-active.png",
+        "iconPath": "images/ico-entertainment.png",
+        "pagePath": "pages/funcicle/funcicle",
+        "text": "娱乐世界"
+      }
+    ]
+  },
+
   "sitemapLocation": "sitemap.json"
 }
+
+
+  
