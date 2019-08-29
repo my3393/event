@@ -521,15 +521,7 @@ Page({
   },
   //助力
   help: function () {
-    var that = this;
-    // wx.showToast({
-    //   title: '由于相关规定，ios功能暂不可用',
-    //   icon: 'none'
-    // })
-          // wx.navigateTo({
-          //   url: '../e_help/e_help?id=' + that.data.id,
-          // })  
-    
+    var that = this; 
     wx.getSystemInfo({
       success: function (res) {
         that.setData({
@@ -588,13 +580,8 @@ Page({
   //报名
   subm: function (e) {
     var that = this;
-    
-    
-    
       wx.navigateTo({
         url: '../e_division/e_division?id=' + this.data.saiId,
-      })
-    
-    
+      }) 
   },
 })

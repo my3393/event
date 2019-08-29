@@ -11,6 +11,7 @@
 /* 首页 */
 page{
   font-size: 30rpx;
+  --color-primary: #00d8a0;
 }
 
 

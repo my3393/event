@@ -215,7 +215,7 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-    // wx.showNavigationBarLoading() //在标题栏中显示加载
+     wx.showNavigationBarLoading() //在标题栏中显示加载
     wx.showToast({
       title: '刷新中',
       icon: "none"

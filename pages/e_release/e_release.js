@@ -21,6 +21,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    iszhao:true,
     artist_type: '',
     posters: '../../images/chuan_03.png',
     postersies: '../../images/chuan_03.png',
@@ -143,14 +144,18 @@ Page({
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
-
+     
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
-
+    simages = []
+    images = [];
+    this.setData({
+      imgs: []
+    })
   },
 
   /**
@@ -175,6 +180,22 @@ Page({
       title: '艺赛联盟',
       path: '/pages/e_home/e_home'
     }
+  },
+  //删除个人照照片
+  detel: function (e) {
+    var that = this;
+    console.log(e)
+    console.log(that.data.imgs)
+
+
+    simages.splice(e.currentTarget.dataset.index, 1)
+    images.splice(e.currentTarget.dataset.index, 1)
+    that.setData({
+      imgs: images
+    })
+    console.log(that.data.imgs)
+    console.log(simages)
+    console.log(images)
   },
   //企业LOGO
   chooseImage(e) {
@@ -315,7 +336,10 @@ Page({
         })
       }
     })
+
+  
   },
+ 
   handleImagePreview(e) {
     var that = this;
     const idx = e.target.dataset.idx

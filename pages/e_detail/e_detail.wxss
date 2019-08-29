@@ -585,3 +585,12 @@ color: #F861AA;
   border-top: 1rpx solid #f2f2f2;
   line-height: 75rpx;
 }
+.noplay{
+  width: 250rpx;
+  height: 225rpx;
+  display: inline-block;
+}
+.noplay image{
+  width: 100%;
+  height: 100%;
+}

@@ -1,8 +1,8 @@
 {
   "pages": [
-    "pages/e_artist/e_artist",
     "pages/e_home/e_home",
-    "pages/funcicle/funcicle",
+    "pages/e_artist/e_artist",
+    "pages/funcicle/funcicle",   
     "pages/funcicle_detail/funcicle_detail",
     "pages/aaa/aaa",
     "pages/e_upwork/e_upwork",

@@ -11,7 +11,7 @@
         <image class="banner_img" src="{{item}}"></image>
       </swiper-item>
     </block>
-
+   
   </swiper>
 
 </view>
@@ -139,7 +139,10 @@
           </view>
           
           <view wx:if='{{isSearch == false}}' >
-            <view class='baodc' wx:if='{{players.length == 0}}'>还没人参加快去试试~</view>
+            <view class='baodc' wx:if='{{players.length == 0}}'>
+             <view class='noplay'> <image src='../../images/none-work.png'></image>  </view>
+             <view>还没人参加快去试试~</view>
+            </view>
             <view wx:else>
               <view class='player clearfix' wx:for='{{players}}' id='{{item.id}}' bindtap='detail' data-saiid='{{id}}'>
                 <view class='playhead'>
@@ -160,7 +163,10 @@
             </view>
           </view>
           <view wx:else class='oj'>
-            <view class='baodc' wx:if='{{splayer.length == 0}}'>未搜索到该选手!</view>   
+            <view class='baodc' wx:if='{{splayer.length == 0}}'>
+               <view class='noplay'> <image src='../../images/none-work.png'></image>  </view>
+               <view>未搜索到该选手!</view>
+            </view>   
             <view wx:else>
               <view class='player clearfix' wx:for='{{splayer}}' id='{{item.id}}' bindtap='detail'>
                 <view class='playhead'>

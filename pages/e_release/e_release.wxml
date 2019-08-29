@@ -78,8 +78,13 @@
   <view class='jgtx xfcf'>
        <view class='tit'>活动海报（2~5张）</view>
        <view class='dher'>
-           <image wx:for="{{imgs}}" wx:for-index="idx" data-idx="{{idx}}" bindtap="handleImagePreview" src='{{imgs[idx]}}' hidden='{{showimg}}' style='margin-right:20rpx;'></image>
-    <image src='{{post}}' bindtap="chooseImagess" hidden='{{showadd}}'></image>
+        <view class="der"  wx:for="{{imgs}}"  wx:for-index="idx" data-idx="{{idx}}" bindtap="handleImagePreview">
+            <image  src='{{item}}' hidden='{{showimg}}' style='margin-right:20rpx;'></image>
+            <view class="detel" catchtap="detel" id="{{item}}" data-index='{{idx}}'>
+                <image  src="../../images/detel.png" />
+            </view>
+        </view>
+        <image src='{{post}}' bindtap="chooseImagess" hidden='{{showadd}}'></image>
        </view>
   </view>
   <view class='jgtx xfdf'>
