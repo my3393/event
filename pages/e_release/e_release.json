@@ -1,4 +1,8 @@
 {
-  "navigationBarTitleText": "发布活动赛事"
+  "navigationBarTitleText": "发布活动赛事",
+    "usingComponents": {
+      "swiper-out": "../../plugin/swiperout/swiperout",
+      "imgcut": "../../plugin/imgcut/imgcut"
+    }
   
 }

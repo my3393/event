@@ -15,6 +15,8 @@ var photos;
 var ids;
 var names = undefined;
 var moren;
+var url;
+var id
 Page({
 
   /**
@@ -53,6 +55,8 @@ Page({
     sex:'2000',
     typeid:'',
     istext:false,
+    ishidden:false,
+    isshow:true,
   },
 
   /**
@@ -200,44 +204,85 @@ Page({
   //企业LOGO
   chooseImage(e) {
     var that = this;
+    id = e.currentTarget.id,
+    that.setData({
+      isshow: !that.data.isshow,
+      ishidden:!that.data.ishidden
+     })
+  },
+  cut() {
+    var that = this;
+    this.selectComponent('#imgcut').cut().then(r => {
+      // wx.previewImage({
+      //   urls: [r],
+      // })
+      wx.showLoading({
+        title: '上传中',
+      })
+      url = r
+      that.setData({
+        isshow: !that.data.isshow,
+        ishidden: !that.data.ishidden
+      })
+      wx.uploadFile({
+        url: app.data.urlmall + '/appylsjfile/xcxfileprogerssupload.do', // 仅为示例，非真实的接口地址
+        filePath: url,
+        name: 'file',
+        header: {
+          "Content-Type": "multipart/form-data",
+          'accept': 'application/json',
+        },
+        formData: {
+          'token': wx.getStorageSync('etoken')
+        },
+        dataType: 'json',
+        success(res) {
+          let datas = JSON.parse(res.data)
+          console.log(datas)
+
+          wx.showToast({
+            title: '上传成功',
+            icon: 'none'
+          })
+          if (id == 0) {
+            that.setData({
+              posters: datas.data.url
+            })
+            poster = datas.data.fileName;
+          } else if (id == 1) {
+            images.push(datas.data.url)
+            simages.push(datas.data.fileName)
+            // do something
+            console.log(simages)
+            if (simages.length == 5) {
+              that.setData({
+                showadd: !that.data.showadd
+              })
+            }
+            that.setData({
+              imgs: images,
+              showimg: false
+            })
+          }
+        }
+      })
+
+    }).catch(e => {
+      wx.showModal({
+        title: '',
+        content: e.errMsg,
+        showCancel: false
+      })
+    })
+  },
+  chooseimg() {
     wx.chooseImage({
       count: 1,
-      sizeType: ['original', 'compressed'], //可选择原图或压缩后的图片
-      sourceType: ['album', 'camera'], //可选择性开放访问相册、相机
-      success: res => {
-        console.log(res.tempFilePaths[0]);
-        var tempFilePaths = res.tempFilePaths;
-        wx.showLoading();
-        wx.uploadFile({
-          url: app.data.urlmall + '/appylsjfile/xcxfileprogerssupload.do', // 仅为示例，非真实的接口地址
-          filePath: tempFilePaths[0],
-          name: 'file',
-          header: {
-            "Content-Type": "multipart/form-data",
-            'accept': 'application/json',
-          },
-          formData: {
-            'token': wx.getStorageSync('etoken')
-          },
-          dataType: 'json',
-          success(res) { 
-            console.log(res)
-            let datas = JSON.parse(res.data)
-            console.log(datas)
-            poster = datas.data.fileName;
-            console.log(poster)
-            wx.hideLoading();
-            wx.showToast({
-              title: '上传成功',
-              icon:'none'
-            })
-            // do something
-          }
+      success: (res) => {
+        this.setData({
+          src: res.tempFilePaths[0]
         })
-        that.setData({
-          posters: res.tempFilePaths[0]
-        })
-      }
+      },
     })
   },
   //营业执照
@@ -284,71 +329,18 @@ Page({
     })
   },
   //活动海报
-  chooseImagess: function (e) {
-    var that = this;
-    wx.chooseImage({
-      count: 5,
-      sizeType: ['original', 'compressed'], //可选择原图或压缩后的图片
-      sourceType: ['album', 'camera'], //可选择性开放访问相册、相机
-      success: res => {
-        console.log(res.tempFilePaths);
-        var tempFilePaths = res.tempFilePaths;
-        for (var i in tempFilePaths) {
-          images.push(tempFilePaths[i])
-          console.log(1)
-          wx.showLoading();
-          wx.uploadFile({
-            url: app.data.urlmall + '/appylsjfile/xcxfileprogerssupload.do', // 仅为示例，非真实的接口地址
-            filePath: tempFilePaths[i],
-            name: 'file',
-            header: {
-              "Content-Type": "multipart/form-data",
-              'accept': 'application/json',
-            },
-            formData: {
-              'token': wx.getStorageSync('etoken')
-            },
-            dataType: 'json',
-            success(res) {   
-              let datas = JSON.parse(res.data)
-              console.log(datas)
-              wx.hideLoading();
-              wx.showToast({
-                title: '上传成功',
-                icon: 'none'
-              })
-              simages.push(datas.data.fileName)
-              // do something
-              console.log(simages)
-              if (simages.length == 5) {
-                that.setData({
-                  showadd: !that.data.showadd
-                })
-              }
-            }
-          })
-
-
-        }
-        that.setData({
-          imgs: images,
-          showimg: false
-        })
-      }
-    })
-
   
-  },
  
   handleImagePreview(e) {
     var that = this;
-    const idx = e.target.dataset.idx
+    const idx = e.currentTarget.dataset.idx
     const images = that.data.imgs
     console.log(simages[idx])
     wx.previewImage({
       current: images[idx],  //当前预览的图片
       urls: images,  //所有要预览的图片
     })
+   
   },
   //赛事类型
   showlabel: function (e) {
@@ -589,7 +581,7 @@ Page({
     var province_idreg = province_id;
     var city_idreg = city_id;
     var area_idreg = area_id;
-    var town_idreg = town_id;
+    
     var phonetel = /^(((13[0-9]{1})|(15[0-9]{1})|(18[0-9]{1})|(17[0-9]{1}))+\d{8})$/;
     if (simages.length < 2) {
       photos = simages[0];
@@ -615,7 +607,7 @@ Page({
       return false;
     } else if (that.data.posters == '../../images/chuan_03.png') {
       wx.showToast({
-        title: '请上传赛事LOGO',
+        title: '请上传赛事封面',
         icon: 'none',
         duration: 1500
       })
@@ -648,16 +640,7 @@ Page({
         duration: 1500
       })
       return false;
-     }
-    // else if (town_idreg == '') {
-    //   wx.showToast({
-    //     title: '请输入所在街道',
-    //     icon: 'none',
-    //     duration: 1500
-    //   })
-    //   return false;
-    // } 
-      else if (simages.length < 2) {
+     }else if (simages.length < 2) {
       wx.showToast({
         title: '请上传至少两张个人照',
         icon: 'none',

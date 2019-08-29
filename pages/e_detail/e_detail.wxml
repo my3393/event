@@ -86,7 +86,11 @@
     </view>
   </view>
   <view class='sai-time'>{{detail.seasonName}}时间：{{seasonStartDate}}~{{seaEndtDate}}</view>
+
   <view class='sai-time' wx:if='{{competitionType == 1}}'>获奖人数 ： {{qualifiedNumber}} 名</view>
+
+  <!-- <view class='' wx:if='{{competitionType == 1}}'>获奖人数 ： {{qualifiedNumber}} 名</view> -->
+
 </view>
 <view class='navs'>
   <view class='nav-list' wx:if='{{competitionType == 2}}'>

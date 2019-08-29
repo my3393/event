@@ -1,113 +1,115 @@
 <!--pages/e_release/e_release.wxml-->
-<view class='event'>
-  活动信息
-</view>
-<view>
-  <view class='infor'>
-    <view class='inform'>活动名称</view>
-    <view class='inforin'> <input type='text' placeholder='请输入活动名称' bindinput='infor'></input> </view>
+<view hidden='{{ishidden}}'>
+  <view class='event'>
+    活动信息
   </view>
-   <view class='infor'>
-    <view class='inform'>主办方 </view>
-    <view class='inforin forin'> <input type='text' placeholder='请输入活动主办方名称'
-     bindinput='contact'></input> </view>
-  </view>
-   <view class='infor'>
-    <view class='inform'>赛事类型</view>
-    <view class='inforin ' > <input disabled='true' type='text'  value='{{artist_type}}' placeholder='请选择赛事类型'
-     bindtap='showlabel'></input> </view>
-      <view class='enter'> <image src='../../images/enter.png'></image> </view>
-  </view>
-  <view class='jgtx pho'>
-    <view class='jgtu'>活动赛事封面</view>
-    <view class='photo'>
-      <image src='{{posters}}' bindtap="chooseImage"></image>
+  <view>
+    <view class='infor'>
+      <view class='inform'>活动名称</view>
+      <view class='inforin'> <input type='text' placeholder='请输入活动名称' bindinput='infor'></input> </view>
     </view>
-  </view>
-  <view class='jgtx pho'>
-    <view class='jgtu'>营业执照(主办方)</view>
-    <view class='photo'>
-      <image src='{{postersies}}' bindtap="chooseImages" ></image>
+    <view class='infor'>
+      <view class='inform'>主办方 </view>
+      <view class='inforin forin'> <input type='text' placeholder='请输入活动主办方名称'
+      bindinput='contact'></input> </view>
     </view>
-  </view>
+    <view class='infor'>
+      <view class='inform'>赛事类型</view>
+      <view class='inforin ' > <input disabled='true' type='text'  value='{{artist_type}}' placeholder='请选择赛事类型'
+      bindtap='showlabel'></input> </view>
+        <view class='enter'> <image src='../../images/enter.png'></image> </view>
+    </view>
+    <view class='jgtx pho'>
+      <view class='jgtu'>活动赛事封面</view>
+      <view class='photo'>
+        <image src='{{posters}}' bindtap="chooseImage" id="{{0}}"></image>
+      </view>
+    </view>
+    <view class='jgtx pho'>
+      <view class='jgtu'>营业执照(主办方)</view>
+      <view class='photo'>
+        <image src='{{postersies}}' bindtap="chooseImages" ></image>
+      </view>
+    </view>
 
-   <view class='infor'>
-    <view class='inform'>活动所在省</view>
-    <view class='inforin'>
-         <picker bindchange='getprov' class='pick' value="{{province[poindex].id}}" data-selecthx="{{province[poindex].name}}" range="{{province}}" range-key="{{'name'}}">
-      <view class="picker">
-        {{province[poindex].name}}
-      </view>
-    </picker>
-     </view>
-    <view class='enter'> <image src='../../images/enter.png'></image> </view>
-  </view>
-  <view class='infor' hidden='{{iscity}}'>
-    <view class='inform'>活动所在市</view>
-    <view class='inforin'>
-         <picker bindchange='getcity' class='pick' value="{{city[cindex].id}}" data-selecthx="{{city[cindex].name}}" range="{{city}}" range-key="{{'name'}}">
-      <view class="picker">
-        {{city[cindex].name}}
-      </view>
-    </picker>
-     </view>
-    <view class='enter'> <image src='../../images/enter.png'></image> </view>
-  </view>
-   <view class='infor' hidden='{{isqu}}'>
-    <view class='inform'>活动所在区</view>
-    <view class='inforin'>
-        <picker bindchange='getarea' class='pick' value="{{area[aindex].id}}" data-selecthx="{{area[aindex].name}}" range="{{area}}" range-key="{{'name'}}">
-      <view class="picker">
-        {{area[aindex].name}}
-      </view>
-    </picker>
-     </view>
-    <view class='enter'> <image src='../../images/enter.png'></image> </view>
-  </view>
-   <!-- <view class='infor'hidden='{{isjie}}'>
-    <view class='inform'>活动所在街</view>
-    <view class='inforin'>
-         <picker bindchange='gettown' class='pick' value="{{town[tindex].id}}" data-selecthx="{{town[tindex].name}}" range="{{town}}" range-key="{{'name'}}">
+    <view class='infor'>
+      <view class='inform'>活动所在省</view>
+      <view class='inforin'>
+          <picker bindchange='getprov' class='pick' value="{{province[poindex].id}}" data-selecthx="{{province[poindex].name}}" range="{{province}}" range-key="{{'name'}}">
         <view class="picker">
-          {{town[tindex].name}}
+          {{province[poindex].name}}
         </view>
       </picker>
-     </view>
-    <view class='enter'> <image src='../../images/enter.png'></image> </view>
-  </view> -->
-  <view class='jgtx xfcf'>
-       <view class='tit'>活动海报（2~5张）</view>
-       <view class='dher'>
-        <view class="der"  wx:for="{{imgs}}"  wx:for-index="idx" data-idx="{{idx}}" bindtap="handleImagePreview">
-            <image  src='{{item}}' hidden='{{showimg}}' style='margin-right:20rpx;'></image>
-            <view class="detel" catchtap="detel" id="{{item}}" data-index='{{idx}}'>
-                <image  src="../../images/detel.png" />
-            </view>
+      </view>
+      <view class='enter'> <image src='../../images/enter.png'></image> </view>
+    </view>
+    <view class='infor' hidden='{{iscity}}'>
+      <view class='inform'>活动所在市</view>
+      <view class='inforin'>
+          <picker bindchange='getcity' class='pick' value="{{city[cindex].id}}" data-selecthx="{{city[cindex].name}}" range="{{city}}" range-key="{{'name'}}">
+        <view class="picker">
+          {{city[cindex].name}}
         </view>
-        <image src='{{post}}' bindtap="chooseImagess" hidden='{{showadd}}'></image>
-       </view>
+      </picker>
+      </view>
+      <view class='enter'> <image src='../../images/enter.png'></image> </view>
+    </view>
+    <view class='infor' hidden='{{isqu}}'>
+      <view class='inform'>活动所在区</view>
+      <view class='inforin'>
+          <picker bindchange='getarea' class='pick' value="{{area[aindex].id}}" data-selecthx="{{area[aindex].name}}" range="{{area}}" range-key="{{'name'}}">
+        <view class="picker">
+          {{area[aindex].name}}
+        </view>
+      </picker>
+      </view>
+      <view class='enter'> <image src='../../images/enter.png'></image> </view>
+    </view>
+    <!-- <view class='infor'hidden='{{isjie}}'>
+      <view class='inform'>活动所在街</view>
+      <view class='inforin'>
+          <picker bindchange='gettown' class='pick' value="{{town[tindex].id}}" data-selecthx="{{town[tindex].name}}" range="{{town}}" range-key="{{'name'}}">
+          <view class="picker">
+            {{town[tindex].name}}
+          </view>
+        </picker>
+      </view>
+      <view class='enter'> <image src='../../images/enter.png'></image> </view>
+    </view> -->
+    <view class='jgtx xfcf'>
+        <view class='tit'>活动海报（2~5张）</view>
+        <view class='dher'>
+          <view class="der"  wx:for="{{imgs}}"  wx:for-index="idx" data-idx="{{idx}}" bindtap="handleImagePreview">
+              <image  src='{{item}}' hidden='{{showimg}}' style='margin-right:20rpx;'></image>
+              <view class="detel" catchtap="detel" id="{{item}}" data-index='{{idx}}'>
+                  <image  src="../../images/detel.png" />
+              </view>
+          </view>
+          <image src='{{post}}' bindtap="chooseImage" hidden='{{showadd}}' id="{{1}}"></image>
+        </view>
+    </view>
+    <view class='jgtx xfdf'>
+        <view class='tit'>活动赛事介绍</view>
+        <textarea hidden='{{istext}}' class='evedetil' auto-height placeholder='请详细描述下此活动赛事' bindinput='evedetail' maxlength='200'>
+        </textarea>
+    </view>
   </view>
-  <view class='jgtx xfdf'>
-      <view class='tit'>活动赛事介绍</view>
-      <textarea hidden='{{istext}}' class='evedetil' auto-height placeholder='请详细描述下此活动赛事' bindinput='evedetail' maxlength='200'>
-      </textarea>
+  <view class='event'>
+    联系信息
   </view>
-</view>
-<view class='event'>
-  联系信息
-</view>
-<view>
-  <view class='infor'>
-    <view class='inform'>手机号</view>
-    <view class='inforin'> <input type='number' placeholder='请输入联系人手机号'bindinput='scope'></input> </view>
+  <view>
+    <view class='infor'>
+      <view class='inform'>手机号</view>
+      <view class='inforin'> <input type='number' placeholder='请输入联系人手机号'bindinput='scope'></input> </view>
+    </view>
+    <view class='infor'>
+      <view class='inform'>微信号</view>
+      <view class='inforin'> <input type='text' placeholder='请输入微信号（选填）' bindinput='num'></input> </view>
+    </view>
   </view>
-   <view class='infor'>
-    <view class='inform'>微信号</view>
-    <view class='inforin'> <input type='text' placeholder='请输入微信号（选填）' bindinput='num'></input> </view>
+  <view class='submit' bindtap='submit'>
+    提交
   </view>
-</view>
-<view class='submit' bindtap='submit'>
-   提交
 </view>
 
 <!-- 赛事类型 -->
@@ -122,4 +124,12 @@
             <text wx:for='{{saiType}}' data-name="{{saiType[idx].name}}" data-index='{{idx}}' wx:for-index="idx" id='{{saiType[idx].id}}' class='{{sex == idx?"iact":""}}' bindtap='chooselabel'>{{saiType[idx].name}}</text>
         </view>
     </view>
+</view>
+
+<view class='container' hidden='{{isshow}}'>
+  <imgcut id='imgcut' src='{{src}}' width='320' height='220'></imgcut>
+  <view class="footer">
+    <view bindtap="chooseimg">选择图片</view>
+    <view bindtap="cut">截图</view>
+  </view>
 </view>

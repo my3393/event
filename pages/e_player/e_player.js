@@ -168,7 +168,11 @@ Page({
     var that = this;
       var abc = {
         title: '我是' + that.data.detail.playerNumber + '号' + that.data.detail.userName + '我正在参加' + that.data.text + ',快来投我一票吧' ,
+
         path: '/pages/e_home/e_home?playid=' + that.data.id + '&saiid=' + that.data.saiId,
+
+        path: '/pages/e_home/e_home?playId=' + that.data.id + '&saiId=' + that.data.saiId,
+
         success: function (res) {
           // 转发成功
           console.log(res)
@@ -580,8 +584,27 @@ Page({
   //报名
   subm: function (e) {
     var that = this;
+
       wx.navigateTo({
         url: '../e_division/e_division?id=' + this.data.saiId,
       }) 
+
+    that.data.players.find(item => {
+      usid = item.userId
+      console.log(usid)
+    });
+    
+    if (usid == bcode) {
+      wx.showToast({
+        title: '该赛事你已报名，去看看别的赛事吧',
+        icon: 'none'
+      })
+    } else {
+      wx.navigateTo({
+        url: '../e_division/e_division?id=' + this.data.saiId,
+      })
+    }
+    
+
   },
 })

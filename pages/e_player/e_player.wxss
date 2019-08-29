@@ -167,7 +167,7 @@ page{
     width: 2rpx;
     height: 48rpx;
     background: #f2f2f2;
-    float: right;
+    /* float: right; */
     /* top: 20px; */
     margin-top: 26rpx;
 }
@@ -200,9 +200,9 @@ page{
 .topte{
 	border: 0;
 }
-.total-p{
+/* .total-p{
 	font-size: ;
-}
+} */
 .total-p view:nth-child(1){
 	display: block;
 	color: #9F9F9F;
@@ -242,14 +242,14 @@ page{
 .threeze>view{
 	width: 48%;
 	display: inline-block;
-	float: left;
+	/* float: left; */
 	text-align: center;
 	margin-top: 5px;
 }
 .three>view{
 	width: 33.33%;
 	display: inline-block;
-	float: left;
+	/* float: left; */
 	text-align: center;
 	margin-top: 5px;
 }

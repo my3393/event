@@ -134,10 +134,12 @@ Page({
   //提交
   submit:function(e){
     var that = this;
+
         //  wx.showToast({
         //   title: '由于相关规范，ios功能暂不可用',
         //   icon:'none'
         //  })
+
 
     console.log(that.data.is_actor)
     if(that.data.id == ''){
@@ -159,12 +161,18 @@ Page({
         dataType: 'json',
         success: function (res) {
           console.log(res.data.data)
+
           if (res.data.status === 100) {
             that.setData({
               issai:!that.data.issai
             })
            
-          }else{
+          } else if (res.data.status === 101) {
+            wx.showToast({
+              title: '该赛事你已报名，去看看别的赛事吧',
+              icon: 'none'
+            })
+          } else{
             wx.showToast({
               title: res.data.msg,
               icon: 'none'
@@ -277,11 +285,14 @@ Page({
 
         }
       }
-      
+        
+     
+  
+
     }
   },
   //报名弹窗
-  cance: function () {
+  cance : function () {
     var that = this;
     that.setData({
       isart: !that.data.isart

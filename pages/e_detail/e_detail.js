@@ -973,11 +973,13 @@ Page({
   //助力
   help:function(e){
     var that = this;
+
     //  wx.showToast({
     //    title: '由于相关规定，ios功能暂不可用',
     //    icon :'none'
     //  })
     
+
     wx.getSystemInfo({
       success: function (res) {
         that.setData({
@@ -1135,11 +1137,23 @@ Page({
   submit:function(e){
     console.log(e)
     var that = this;
-     
+
+     that.data.players.find(item => {
+       usid = item.userId
+        
+     });
+    if (usid == bcode) {
+      wx.showToast({
+        title: '该赛事你已报名，去看看别的赛事吧',
+        icon: 'none'
+      })
+    } else {
+
       wx.navigateTo({
         url: '../e_division/e_division?id=' + that.data.id + '&num=' + e.currentTarget.dataset.num + '&art=' + e.currentTarget.dataset.art,
       })
    
+    }
       // if (that.data.players.indexOf(bcode) > -1){
       //   wx.showToast({
       //     title: '你以报名',

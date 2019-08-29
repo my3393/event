@@ -1,0 +1,117 @@
+/* extend/components/swiperout/swiperout.wxss */
+
+.wapper {
+  position: relative;
+  width: 750rpx;
+  overflow: hidden;
+}
+
+.swiper-out-box {
+  position: relative;
+  transition: margin 0.3s;
+  background-color: #fff;
+}
+
+.swiper-out {
+  position: relative;
+  width: 750rpx;
+  overflow: hidden;
+}
+
+.swiper-out-box.close .swiper-out, .swiper-out-box.close .delete,
+.swiper-out-box.close .setting {
+  transition: transform 0.3s ease-in-out;
+  transform: translateX(0px);
+}
+
+.swiper-out-box.open .swiper-out {
+  transition: transform 0.3s cubic-bezier(0.4, 0.01, 0.34, 1.31);
+}
+
+.swiper-out-box.open .setting {
+  transition: transform 0.3s cubic-bezier(0.4, 0.01, 0.34, 1.31);
+}
+
+.swiper-out-box.open .delete {
+  transition: transform 0.3s cubic-bezier(0.4, 0.01, 0.34, 1.31);
+  transform: translateX(-100%);
+}
+
+.swiper-out-box.open .delete.confirm {
+  transform: translateX(-116px);
+  justify-content: flex-end;
+}
+
+.swiper-out-box.del .swiper-out {
+  transition: transform 0.3s ease-in-out;
+  transform: translateX(-150%) !important;
+}
+
+.swiper-out-right {
+  position: absolute;
+  height: 100%;
+  top: 0;
+  right: -86px;
+  width: 86px;
+}
+
+.swiper-out-right>view {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  font-size: 14px;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.swiper-out-right>.delete {
+  background-color: var(--color-red);
+  width: 100%;
+}
+
+.swiper-out-right>.setting {
+  background-color: #c7c7cc;
+  width: 100%;
+  white-space: nowrap;
+}
+
+.setting::after {
+  content: '';
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1000rpx;
+  height: 100%;
+  background: inherit;
+  z-index: -1;
+}
+
+.delete::after {
+  content: '';
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1000rpx;
+  height: 100%;
+  background: inherit;
+  z-index: -1;
+}
+
+.delete.confirm1::after {
+  content: '确认删除';
+  display: flex;
+  align-items: center;
+  padding-left: 50px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1000rpx;
+  height: 100%;
+  background: inherit;
+  z-index: -1;
+}
