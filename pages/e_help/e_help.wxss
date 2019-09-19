@@ -112,3 +112,47 @@ page{
 .spec{
   color: #000000;
 }
+
+.yds{
+   width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 12;
+}
+.yd{
+	position:absolute;
+  width: 500rpx;
+  background: #fff;
+  border-radius: 12rpx;
+  text-align: center;
+  font-size: 28rpx;
+  padding-top: 40rpx;
+	top: 40%;
+	left: 50%;
+	padding: 20rpx 20rpx;
+	box-sizing: content-box;
+  transform: translate(-50%,-50%)
+}
+.lip{
+  margin: 20rpx 0;
+  color: #A3A3A3;
+}
+.baodc{
+width:100%;
+text-align:center;
+margin-top:30rpx;
+color: #F861AA;
+}
+.xioe{
+  margin-top: 50rpx;
+  line-height: 70rpx;
+  display: flex;
+  justify-content: space-around;
+  color: #F861AA;
+}
+.deter{
+  color: #F861AA;
+}

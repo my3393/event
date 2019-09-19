@@ -525,25 +525,11 @@ Page({
   },
   //助力
   help: function () {
-    var that = this; 
-    wx.getSystemInfo({
-      success: function (res) {
-        that.setData({
-          systemInfo: res,
-        })
-        if (res.platform == "ios") {
-           that.setData({
-             ishelp: !that.data.ishelp
-           })
-          console.log('IOS')  
-        } else {
+    var that = this;
           wx.navigateTo({
             url: '../e_help/e_help?id=' + that.data.id,
           })  
-          
-        } 
-      }
-    })
+   
     
   },
   tis:function(){
@@ -554,20 +540,32 @@ Page({
   },
   //预约
   online:function(e){
-    // wx.navigateTo({
-    //   url: '../e_online/e_online?id=' + e.currentTarget.id,
+   
+      //娱乐世界
+      wx.navigateToMiniProgram({
+        appId: 'wxf556b39ee9c934b4',
+        path: 'pages/funcicle/funcicle',
+        extraData: {
+
+        },
+        envVersion: 'release',
+        success(res) {
+          // 打开成功
+        }
+      })
+
+   
+    // wx.navigateToMiniProgram({
+    //   appId: 'wxf556b39ee9c934b4',
+    //   path: 'pages/funcicle_detail/funcicle_detail?user_id=' + e.currentTarget.id,
+    //   extraData: {
+    //     user_id: e.currentTarget.id
+    //   },
+    //   envVersion: 'release',
+    //   success(res) {
+    //     // 打开成功
+    //   }
     // })
-    wx.navigateToMiniProgram({
-      appId: 'wxf556b39ee9c934b4',
-      path: 'pages/funcicle_detail/funcicle_detail?user_id=' + e.currentTarget.id,
-      extraData: {
-        user_id: e.currentTarget.id
-      },
-      envVersion: 'release',
-      success(res) {
-        // 打开成功
-      }
-    })
   },
   //首页
   home: function (e) {

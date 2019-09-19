@@ -1,0 +1,39 @@
+<!--pages/recharge/recharge.wxml-->
+<view class='public'>
+  <view class='left'>
+    艺呗
+  </view>
+  <view class='right'>
+    {{userinfo.integral}}
+  </view>
+  <view class='go' bindtap='yule'>
+    前往娱乐世界使用 >
+  </view>
+</view>
+
+<view style='margin:30rpx;'>
+  充值
+</view>
+
+<view>
+   <view class='xuan {{tar == index?"active":""}}' data-price='{{item.price}}' bindtap='chact' data-index='{{index}}' wx:for='{{detail}}' wx:key='{{index}}' id='{{item.id}}'>
+      <view class='yo'>{{item.yiBeiValue}}艺呗</view>
+      <view class='rmb'><view class='rmbs {{tar == index?"active":""}}'>￥</view>{{item.price}}元</view>
+   </view>
+</view>
+
+<view class='submit' bindtap='pay'>
+   充值
+</view>
+
+<view class='cuss'>
+  充值成功，艺呗立即到账，艺呗可以给参赛选手助力，也可前往“娱乐世界”公众号抵扣现金使用。 一旦充值成功，本平台概不退还，请谨慎充值
+</view>
+
+<!-- <view class='ishe' hidden='{{ishelp}}'>
+  <view class='tis'>
+     <view class='tis-top'>提示</view>
+     <view class='tis-j'>由于相关规定，小程序ios支付功能暂不可用</view>
+     <view class='tis-know' bindtap='tis'>我知道了</view>
+  </view>
+</view> -->

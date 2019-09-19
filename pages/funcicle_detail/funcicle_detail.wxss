@@ -57,7 +57,7 @@ video{
     top: 41rpx;
     font-size: 24rpx;
 }
-.yybtn:active{
+.yybtn_active{
     background-color: #fe5ba8;
     color: white !important;
 }

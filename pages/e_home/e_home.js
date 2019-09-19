@@ -147,6 +147,9 @@ Page({
         url: '/pages/login/login',
       })
     }else{
+      wx.showLoading({
+        title: '加载中',
+      })
       wx.request({
         url: app.data.urlmall + "/appcompetition/homelist.do",
         data: {
@@ -161,6 +164,7 @@ Page({
         success: function (res) {
           console.log(res.data.data)
           if (res.data.status === 100) {
+            wx.hideLoading()
             for (var i in res.data.data.data) {
 
               var date = Date.parse(new Date())

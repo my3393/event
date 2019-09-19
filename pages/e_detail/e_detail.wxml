@@ -4,11 +4,11 @@
  
  </view>
   
-<view wx:else>
+<view wx:else> 
   <swiper class="banner" indicator-dots="true" autoplay="true" duration="1000" indicator-color="#a7a7a7" indicator-active-color="#fe5ba9">
     <block wx:for='{{photos}}'>
       <swiper-item id="{{item.ids}}" bindtap="enters" class='swiper'>
-        <image class="banner_img" src="{{item}}"></image>
+        <image class="banner_img" src="{{item}}" mode="aspectFit"></image>
       </swiper-item>
     </block>
    
@@ -201,7 +201,7 @@
           <view class='saiq'>赛区：{{competitionName}} <text class='turn' bindtap='bind'>点击切换</text>
           </view> 
           <view class='top-num'>晋级人数： 前{{qualifiedNumber}}名</view> 
-          <view class='gz'>排名规则：星值=总票数+助力数×2+转发数</view>
+          <!-- <view class='gz'>排名规则：星值=总票数+助力数×2+转发数</view> -->
         </view>
 
         <view class='top_3'>
@@ -414,11 +414,11 @@
  
 </view>
 <view class='apply' >
-    <view class='gohot' bindtap='hots'>
+    <view class='gohot' bindtap='hots'  hover-class="gohot_active">
        <view> <image src='../../images/hot.png'></image> </view>
        <text>帮TA上热门</text>
     </view>
-     <view class='gohot' bindtap='hotTop'>
+     <view class='gohot' bindtap='hotTop' hover-class="gohot_active"> 
        <view> <image src='../../images/zhi-1.png'></image> </view>
        <text>帮TA置顶</text>
     </view>

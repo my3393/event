@@ -12,7 +12,9 @@ Page({
     choo:'10000',
     price:'',
     name:'',
-    chooid:''
+    chooid:'',
+    isart:true,
+
   },
 
   /**
@@ -38,7 +40,15 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+      var that = this;
+      wx.getStorage({
+        key: 'userinfo',
+        success: function (res) {
+          that.setData({
+            userinfo: res.data
+          });
+        },
+      })
   },
 
   /**
@@ -77,6 +87,21 @@ Page({
       title: '艺赛联盟',
       path: '/pages/e_home/e_home'
     }
+  },
+  cance:function(){
+    var that = this;
+    that.setData({
+      isart:!that.data.isart
+    })
+  },
+  deter:function(){
+    var that = this;
+    that.setData({
+      isart: !that.data.isart
+    })
+    wx.navigateTo({
+      url: '../recharge/recharge',
+    })
   },
   getplayer: function (e) {
     var that = this;
@@ -174,9 +199,8 @@ Page({
           if (res.data.status === 100) {
 
             wx.request({
-              url: app.data.urlmall + "/appcompetitionpay/xcxpay.do",
+              url: app.data.urlmall + "appcompetitionpay/integralpay.do",
               data: {
-
                 token: wx.getStorageSync('etoken')
               },
               method: 'POST',
@@ -186,44 +210,17 @@ Page({
               dataType: 'json',
               success: function (res) {
                 console.log(res.data.data)
-                if (res.data.status === 100) {
-                  wx.requestPayment({
-                    timeStamp: res.data.data.sign.timeStamp,
-                    nonceStr: res.data.data.sign.nonceStr,
-                    package: res.data.data.sign.package,
-                    signType: 'MD5',
-                    paySign: res.data.data.sign.paySign,
-                    success(res) {
-                      wx.showToast({
-                        title: '助力成功',
-                        icon: 'none',
-                        duration: 1000
-                      })
-                      
-                      that.getplayer();
-                      // var pages = getCurrentPages();//当前页面栈
-                      // if (pages.length > 1) {
-                      //   var beforePage = pages[pages.length - 2];//获取上一个页面实例对象
-                      //   var currPage = pages[pages.length - 1]; // 当前页面，若不对当前页面进行操作，可省去
-                      //   // beforePage.setData({       //如果需要传参，可直接修改A页面的数据，若不需要，则可省去这一步
-                      //   //   id: res.data.data
-                      //   // })
-                      //   beforePage.changeData();//触发父页面中的方法
-                      // }
-                      wx.navigateBack({
-                        delta: 1
-                      })
-                    },
-                    fail(res) {
-                      wx.showToast({
-                        title: '支付失败',
-                        icon: 'none',
-                        duration: 1000
-                      })
-                    }
+                if (res.data.status === 100) {             
+                  wx.showToast({
+                    title: '助力成功',
+                    icon: 'none'
                   })
-
-                } else {
+                } else if (res.data.status === 106) {
+                  console.log(111)
+                  that.setData({
+                    isart: !that.data.isart
+                  })
+                }else {
                   wx.showToast({
                     title: res.data.msg,
                     icon: 'none'
@@ -231,7 +228,16 @@ Page({
                 }
               }
             })
-          } else {
+          } else if (res.data.status === 103) {
+            wx.showToast({
+              title: res.data.msg,
+              icon: 'none'
+            })
+            wx.redirectTo({
+              url: '/pages/login/login',
+            })
+
+          }else {
             wx.showToast({
               title: res.data.msg,
               icon: 'none'

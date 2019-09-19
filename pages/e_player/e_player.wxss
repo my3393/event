@@ -26,6 +26,12 @@ page{
 	color: #FE5CAB !important;
 	
 }
+.jilu{
+  width: 100%;
+  font-size: 28rpx;
+  text-align: center;
+  margin: 30rpx 0 ;
+}
 .contents{
 	color: #000000;
 	font-size: 24rpx;
@@ -35,6 +41,7 @@ page{
 .tmenu>view{
   display: inline-block;
   margin-left: 20rpx;
+  
 }
 .tmenu>view:nth-child(2){
    margin-left: 40rpx;
@@ -333,7 +340,7 @@ page{
  overflow:hidden;
 overflow-x:auto;
 height:75rpx;
-
+-webkit-overflow-scrolling: touch;
 }
 .votehead{	
     height: 70rpx;
@@ -344,6 +351,7 @@ height:75rpx;
     float: left;
     border-radius: 70rpx;
     margin-bottom: 4rpx;
+    -webkit-overflow-scrolling: touch;
 }
 .votehead image{
 	width: 70rpx;

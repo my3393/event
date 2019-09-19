@@ -689,7 +689,7 @@ Page({
         provinceId: province_id,
         cityId: city_id,
         areaId: area_id,
-        // townId: town_id,
+        // townId: town_id
         phone:that.data.scope,
         weixin:that.data.numb,
         businessLicense: postersis,

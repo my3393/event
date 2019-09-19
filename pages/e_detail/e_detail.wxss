@@ -283,7 +283,7 @@ page{
   height: 100%;
   text-align: center;
 }
-.gohot:active{
+.gohot_active{
   background: #F861AA;
   color: #fff;
 }

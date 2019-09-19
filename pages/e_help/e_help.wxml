@@ -30,8 +30,8 @@
     </view>
     <view class="pice">
       <text >{{item.name}}</text>
-      <text>￥</text>
-      <text>{{item.price}}</text>
+      <text></text>
+      <text>{{item.price}}</text>艺呗
     </view>
   </view>
   
@@ -44,9 +44,20 @@
 </view>
 <view class="footer">
 				<view class="waht">
-					<text class="spec">{{name}}</text> <text>￥</text> <text class="pric">{{price}}</text>
+					<text class="spec">{{name}}</text>  <text class="pric">{{price}}艺呗</text>
 				</view>
 				<view class="pay" bindtap='pay'>
-					前往支付
+					艺呗支付
 				</view>
+</view>
+
+<view class="yds" hidden='{{isart}}' >
+			<view class="yd">
+				  艺呗不足
+          <view class="lip">是否前往充值</view>
+        <view class='xioe'>
+          <view class='deter' catchtap='cance'>否</view>
+          <view class='deter' catchtap='deter' >是</view>
+        </view>
+			</view>
 </view>

@@ -14,7 +14,7 @@
     <view class='pname'>{{datas.userName}}</view>
     <view class='plabel'>{{datas.labelName}}</view>
     <!-- 预约按钮 -->
-    <view class='yybtn' bindtap='yuyue'>预约Ta</view>
+    <view class='yybtn' bindtap='yuyue' hover-class="yybtn_active">预约Ta</view>
 </view>
 <!-- detail -->
 <view class='notice-detail'>

@@ -76,7 +76,7 @@
       </view>
       <view class='enter'> <image src='../../images/enter.png'></image> </view>
     </view> -->
-    <view class='jgtx xfcf'>
+    <view class='jgtx xfcf'> 
         <view class='tit'>活动海报（2~5张）</view>
         <view class='dher'>
           <view class="der"  wx:for="{{imgs}}"  wx:for-index="idx" data-idx="{{idx}}" bindtap="handleImagePreview">
