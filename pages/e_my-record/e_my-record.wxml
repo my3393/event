@@ -1,0 +1,8 @@
+<!--pages/e_my-record/e_my-record.wxml-->
+<view class="nav" wx:for='{{detail}}' wx:key='{{index}}' >
+  <view class="left">成功兑换{{item.giftName}}礼品</view>
+  <view class="rigth" wx:if='{{item.status == 0}}'>待发货</view>
+  <view class="rigth" wx:if='{{item.status == 1}}'>已发货</view>
+  <view >{{item.consigneeName}}({{item.consigneePhone}})</view>
+  <view>地址：{{item.provinceName}}-{{item.cityName}}-{{item.areaName}}-{{item.address}}</view>
+</view>

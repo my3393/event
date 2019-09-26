@@ -1,0 +1,19 @@
+/* pages/e_my-record/e_my-record.wxss */
+page{
+  background: #f2f2f2;
+  font-size: 28rpx;
+}
+.nav{
+  margin-top: 20rpx;
+  padding: 20rpx;
+  box-sizing: border-box;
+  background: #fff;
+  color: #999;
+}
+.left{
+  display: inline-block;
+  color: #000;
+}
+.rigth{
+  float: right;
+}

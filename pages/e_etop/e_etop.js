@@ -121,6 +121,14 @@ Page({
 
           })
 
+        } else if (res.data.status == 105) {
+          wx.showToast({
+            title: res.data.msg,
+            icon: 'none'
+          })
+          wx.navigateTo({
+            url: '../bindphone/bindphone',
+          })
         } else {
           wx.showToast({
             title: res.data.msg,
@@ -242,6 +250,22 @@ Page({
                   })
                 }
               }
+            })
+          } else if (res.data.status == 103) {
+            wx.showToast({
+              title: res.data.msg,
+              icon: 'none'
+            })
+            wx.navigateTo({
+              url: '../login/login',
+            })
+          }  else if (res.data.status == 105) {
+            wx.showToast({
+              title: res.data.msg,
+              icon: 'none'
+            })
+            wx.navigateTo({
+              url: '../bindphone/bindphone',
             })
           } else {
             wx.showToast({

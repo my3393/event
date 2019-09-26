@@ -1,0 +1,29 @@
+/* pages/undertake/undertake.wxss */
+@import '../receive/receive.wxss';
+
+.jgtx{
+  background: #fff;
+  height: 100rpx;
+  line-height: 100rpx;
+  padding: 0 20rpx;
+  box-sizing: border-box;
+  border-bottom: 4rpx dotted #f2f2f2;
+}
+.photo>image{
+  width: 134rpx;
+  height: 100rpx;
+  
+}
+.photo{
+  display:inline-block;
+  float:right;
+  height: 100rpx;
+  margin-top: 16rpx;
+}
+.pho{
+  height: 130rpx;
+  line-height: 130rpx;
+}
+.jgtu{
+  display:inline-block;
+}

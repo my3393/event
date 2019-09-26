@@ -1,13 +1,30 @@
 
 <view class='top'>
-   <view>选择赛区</view>
-   <view class='topfd'>请选择所在城市的赛区，便于参加该活动赛事</view>
+   <view>请选择</view>
+   <view class='topfd'></view>
 </view>
-<view>
+<view class="saiqu">
    <view class='divis {{num == index?"active":""}}' wx:for="{{detail}}" data-index='{{index}}' id='{{item.id}}'
    bindtap='tap' >{{item.competitionName}}</view>
   
 </view>
+
+<view class="top" wx:if='{{istype == 2}}'>
+  <view>请选择所在机构</view>
+  <picker bindchange="bindPickerChange" id='{{orgin[index].id}}' value="{{index}}" range="{{orgin}}" range-key="{{'organizationName'}}">
+    <view class="picker">
+      当前选择：{{orgin[index].organizationName}}
+    </view>
+  </picker>
+</view>
+<view wx:if='{{isg == 2}}' class="top">
+   <view>请选择要加入的团体</view>
+   <view class="saiqu">
+      <view class='divis {{nums == index?"active":""}}' wx:for="{{group}}" data-index='{{index}}' id='{{item.id}}'
+   bindtap='tas' >{{item.userName}}</view>
+   </view>
+</view>
+
 <view class='subm' bindtap='submit'>提交</view>
 
 <view class="yds" hidden='{{isart}}'>
@@ -19,3 +36,18 @@
         </view>
 			</view>
 </view>
+<view class="yds" hidden='{{isgorup}}'>
+			<view class="yd">
+				请选择报名类型是单人还是团体
+        <view class='xioe'>
+          <view bindtap='one'>单人</view>
+          <view class='deter' bindtap='two'>团体</view>
+        </view>
+			</view>
+</view>
+
+<!-- <picker bindchange='getprov' class='pick' value="{{province[poindex].id}}" data-selecthx="{{province[poindex].name}}" range="{{orgin}}" range-key="{{'organizationName'}}">
+        <view class="picker">
+          {{item.organizationName}}
+        </view>
+      </picker> -->

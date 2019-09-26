@@ -1,0 +1,26 @@
+<!--pages/e_apply/e_apply.wxml-->
+<view class="top">请选择
+</view>
+
+<view>
+  <view class="nav">广东赛区德和</view>
+</view>
+
+<view>
+  <view class="top">选择加入</view>
+  <view class="nav">广东赛区德和</view>
+</view>
+
+
+
+<view class="bottom" hover-class="bott">报名</view>
+
+<view class="yds" hidden='{{isart}}'>
+			<view class="yd">
+				入驻平台艺人才可报名
+        <view class='xioe'>
+          <view bindtap='cance'>暂不考虑</view>
+          <view class='deter' bindtap='deter' data-isUser='{{isUser}}'>确定入驻</view>
+        </view>
+			</view>
+</view>

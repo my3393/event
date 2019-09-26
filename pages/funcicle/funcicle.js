@@ -81,6 +81,15 @@ Page({
                         labels: labels
                     })
                     console.log(labels)
+                } else if (res.data.status === 103) {
+                  wx.showToast({
+                    title: res.data.msg,
+                    icon: 'none'
+                  })
+                  wx.navigateTo({
+                    url: '/pages/login/login',
+                  })
+
                 }
 
             }
@@ -326,7 +335,7 @@ Page({
         },
         dataType: 'json',
         success: function (res) {
-          console.log(res.data.data)
+          //console.log(res.data.data)
           if (res.data.status == 100) {
             for (var i in res.data.data.data) {
               videos.push(res.data.data.data[i]);
@@ -334,7 +343,7 @@ Page({
             that.setData({
               videos: videos
             });
-            console.log(that.data.videos)
+           // console.log(that.data.videos)
           }
 
         }
@@ -345,7 +354,7 @@ Page({
     },
     selectlabel: function(e) {
         var that = this;
-        console.log(e)
+       // console.log(e)
         currentPage1 = 1;
         label_id = e.currentTarget.id;
         that.setData({
@@ -400,8 +409,8 @@ Page({
                             })
                         }
 
-                        console.log(res.data)
-                    } else {
+                        //console.log(res.data)
+                    }else {
                         wx.showToast({
                             title: res.data.msg,
                             icon: 'none'

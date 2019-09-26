@@ -121,7 +121,16 @@ Page({
 
           })
 
-        } else {
+        } else if (res.data.status === 103) {
+          wx.showToast({
+            title: res.data.msg,
+            icon: 'none'
+          })
+          wx.navigateTo({
+            url: '/pages/login/login',
+          })
+
+        }else {
           wx.showToast({
             title: res.data.msg,
             icon: 'none'
@@ -235,6 +244,15 @@ Page({
                 }
               }
             })
+          } else if (res.data.status === 103) {
+            wx.showToast({
+              title: res.data.msg,
+              icon: 'none'
+            })
+            wx.navigateTo({
+              url: '/pages/login/login',
+            })
+
           } else {
             wx.showToast({
               title: res.data.msg,

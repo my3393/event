@@ -48,6 +48,7 @@ page{
   text-align: center;
   line-height: 80rpx;
   margin-top: 40rpx;
+  margin-bottom: 40rpx;
 }
 .pick{
   display: inline-block;

@@ -3,6 +3,7 @@ var app = getApp();
 var list= [];
 var bcode;
 var usid;
+var ybm = false;
 Page({
 
   /**
@@ -29,7 +30,7 @@ Page({
     videos:[],//作品
     isvideo:true,
     artId:false,
-    user:[],
+    user:'',
     saiId:'',//赛事id
     is_actor:'',
     text:'',
@@ -42,18 +43,23 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    console.log(options)
       this.setData({
         id:options.id,
-        saiId:options.saiid
+        saiId:options.saiid,
+        isOrganization: options.isOrganization,
       })
       console.log(this.data.saiId)
       this.getdetail();
       this.getdetailss();
       this.getrefue();
       this.getvote();
-      this.getphoto();
-      this.getvideo();
+      
       this.getplayer();
+      if(options.isOrganization == 0){
+        this.getphoto();
+        this.getvideo();
+      }
   },
 
   /**
@@ -78,8 +84,10 @@ Page({
       key: 'userinfo',
       success: function (res) {
         bcode = res.data.user_id;
+        console.log(res.data)
         that.setData({
-          is_actor: res.data.is_actor
+          is_actor: res.data.is_actor,
+          user:res.data
         })
         console.log(bcode)
       },
@@ -124,6 +132,11 @@ Page({
     var that = this;
     //模拟加载
      list=[];
+    detail= [],
+      votelist= [],
+        refue=[],
+          videos=[],
+          
     setTimeout(function () {
     
       that.setData({
@@ -134,8 +147,11 @@ Page({
       })
       that.getdetail();
       that.getvote();
-      that.getrefue();
-      that.getvideo();
+      if (that.data.isOrganization == 0) {
+        this.getphoto();
+        this.getvideo();
+      }
+     
       // complete
       wx.hideNavigationBarLoading() //完成停止加载
       wx.stopPullDownRefresh() //停止下拉刷新
@@ -148,17 +164,17 @@ Page({
    */
   onReachBottom: function () {
     var that = this;
-    if (that.data.currentPage == that.data.totalPage) {
-      wx.showToast({
-        title: '已经到底了',
-        icon: 'none'
-      })
-    } else {
-      that.setData({
-        currentPage: that.data.currentPage + 1
-      })
-      this.getrefue();
-    }
+    // if (that.data.currentPage == that.data.totalPage) {
+    //   wx.showToast({
+    //     title: '已经到底了',
+    //     icon: 'none'
+    //   })
+    // } else {
+    //   that.setData({
+    //     currentPage: that.data.currentPage + 1
+    //   })
+    //   this.getrefue();
+    // }
   },
 
   /**
@@ -166,29 +182,9 @@ Page({
    */
   onShareAppMessage: function () {
     var that = this;
-      var abc = {
-        title: '我是' + that.data.detail.playerNumber + '号' + that.data.detail.userName + '我正在参加' + that.data.text + ',快来投我一票吧' ,
-
+    return {
+        title: '我正在参加' + that.data.text + ',快来投我一票吧~' ,
         path: '/pages/e_home/e_home?playid=' + that.data.id + '&saiid=' + that.data.saiId,
-
-        path: '/pages/e_home/e_home?playId=' + that.data.id + '&saiId=' + that.data.saiId,
-
-        success: function (res) {
-          // 转发成功
-          console.log(res)
-          wx.showToast({
-            title: '转发成功',
-
-          })
-          
-        },
-        fail: function (res) {
-          // 转发失败
-          wx.showToast({
-            title: '转发失败',
-            icon : 'none'
-          })
-        }
       }  
     wx.request({
       url: app.data.urlmall + "/apppcompetitionplayer/addforward.do",
@@ -275,7 +271,16 @@ Page({
            
           })
 
-        } else {
+        } else if (res.data.status === 103) {
+          wx.showToast({
+            title: res.data.msg,
+            icon: 'none'
+          })
+          wx.navigateTo({
+            url: '/pages/login/login',
+          })
+
+        }else {
           wx.showToast({
             title: res.data.msg,
             icon: 'none'
@@ -313,10 +318,19 @@ Page({
           that.setData({
             detail: res.data.data,
             before:before,
-            
+            group: res.data.data.users
           })
           
-        } else {
+        } else if (res.data.status === 103) {
+          wx.showToast({
+            title: res.data.msg,
+            icon: 'none'
+          })
+          wx.navigateTo({
+            url: '/pages/login/login',
+          })
+
+        }else {
           wx.showToast({
             title: res.data.msg,
             icon: 'none'
@@ -346,6 +360,15 @@ Page({
              text: res.data.data.competitionTitle,
              event:res.data.data
            })
+        } else if (res.data.status === 103) {
+          wx.showToast({
+            title: res.data.msg,
+            icon: 'none'
+          })
+          wx.navigateTo({
+            url: '/pages/login/login',
+          })
+
         } else {
           wx.showToast({
             title: res.data.msg,
@@ -376,6 +399,15 @@ Page({
 
           that.setData({
             photos:res.data.data
+          })
+
+        } else if (res.data.status === 103) {
+          wx.showToast({
+            title: res.data.msg,
+            icon: 'none'
+          })
+          wx.navigateTo({
+            url: '/pages/login/login',
           })
 
         } else {
@@ -410,6 +442,15 @@ Page({
             videos: res.data.data
           })
 
+        } else if (res.data.status === 103) {
+          wx.showToast({
+            title: res.data.msg,
+            icon: 'none'
+          })
+          wx.navigateTo({
+            url: '/pages/login/login',
+          })
+
         } else {
           wx.showToast({
             title: res.data.msg,
@@ -427,7 +468,7 @@ Page({
       data: {
         id: that.data.id,
         token: wx.getStorageSync('etoken'),
-        currentPage:that.data.currentPage
+       
       },
       method: 'POST',
       header: {
@@ -455,10 +496,10 @@ Page({
   getrefue: function (e) {
     var that = this;
     wx.request({
-      url: app.data.urlmall + "/apppcompetitionplayer/refuellist.do",
+      url: app.data.urlmall + "apppcompetitionplayer/refuellist.do",
       data: {
         id: that.data.id,
-        currentPage:that.data.currentPage,
+ 
         token: wx.getStorageSync('etoken')
       },
       method: 'POST',
@@ -514,6 +555,15 @@ Page({
             title: '你已投票，请明天再来吧',
             icon: 'none'
           })
+        } else if (res.data.status === 103) {
+          wx.showToast({
+            title: res.data.msg,
+            icon: 'none'
+          })
+          wx.navigateTo({
+            url: '/pages/login/login',
+          })
+
         } else {
           wx.showToast({
             title: res.data.msg,
@@ -523,14 +573,19 @@ Page({
       }
     })
   },
+  //艺人主页
+  funcicle:function(e){
+    console.log(e)
+    wx.navigateTo({
+      url: '../funcicle_detail/funcicle_detail?user_id=' + e.currentTarget.id,
+    })
+  },
   //助力
   help: function () {
     var that = this;
           wx.navigateTo({
-            url: '../e_help/e_help?id=' + that.data.id,
-          })  
-   
-    
+            url: '../e_help/e_help?id=' + that.data.id + '&isGift=' + that.data.event.isGift + '&saiid=' + that.data.event.id,
+          })    
   },
   tis:function(){
     var that = this;
@@ -574,35 +629,65 @@ Page({
     })
   },
   //查看赛事
-  sai: function (e) {
+  sai: function (e){
     wx.redirectTo({
       url: '../e_detail/e_detail?id=' + this.data.saiId,
     })
   },
   //报名
-  subm: function (e) {
-    var that = this;
+  subm: function (e){
+    var that = this; 
+    // wx.request({
+    //   url: app.data.urlmall + "apppcompetitionsignup/isjoin.do",
+    //   data: {
+    //     id: that.data.event.competitionAreaId,
+    //     token: wx.getStorageSync('etoken'),
+    //   },
+    //   method: 'POST',
+    //   header: {
+    //     'content-type': 'application/x-www-form-urlencoded'
+    //   },
+    //   dataType: 'json',
+    //   success: function (res) {
+    //     console.log(res.data.data)
+    //     if (res.data.status === 100) {
+    //       wx.navigateTo({
+    //         url: '../e_division/e_division?id=' + that.data.saiId + '&num=' + that.data.event.isNewUserPay + '&art=' + that.data.event.isArtistUserPay + '&type=' + that.data.event.isOrganization,
+    //       })
+    //     } else if (res.data.status === 103) {
+    //       wx.showToast({
+    //         title: res.data.msg,
+    //         icon: 'none'
+    //       })
+    //       wx.navigateTo({
+    //         url: '/pages/login/login',
+    //       })
 
+    //     } else {
+    //       wx.showToast({
+    //         title: res.data.msg,
+    //         icon: 'none'
+    //       })
+    //     }
+    //   }
+    // })
+    if (that.data.user.phone == null || that.data.user.phone == '') {
+
+          wx.showToast({
+            title: '报名赛事需绑定手机号',
+            icon: 'none',
+
+          })
+          wx.navigateTo({
+            url: '../bindphone/bindphone',
+          })
+
+        }else{
       wx.navigateTo({
-        url: '../e_division/e_division?id=' + this.data.saiId,
-      }) 
-
-    that.data.players.find(item => {
-      usid = item.userId
-      console.log(usid)
-    });
-    
-    if (usid == bcode) {
-      wx.showToast({
-        title: '该赛事你已报名，去看看别的赛事吧',
-        icon: 'none'
+        url: '../e_division/e_division?id=' + that.data.saiId + '&num=' + that.data.event.isNewUserPay + '&art=' + that.data.event.isArtistUserPay + '&type=' + that.data.event.isOrganization,
       })
-    } else {
-      wx.navigateTo({
-        url: '../e_division/e_division?id=' + this.data.saiId,
-      })
-    }
-    
+        } 
 
+     
   },
 })

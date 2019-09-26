@@ -5,7 +5,7 @@
  </view>
   
 <view wx:else> 
-  <swiper class="banner" indicator-dots="true" autoplay="true" duration="1000" indicator-color="#a7a7a7" indicator-active-color="#fe5ba9">
+  <swiper class="banner" indicator-dots="true" circular="true" autoplay="true" duration="1000" indicator-color="#a7a7a7" indicator-active-color="#fe5ba9">
     <block wx:for='{{photos}}'>
       <swiper-item id="{{item.ids}}" bindtap="enters" class='swiper'>
         <image class="banner_img" src="{{item}}" mode="aspectFit"></image>
@@ -23,14 +23,6 @@
   <view>
       <text class='sai-num'>{{detail.seasonName}}</text> <text class='sai-n'>#{{detail.typeName}}#</text>
      {{detail.competitionTitle}}
-    <!-- <view class="example"> 
-      <view class="marquee_box">
-        <view class="marquee_text" style="{{orientation}}:{{marqueeDistance2}}px;font-size: 28rpx!important;"> 
-          <text>{{detail.competitionTitle}}</text>
-          <text wx:if="{{marquee2copy_status}}" style="margin-left:{{marquee2_margin}}px;">{{detail.competitionTitle}}</text>
-        </view>
-      </view>
-    </view> -->
    </view>
    <view class='di'>
       <view>主办方：{{detail.organizerName}}</view>
@@ -58,7 +50,7 @@
     </view>
 
   </view>
-  <view class='conuttime' wx:if="{{istime == 3 || istime == 4}}">
+  <!-- <view class='conuttime' wx:if="{{istime == 3 || istime == 4}}">
     <text>距离{{detail.seasonName}}结束：</text>
     <view class='ctimes' >
       <text class='days'>{{daySea}} 天</text>
@@ -67,7 +59,7 @@
       <text class='days'>{{miaoSea}} 秒</text> 
     </view>
                   
-  </view>
+  </view> -->
   
 
   
@@ -87,10 +79,10 @@
   </view>
   <view class='sai-time'>{{detail.seasonName}}时间：{{seasonStartDate}}~{{seaEndtDate}}</view>
 
-  <view class='sai-time' wx:if='{{competitionType == 1}}'>获奖人数 ： {{qualifiedNumber}} 名</view>
+  <view class='sai-time' wx:if='{{competitionType == 1}}'>获奖人数 ：{{qualifiedNumber}} 名</view>
 
   <!-- <view class='' wx:if='{{competitionType == 1}}'>获奖人数 ： {{qualifiedNumber}} 名</view> -->
-
+  
 </view>
 <view class='navs'>
   <view class='nav-list' wx:if='{{competitionType == 2}}'>
@@ -262,12 +254,12 @@
         </view>
         <view class='top-4' wx:if="{{ranklist.length != 0}}">
           <view class='rank clearfix' wx:for="{{ranklist}}"  wx:key='{{item.index}}' id='{{item.id}}' bindtap='detail'>
-            <view class='pai'>{{item.index + 4}}.</view>
+            <view class='pai'>{{index + 4}}.</view>
             <view class='rankhead'>
               <image src='{{item.headPhotoOssPath}}'></image>
             </view>
             <view class='rankm'>{{item.userName}}</view>
-            <view class='ranksum'> 星值{{item.starValue}}</view>
+            <view class='ranksumde'> 星值{{item.starValue}}</view>
           </view>
         </view>
 
@@ -289,7 +281,8 @@
 
       <!-- 活动介绍 -->
       <view wx:elif='{{tab == 4}}'>
-        <view class='introduce'>
+        <view wx:if="{{rich.length == 0}}"></view>     
+        <view class='introduce' wx:else>
           <rich-text  nodes="{{rich}}">
         
           </rich-text>
@@ -423,10 +416,10 @@
        <text>帮TA置顶</text>
     </view>
      <view class='gohot'>
-       <!-- <view class='shop' wx:if="{{detail.status == 0}}">报名还未开始</view> -->
-       <view class='shop sunb' bindtap='submit' wx:if="{{detail.status == 0}}" data-num="{{isNewUserPay}}" data-art="{{isArtistUserPay}}">立即报名</view>
+       <view class='shop' wx:if="{{istime == 1}}">报名还未开始</view>
+       <view class='shop sunb' bindtap='submit' wx:elif="{{detail.status == 0}}" data-num="{{isNewUserPay}}" data-art="{{isArtistUserPay}}">立即报名</view>
        <view class='shop' wx:elif="{{detail.status == 1}}">报名截止</view>
-       <view class='shop' wx:else>活动结束</view>
+       <view class='shop' wx:elif="{{detail.status == 2}}">活动结束</view>
        <!-- <text bindtap='submit'>立即报名</text> -->
     </view>
 </view>
@@ -450,5 +443,17 @@
      <view class='tis-top'>提示</view>
      <view class='tis-j'>由于相关规定，小程序ios功能暂不可用</view>
      <view class='tis-know' bindtap='tis'>我知道了</view>
+  </view>
+</view>
+
+<view class="jgeve" wx:if='{{detail.isOrganization == 1}}' bindtap="jgeve" id="{{detail.id}}">机构
+ <view>参赛</view>
+</view>
+
+<!-- 赛区承办权-->
+<view wx:if='{{detail.isAgent == 1}}'>
+  <view  class="apply_cb" id="{{detail.id}}" bindtap="undertake">
+    申请
+    <view>赛区承办权</view>
   </view>
 </view>

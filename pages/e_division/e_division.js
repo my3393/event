@@ -1,5 +1,7 @@
 // pages/e_division/e_division.js
 var app = getApp();
+var type;
+let organizationId;
 Page({
 
   /**
@@ -8,13 +10,17 @@ Page({
   data: {
     saiId:'',
     detail:[],
-    num:100,
+    num:100000,
+    nums:100000,
     id:'',
     isart:true,
     pay:'',
     is_actor:'',
     art:'',
     issai:false,
+    isgorup:false,
+    playerId:'',
+    playerType:1
   },
 
   /**
@@ -27,9 +33,18 @@ Page({
      that.setData({
        saiId: options.id,
        pay: options.num,
-       art:options.art
+       art:options.art,
+       type: options.type,
      })
-    console.log(that.data.pay)
+     if(options.type == 0){
+       that.setData({
+         isgorup:true
+       })
+     }
+    // if (options.organizationId){
+    //   organizationId = options.organizationId
+    //  }
+   
     wx.request({
       url: app.data.urlmall + "/appcompetition/competitionarea.do",
       data: {
@@ -57,7 +72,7 @@ Page({
         }
       }
     })
-   
+   // that.getgroup();
   },
 
   /**
@@ -131,13 +146,149 @@ Page({
       path: '/pages/e_home/e_home'
     }
   },
+  //赛区选择
+
   tap:function(e){
     console.log(e)
+    var that = this;
     this.setData({
       num : e.currentTarget.dataset.index,
-      id:e.currentTarget.id 
+      id:e.currentTarget.id,
+      playerId: '',
+      
+      nums: 100000,
     })
+    organizationId = ''
+    if (that.data.type == 1 && this.data.playerType == 2){
+      that.getorganization();
+      that.setData({
+        istype: 2,
+        isg:1,
+        index:10000000
+      })
+    }
+    if (this.data.playerType == 2 && that.data.type == 0){
+       that.setData({
+         isg: 2
+       })
+       that.getgroup();
+    }
     console.log(this.data.id)
+  },
+  //选择机构
+  bindPickerChange: function (e) {
+    var that = this;
+    console.log('picker发送选择改变，携带值为', e)
+    organizationId = that.data.orgin[e.detail.value].id
+    this.setData({
+      index: e.detail.value,
+
+    })
+    if (that.data.playerType == 2) {
+      that.setData({
+        isg: 2,
+        playerId:'',
+        nums:100000
+      })
+      that.getgroup();
+    }
+
+  },
+  //团体选择
+  tas: function (e) {
+    console.log(e)
+    var that = this;
+    this.setData({
+      nums: e.currentTarget.dataset.index,
+      playerId: e.currentTarget.id
+    })
+   
+  },
+  //单人
+  one:function(){
+    var that = this;
+    that.setData({
+      isgorup: !that.data.isgorup,
+    })
+  },
+  //团体
+  two: function () {
+    var that = this;
+    that.setData({
+      isgorup: !that.data.isgorup,
+      playerType:2,
+      
+    })
+  },
+  
+  //机构
+  getorganization:function(){
+     var that = this;
+     wx.request({
+       url: app.data.urlmall + "apppcompetitionsignup/organization.do",
+       data: {
+         id: that.data.id,
+         token: wx.getStorageSync('etoken'),  
+       },
+       method: 'POST',
+       header: {
+         'content-type': 'application/x-www-form-urlencoded'
+       },
+       dataType: 'json',
+       success: function (res) {
+         console.log(res.data.data)
+         if (res.data.status === 100) {
+           that.setData({
+             orgin: res.data.data,
+
+           })
+
+         } else {
+           wx.showToast({
+             title: res.data.msg,
+             icon: 'none'
+           })
+         }
+       }
+     })
+  },
+  //团体
+  getgroup: function () {
+    var that = this;
+    wx.request({
+      url: app.data.urlmall + "apppcompetitionsignup/playerteam.do",
+      data: {
+        id: that.data.id,
+        token: wx.getStorageSync('etoken'),
+        organizationId: organizationId,
+      },
+      method: 'POST',
+      header: {
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+      dataType: 'json',
+      success: function (res) {
+        console.log(res.data.data)
+        if (res.data.status === 100) {
+          if(res.data.data == ''){
+            wx.showToast({
+              title: "该机构下没有团体，可选择个人",
+              icon: 'none'
+            })
+          }
+          that.setData({
+            group: res.data.data,
+
+          })
+
+        } else {
+          wx.showToast({
+            title: res.data.msg,
+            icon: 'none'
+          })
+        }
+      }
+    })
   },
   //提交
   submit:function(e){
@@ -147,15 +298,28 @@ Page({
         //   title: '由于相关规范，ios功能暂不可用',
         //   icon:'none'
         //  })
+    
 
-
-    console.log(that.data.is_actor)
+   // console.log(that.data.is_actor)
     if(that.data.id == ''){
        wx.showToast({
          title: '请选择赛区',
          icon:'none'
        })
+    } else if (that.data.playerType == 2 && organizationId == '') {
+      
+        wx.showToast({
+          title: '团体赛报名必须要有所属机构',
+          icon: 'none'
+        })
+     
+    } else if (that.data.playerId == '' && that.data.playerType == 2) {
+      wx.showToast({
+        title: '请选择要加入的团体',
+        icon: 'none'
+      })
     } else{
+      console.log('进入')
       wx.request({
         url: app.data.urlmall + "/apppcompetitionsignup/isjoin.do",
         data: {
@@ -197,7 +361,10 @@ Page({
           url: app.data.urlmall + "/apppcompetitionsignup/artistjoin.do",
           data: {
             id: that.data.id,
-            token: wx.getStorageSync('etoken')
+            token: wx.getStorageSync('etoken'),
+            organizationId: organizationId,
+            playerType: that.data.playerType,
+            playerId: that.data.playerId
           },
           method: 'POST',
           header: {
@@ -210,18 +377,21 @@ Page({
               wx.showToast({
                 title: '报名成功',
               })
-              var pages = getCurrentPages();//当前页面栈
-              if (pages.length > 1) {
-                var beforePage = pages[pages.length - 2];//获取上一个页面实例对象
-                var currPage = pages[pages.length - 1]; // 当前页面，若不对当前页面进行操作，可省去
-                // beforePage.setData({       //如果需要传参，可直接修改A页面的数据，若不需要，则可省去这一步
-                //   id: res.data.data
-                // })
-                beforePage.changeData();//触发父页面中的方法
-              }
-              wx.navigateBack({
-                delta: 1
+              wx.redirectTo({
+                url: '../e_home/e_home',
               })
+              // var pages = getCurrentPages();//当前页面栈
+              // if (pages.length > 1) {
+              //   var beforePage = pages[pages.length - 2];//获取上一个页面实例对象
+              //   var currPage = pages[pages.length - 1]; // 当前页面，若不对当前页面进行操作，可省去
+              //   // beforePage.setData({       //如果需要传参，可直接修改A页面的数据，若不需要，则可省去这一步
+              //   //   id: res.data.data
+              //   // })
+              //   beforePage.changeData();//触发父页面中的方法
+              // }
+              // wx.navigateBack({
+              //   delta: 1
+              // })
             } else {
               wx.showToast({
                 title: res.data.msg,
@@ -235,7 +405,8 @@ Page({
           url: app.data.urlmall + "/apppcompetitionsignup/artistjoin/xcxpay.do",
           data: {
             id: that.data.id,
-            token: wx.getStorageSync('etoken')
+            token: wx.getStorageSync('etoken'),
+            organizationId: organizationId
           },
           method: 'POST',
           header: {
@@ -258,18 +429,21 @@ Page({
                     duration: 1000
 
                   })
-                  var pages = getCurrentPages();//当前页面栈
-                  if (pages.length > 1) {
-                    var beforePage = pages[pages.length - 2];//获取上一个页面实例对象
-                    var currPage = pages[pages.length - 1]; // 当前页面，若不对当前页面进行操作，可省去
-                    // beforePage.setData({       //如果需要传参，可直接修改A页面的数据，若不需要，则可省去这一步
-                    //   id: res.data.data
-                    // })
-                    beforePage.changeData();//触发父页面中的方法
-                  }
-                  wx.navigateBack({
-                    delta: 1
+                  wx.redirectTo({
+                    url: '../e_home/e_home',
                   })
+                  // var pages = getCurrentPages();//当前页面栈
+                  // if (pages.length > 1) {
+                  //   var beforePage = pages[pages.length - 2];//获取上一个页面实例对象
+                  //   var currPage = pages[pages.length - 1]; // 当前页面，若不对当前页面进行操作，可省去
+                  //   // beforePage.setData({       //如果需要传参，可直接修改A页面的数据，若不需要，则可省去这一步
+                  //   //   id: res.data.data
+                  //   // })
+                  //   beforePage.changeData();//触发父页面中的方法
+                  // }
+                  // wx.navigateBack({
+                  //   delta: 1
+                  // })
                 },
                 fail(res) {
                   wx.showToast({
@@ -289,8 +463,11 @@ Page({
         })
       }
     } else {
-      this.setData({
-        isart: !that.data.isart
+      // this.setData({
+      //   isart: !that.data.isart
+      // })
+      wx.navigateTo({
+        url: '../e_artist/e_artist?id=' + that.data.id + '&npay=' + that.data.pay + '&organizationId=' + organizationId + '&playerType=' + that.data.playerType + '&playerId=' + that.data.playerId + '&type=' + that.data.type,
       })
 
     }
@@ -306,7 +483,7 @@ Page({
     var that = this;
     console.log(that.data.isUser)
     wx.navigateTo({
-      url: '../e_artist/e_artist?id=' + that.data.id + '&npay=' + that.data.pay,
+      url: '../e_artist/e_artist?id=' + that.data.id + '&npay=' + that.data.pay + '&organizationId=' + organizationId + '&playerType=' + that.data.playerType + '&playerId=' + that.data.playerId + '&type=' + that.data.type,
     })
   },
 })

@@ -1,0 +1,38 @@
+<!--pages/my-help/e_my-help.wxml-->
+<view class="n-list" wx:for='{{detail}}' wx:key='{{index}}'>
+   <view class="n-top">{{item.competitionTitle}}</view>
+  <view class="public">
+    
+    <view>
+        <view class="piao">{{item.remainValue}}票</view>
+        <view class="leij">当前有效助力票数</view>
+    </view>
+    <view>
+        <view class="piao">{{item.totalValue}}票</view>
+        <view class="leij">累计助力票数</view>
+    </view>
+  </view>
+  <view class="wid">
+    <view class="zhuli" bind:tap="trun" id="{{item.organizerId}}">前去助力</view>
+    <view class="zhuli" bind:tap="receive" id='{{item.organizerId}}'>领取礼品</view>
+  </view>
+</view>
+<view class="yds" hidden='{{isgift}}' bindtap='qux'>
+   <view class="yd">
+      恭喜
+      <view class="lip">恭喜你获得赞助方提供的{{gift.giftName}}</view>
+       <view class='xioed'>
+          <view class='deter' catchtap='cance'>算了</view>
+          <view class='deter' catchtap='que' >点击领取</view>
+        </view>
+   </view>
+</view>
+<view class="yds" hidden='{{nogift}}'>
+   <view class="yd">
+      暂无领取资格
+      <view class="lip">你还差{{gift.differenceValue}}票就能领取赞助商提供的{{gift.giftName}}，多给选手们助力吧~</view>
+      <view class='xioe' bindtap='gohelp'>前往助力</view>
+   </view>
+</view>
+
+<view class="jl" bindtap="record">我的兑换记录>></view>

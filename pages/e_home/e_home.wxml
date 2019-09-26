@@ -35,5 +35,26 @@
 </view>
 <!-- 娱乐世界 -->
 
+<view class='footer'>
+  <view class='rems'>
+    <view class='png'>
+      <image src='../../images/mystar.png'></image>
+    </view>
+    <view class='re-mi re-a'>艺赛联盟</view>
+  </view>
+   <view class='rems' bindtap="yule">
+    <view class='png'>
+      <image src='../../images/ico-entertainment.png'></image>
+    </view>
+    <view class='re-mi'>娱乐世界</view>
+  </view>
+  <view class='rems' bindtap='mine'>
+    <view class='png'>
+      <image src='../../images/mine-x.png'></image>
+    </view>
+    <view>我的</view>
+  </view>
+</view>
+
 
 

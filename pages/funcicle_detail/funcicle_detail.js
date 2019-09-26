@@ -59,6 +59,13 @@ Page({
      */
     onShow: function () {
         console.log(this.options.bindcode+"sdasdas")
+      var that = this;
+      setTimeout(function () {
+
+        wx.setNavigationBarTitle({
+          title: that.data.datas.userName,
+        })
+      }, 500)
         wx.setStorage({
             key: 'bcode',
             data: this.options.bindcode,

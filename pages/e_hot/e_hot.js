@@ -45,6 +45,23 @@ Page({
 
           })
 
+        } else if (res.data.status === 103) {
+          wx.showToast({
+            title: res.data.msg,
+            icon: 'none'
+          })
+          wx.navigateTo({
+            url: '/pages/login/login',
+          })
+
+        } else if (res.data.status == 105) {
+          wx.showToast({
+            title: res.data.msg,
+            icon: 'none'
+          })
+          wx.navigateTo({
+            url: '../bindphone/bindphone',
+          })
         } else {
           wx.showToast({
             title: res.data.msg,
@@ -133,7 +150,16 @@ Page({
 
           })
 
-        } else {
+        } else if (res.data.status === 103) {
+          wx.showToast({
+            title: res.data.msg,
+            icon: 'none'
+          })
+          wx.navigateTo({
+            url: '/pages/login/login',
+          })
+
+        }  else {
           wx.showToast({
             title: res.data.msg,
             icon: 'none'
@@ -277,7 +303,7 @@ Page({
                     }
                   })
 
-                } else {
+                }  else {
                   wx.showToast({
                     title: res.data.msg,
                     icon: 'none'
@@ -287,6 +313,23 @@ Page({
             })
            
 
+          } else if (res.data.status === 103) {
+            wx.showToast({
+              title: res.data.msg,
+              icon: 'none'
+            })
+            wx.navigateTo({
+              url: '/pages/login/login',
+            })
+
+          } else if (res.data.status == 105) {
+            wx.showToast({
+              title: res.data.msg,
+              icon: 'none'
+            })
+            wx.navigateTo({
+              url: '../bindphone/bindphone',
+            })
           } else {
             wx.showToast({
               title: res.data.msg,

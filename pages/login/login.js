@@ -84,6 +84,7 @@ Page({
     },
     bindGetUserInfo(e) {
         console.log(e.detail.userInfo)
+        var that = this;
         wx.getSetting({
             success(res) {
                 console.log(res)
@@ -147,7 +148,7 @@ Page({
                                                     })
                                                 } else {
                                                   console.log(11)
-                                                  wx.switchTab({
+                                                  wx.redirectTo({
                                                     url: '../e_home/e_home'
                                                   })
                                                 }
@@ -165,9 +166,57 @@ Page({
                             }
                         }
                     });
+                }else{
+                  that.gettoken();
+                 
+                    
+                 
                 }
             }
         })
     },
+  gettoken: function (e) {
+    var that = this;
+
+    wx.request({
+      url: app.data.urlmall + "appcomeptition/default/token.do",
+      data: {
+
+      },
+      method: 'POST',
+      header: {
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+      dataType: 'json',
+      success: function (res) {
+        console.log(res.data.data)
+        if (res.data.status === 100) {
+          wx.setStorage({
+            key: 'etoken',
+            data: res.data.data.token,
+          })
+          wx.setStorage({
+            key: 'userinfo',
+            data: res.data.data.user,
+          })
+          wx.switchTab({
+            url: '../e_home/e_home'
+          })
+          console.log(111)
+        } else if (res.data.status === 103) {
+          wx.redirectTo({
+            url: '/pages/login/login',
+          })
+
+        } else {
+          wx.showToast({
+            title: res.data.msg,
+            icon: 'none'
+          })
+        }
+      }
+    })
+
+  },
 
 })

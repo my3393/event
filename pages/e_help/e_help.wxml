@@ -56,8 +56,39 @@
 				  艺呗不足
           <view class="lip">是否前往充值</view>
         <view class='xioe'>
-          <view class='deter' catchtap='cance'>否</view>
-          <view class='deter' catchtap='deter' >是</view>
+          <view class='deter' catchtap='no'>否</view>
+          <view class='deter' catchtap='shi' >是</view>
+        </view>
+			</view>
+</view>
+
+<view class="yds" hidden='{{isgif}}' >
+			<view class="yd">
+				  感谢支持，我会加油的
+          <view class="lip">恭喜你获得赞助商提供的{{recegift.giftName}}，继续助力可获得更大礼品哦~</view>
+        <view class='xioe'>
+          <view class='deter' catchtap='cance'>前往领取</view>
+          <view class='deter' catchtap='deter' >继续支持</view>
+        </view>
+			</view>
+</view>
+
+<view class="yds" hidden='{{isgift}}' bindtap='qux'>
+			<view class="yd">
+				  感谢支持，我会加油的
+          <view class="lip">你还差{{recegift.differenceValue}}票就能领取赞助商提供的{{recegift.giftName}}，多给选手们助力吧~</view>
+        <view class='xioe' bindtap='que'>
+           好的
+        </view>
+			</view>
+</view>
+
+<view class="yds" hidden='{{ishelp}}' bindtap='qux'>
+			<view class="yd">
+				  助力成功
+          <view class="lip">我一定全力以赴，绝不辜负你的厚爱，感谢你的关注与支持~</view>
+        <view class='xioe' bindtap='haode'>
+           好的
         </view>
 			</view>
 </view>

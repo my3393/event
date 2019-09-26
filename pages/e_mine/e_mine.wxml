@@ -1,0 +1,54 @@
+<!--pages/e_mine/e_mine.wxml-->
+<view class='ibottom clearfix'>
+ <view class='fhead' wx:if='{{userinfo.username == null}}'>
+    <image mode='aspectFill' src='../../images/avater.png'></image>
+  </view>
+  <view class='fhead'  wx:else>
+    <image mode='aspectFill' src='{{userinfo.head_photo}}'></image>
+  </view>
+  <text wx:if='{{userinfo.username == null}}' bindtap="login" class="deter">登录</text>
+  <text wx:else>{{userinfo.username}}</text>
+
+ <!-- <view style='float: right;' wx:if='{{userinfo.isJoin == 1}}'>
+     <view class='flabel' bindtap='play' id='{{userinfo.idolId}}'>查看赛况</view>
+     <view class='flabel' bindtap='fan'>查看粉丝</view>
+ </view> -->
+</view>
+<view class='public' bindtap='gift' >
+   <view class='fons'>礼品兑换</view>
+    
+    <view class='enter'>
+       <image src='../../images/enter.png'></image>
+     </view>
+   
+</view>
+<view class='public' bindtap='yule'>
+   <view class='fons'>前往娱乐世界</view>
+    
+    <view class='enter'>
+       <image src='../../images/enter.png'></image>
+     </view>
+    
+</view>
+
+
+<view class='footer'>
+  <view class='rems'  bindtap='yisai'>
+    <view class='png'>
+      <image src='../../images/ico-star.png'></image>
+    </view>
+    <view class='re-mi'>艺赛联盟</view>
+  </view>
+   <view class='rems' bindtap="yule">
+    <view class='png'>
+      <image src='../../images/ico-entertainment.png'></image>
+    </view>
+    <view class='re-mi'>娱乐世界</view>
+  </view>
+  <view class='rems'>
+    <view class='png'>
+      <image src='../../images/mine-y.png'></image>
+    </view>
+    <view class="re-a">我的</view>
+  </view>
+</view>

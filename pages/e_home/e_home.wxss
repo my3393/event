@@ -4,7 +4,7 @@ page{
 }
 .h-top{
   position: fixed;
-  bottom: 100rpx;
+  bottom: 130rpx;
   right:20rpx;
   width: 192rpx;
   height: 82rpx;
@@ -77,7 +77,7 @@ page{
   color: #A6A6A6;
 }
 .one{
-  margin-bottom:20rpx; 
+  margin-bottom:130rpx; 
 }
 .foote{
   position: fixed;
@@ -89,4 +89,35 @@ page{
   display: flex;
   justify-content: space-around;
   line-height: 80rpx;
+}
+
+
+.footer{
+   height: 120rpx;
+   width: 100%;
+  background: #fff;
+  position: fixed;
+  left: 0;
+  bottom: 0rpx;
+  text-align: center;
+  font-size: 24rpx;
+  display: flex;
+  justify-content: space-around;
+}
+.rems{
+  text-align: center;
+}
+.png{
+  display: inline-block;
+  width: 60rpx;
+  height: 60rpx;
+  vertical-align: middle;
+  margin-top: 16rpx;
+}
+.png image{
+  width: 100%;
+  height: 100%;
+}
+.re-a{
+  color: #F861AA;
 }

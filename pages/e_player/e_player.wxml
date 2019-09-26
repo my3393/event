@@ -1,195 +1,179 @@
 <view class="nwrap">
-					<view class="ntops">
-						{{detail.playerNumber}}号     {{detail.userName}}
-						<text bindtap='online' id='{{id}}' >预约TA</text>
-					</view>
-					<view class="contents">
-					我正在参加{{text}} {{detail.competitionName}}的评选，快投我一票吧！
-					</view>
+  <view class="ntops">
+    {{detail.playerNumber}}号     {{detail.userName}}
+    <text bindtap='online' id='{{id}}' wx:if="{{deatil.playerType == 1}}">预约TA</text>
+  </view>
+  <view class="contents">我正在参加{{text}} {{detail.competitionName}}的评选，快投我一票吧！</view>
 </view>
+<view wx:if="{{detail.playerType == 1}}">
   <view class="tmenu">
-				<view wx:for="{{tag}}" wx:for-index="idx" bindtap="tag" data-num='{{idx}}' class='{{tar == idx?"active":""}}'>{{item.name}}</view>
-				</view>
-      <view wx:if='{{tab == 0}}'>
-         <view class="te" >
-					<view class="te-photo" >
-					  <swiper class="te-pho"  indicator-dots="true" autoplay="false" duration="1000" indicator-color="#a7a7a7" indicator-active-color="#fe5ba9">
-    <block  wx:for="{{photos}}">
-      <swiper-item id="{{item.ids}}" bindtap="enters" class='swiper'>
-       <image src="{{item.fileOssPath}}"></image>
-      </swiper-item>
-    </block>
-
-  </swiper>
-						
-					</view>
-					<view class='zuo'>
-							左滑查看更多
-					</view>
-				</view>
+    <view wx:for="{{tag}}" wx:for-index="idx" bindtap="tag" data-num='{{idx}}' class='{{tar == idx?"active":""}}'>
+      {{item.name}}
+    </view>
+  </view>
+  <view wx:if='{{tab == 0}}'>
+    <view class="te">
+      <view class="te-photo">
+        <swiper class="te-pho" indicator-dots="true" autoplay="false" duration="1000" indicator-color="#a7a7a7" indicator-active-color="#fe5ba9">
+          <block wx:for="{{photos}}">
+            <swiper-item id="{{item.ids}}" bindtap="enters" class='swiper'>
+              <image src="{{item.fileOssPath}}"></image>
+            </swiper-item>
+          </block>
+        </swiper>
       </view>
-      <view wx:if='{{tab == 1}}'>
-          <!--无作品时-->
-          <view wx:if='{{videos.length == 0}}'>
-            <view class="play-kon" wx:if="{{artId}}">
-              <view class="work-kon">
-                  <image src='../../images/none-work.png'></image>               
-              </view>
-              <view style="color: #AAAAAA;margin: 10px 0;">
-                你还未上传视频作品
-              </view>
-              <view class="go">
-                  前往上传~
-              </view>
-            </view>
-            <view style="width: 100%;text-align: center;" wx:else>
-              <view class="work-kon">
-                
-                  <image src='../../images/work-kon.png'></image>
-              </view>
-              <view style="color: #AAAAAA;margin: 10px 0;">
-                TA好像有点懒
-              </view>
-            </view>
-            
+      <view class='zuo'>左滑查看更多</view>
+    </view>
+  </view>
+  <view wx:if='{{tab == 1}}'>
+    <!-- 无作品时 -->
+    <view wx:if='{{videos.length == 0}}'>
+      <view class="play-kon" wx:if="{{artId}}">
+        <view class="work-kon">
+          <image src='../../images/none-work.png'></image>
+        </view>
+        <view style="color: #AAAAAA;margin: 10px 0;">你还未上传视频作品</view>
+        <view class="go">前往上传~</view>
+      </view>
+      <view style="width: 100%;text-align: center;" wx:else>
+        <view class="work-kon">
+          <image src='../../images/work-kon.png'></image>
+        </view>
+        <view style="color: #AAAAAA;margin: 10px 0;">TA好像有点懒</view>
+      </view>
+    </view>
+    <!-- 有作品时 -->
+    <view class="works" wx:else>
+      <view class="work-vid">
+        <view class="work-video" wx:for="{{videos}}" bindtap='seevideo' id='{{item.id}}' data-src="{{item.fileOssPath}}">
+          <image src='{{item.coverOssPath}}'></image>
+          <view class="work-play">
+            <image src='../../images/art-play.png'></image>
           </view>
-          <!-- 有作品时 -->
-         <view class="works" wx:else>
-						<view class="work-vid">
-							 <view class="work-video" wx:for="{{videos}}" bindtap='seevideo' id='{{item.id}}' data-src="{{item.fileOssPath}}">
-							   	<image src='{{item.coverOssPath}}'></image>
-                   
-							 	  <view class="work-play">
-							 	  	 <image src='../../images/art-play.png'></image>
-							 	</view>
-							 </view>
-							
-						</view>
-						<view class='zuo'>
-								左滑查看更多
-						</view>
-					</view>
-          
-      </view>
-      <view class="te-t">
-					<view class="te-top">
-						 <view class="te-tps">
-						 	<view >{{detail.currentRank}}</view>
-						 	<view>当前排名</view>
-						 </view>
-						 <view class="te-tps">
-						 	<view style="color: #7F75FF;">{{detail.starValue}}</view>
-						 	<view>星值</view>
-						 </view>
-						 <view class="te-tps">
-						 	<view >{{before}}</view>
-						 	<view>距上一名差</view>
-						 </view>
-					</view>
-					<view class="te-top topte">
-						 <view class="total-p">
-						 	<view>总票数</view>
-						 	<view >{{detail.totalVotes}}</view>
-						 	
-						 </view>
-						 <view class="total-p">
-						 	<view>助力数</view>
-						 	<view >{{detail.refuelNumber}}</view>
-						 	
-						 </view>
-						 <view class="total-p">
-						 	<view>转发数</view>
-						 	<view >{{detail.forwardNumber}}</view>
-						 	
-						 </view>
-					</view>
-          <view class="thes">
-                <view class="thes-center" bindtap='help'>
-                   <image src="../../images/choosefoot.png"></image>
-                </view>
-                <view class="la">
-                  <view class="lticket" bindtap='lticket'>
-                    帮他拉票
-                  </view>
-                  <view class="tticket" bindtap='vote'>
-                    投他一票
-                  </view>
-                </view>
-
-         </view>
-				</view>
-    <view class='nav'>
-      <view class="votes"><view></view>投票记录(仅显示最新5条记录)</view>
-      <view class="vote clearfix">
-      有人默默为他投了一票
-      </view>
-       <!--为空时-->
-       <view class="kong" wx:if="{{votelist.length == 0}}">
-						还没有人为TA投票
-					</view>
-        <!--存在时-->
-       <view class='clearfix votez'>
-        <view class="votehead"  wx:for="{{votelist}}">
-          <image src='{{item.headPhoto}}'></image>
         </view>
-       </view>
-       
-    </view>
-
-  <view class="footer">
-    <view class="vote">
-      有人豪气为TA助力
-    </view>
-    <!--为空时-->
-    <view class="kong" wx:if='{{refue.length == 0}}'>
-						还没有人为他助力
-					</view>
-    <view wx:else>
-      <view class='rank clearfix gifts' wx:for='{{refue}}'>
-        <view class='rankhead'>
-          <image src='{{item.headPhoto}}'></image>
-        </view>
-        <view class='rankm'>
-          <view class='giftm'>{{item.userName}}  </view>
-           <view class='pnum'>赠送</view>
-          <view class='gitf'>
-            <image src='{{item.refuelGiftPhotoOssPath}}'></image>
-          </view>
-          <view class='pnum'>+{{item.voteNumber}}票</view>
-        </view>
-        <view class='ranktime'>{{item.createDate}}</view>
       </view>
-      <view class="jilu">仅显示最新五条记录</view>
+      <view class='zuo'>左滑查看更多</view>
     </view>
-   </view>
-   <view class="searc">
-				<view bindtap='home'>首页 
-					<view class="xie"></view> 
-				</view>
-				<view bindtap='sai'>查看赛事
-				      <view class="xie"></view> 
-				</view>
-				<view class="subm" bindtap='subm' wx:if='{{event.status == 0}}'>我要报名</view>
-        <view class="jiez"  wx:else>报名截止</view>
-	</view>
+  </view>
+</view>
 
-
+<view class="group" wx:else>
+  <view>团队成员</view>
+  <view class='g-all'>
+    <view class="g-head" wx:for='{{group}}' id='{{item.userId}}' bindtap="funcicle">
+      <view class="g-img" >
+        <image src='{{item.headPhoto}}'></image>
+      </view>
+      <view class="group-name">{{item.userName}}</view>
+    </view>
+    
+  </view>
+</view>
+<view class="te-t">
+  <view class="te-top">
+    <view class="te-tps">
+      <view>{{detail.currentRank}}</view>
+      <view>当前排名</view>
+    </view>
+    <view class="te-tps">
+      <view style="color: #7F75FF;">{{detail.starValue}}</view>
+      <view>星值</view>
+    </view>
+    <view class="te-tps">
+      <view>{{before}}</view>
+      <view>距上一名差</view>
+    </view>
+  </view>
+  <view class="te-top topte">
+    <view class="total-p">
+      <view>总票数</view>
+      <view>{{detail.totalVotes}}</view>
+    </view>
+    <view class="total-p">
+      <view>助力数</view>
+      <view>{{detail.refuelNumber}}</view>
+    </view>
+    <view class="total-p">
+      <view>转发数</view>
+      <view>{{detail.forwardNumber}}</view>
+    </view>
+  </view>
+  <view class="thes">
+    <view class="thes-center" bindtap='help'>
+      <image src="../../images/choosefoot.png"></image>
+    </view>
+    <view class="la">
+      <view class="lticket" bindtap='lticket'>帮他拉票</view>
+      <view class="tticket" bindtap='vote'>投他一票</view>
+    </view>
+  </view>
+</view>
+<view class='nav'>
+  <view class="votes">
+    <view></view>
+    投票记录<text style="font-size:28rpx">(仅显示最新5条记录)</text>
+  </view>
+  <view class="vote clearfix">有人默默为他投了一票</view>
+  <!-- 为空时 -->
+  <view class="kong" wx:if="{{votelist.length == 0}}">还没有人为TA投票</view>
+  <!-- 存在时 -->
+  <view class='clearfix votez'>
+    <view class="votehead" wx:for="{{votelist}}">
+      <image src='{{item.headPhoto}}'></image>
+    </view>
+  </view>
+</view>
+<view class="footer">
+  <view class="vote">有人豪气为TA助力<text style="font-size:28rpx">(仅显示最新5条记录)</text></view>
+  <!-- 为空时 -->
+  <view class="kong" wx:if='{{refue.length == 0}}'>还没有人为他助力</view>
+  <view wx:else>
+    <view class='rank clearfix gifts' wx:for='{{refue}}'>
+      <view class='rankhead'>
+        <image src='{{item.headPhoto}}'></image>
+      </view>
+      <view class='rankm'>
+        <view class='giftm'>{{item.userName}}</view>
+        <view class='pnum'>赠送</view>
+        <view class='gitf'>
+          <image src='{{item.refuelGiftPhotoOssPath}}'></image>
+        </view>
+        <view class='pnum'>+{{item.voteNumber}}票</view>
+      </view>
+      <view class='ranktime'>{{item.createDate}}</view>
+    </view>
+    <!-- <view class="jilu">仅显示最新五条记录</view> -->
+  </view>
+</view>
+<view class="searc">
+  <view bindtap='home'>
+    首页
+    <view class="xie"></view>
+  </view>
+  <view bindtap='sai'>
+    查看赛事
+    <view class="xie"></view>
+  </view>
+  <view class="subm" bindtap='subm' wx:if='{{event.status == 0}}'>我要报名</view>
+  <view class="jiez" wx:else>报名截止</view>
+</view>
 <view class="yds" hidden='{{isyds}}'>
-			<view class="yd">
-				<view class="yd1"> <image src="../../images/know.png"></image> </view>
-				<view class="yd2" bindtap='know'> <image src="../../images/btn.png"></image></view>
-			</view>
+  <view class="yd">
+    <view class="yd1">
+      <image src="../../images/know.png"></image>
+    </view>
+    <view class="yd2" bindtap='know'>
+      <image src="../../images/btn.png"></image>
+    </view>
+  </view>
 </view>
-
 <!-- 预览视频 -->
-<view class='mask' catchtouchmove='true' hidden='{{isvideo}}' catchtap='hidevideo'>
-</view>
+<view class='mask' catchtouchmove='true' hidden='{{isvideo}}' catchtap='hidevideo'></view>
 <video class='maskvideo' hidden='{{isvideo}}' src='{{play}}'></video>
-
 <view class='ishe' hidden='{{ishelp}}'>
   <view class='tis'>
-     <view class='tis-top'>提示</view>
-     <view class='tis-j'>由于相关规定，小程序ios支付功能暂不可用</view>
-     <view class='tis-know' bindtap='tis'>我知道了</view>
+    <view class='tis-top'>提示</view>
+    <view class='tis-j'>由于相关规定，小程序ios支付功能暂不可用</view>
+    <view class='tis-know' bindtap='tis'>我知道了</view>
   </view>
 </view>

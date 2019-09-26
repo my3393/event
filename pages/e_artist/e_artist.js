@@ -24,6 +24,9 @@ var areas = [];
 var towns = [];
 var area_id = '';
 var town_id = '';
+let organizationId;
+let playerType = 1;
+let playerId;
 Page({
 
   /**
@@ -32,7 +35,7 @@ Page({
   data: {
     id:'',
     showimg: true,
-    artist_type: "请选择艺人类型",
+    artist_type: "请选择选手类型",
     showlabels: true,
     labels: [],
     posters: '../../images/upimg.png',
@@ -59,6 +62,7 @@ Page({
     isqu: true,
     isjie: true,
     npay:'',
+
   },
 
   /**
@@ -68,11 +72,18 @@ Page({
     var that = this;
     console.log(options)
     that.setData({
-      id:options.id,
-      npay:options.npay
+      id: options.id,
+      npay: options.npay,
+     
     })
+    if (options.type == 1){
+      organizationId = options.organizationId
+        playerType = options.playerType
+        playerId = options.playerId
+    }
+    
     wx.setNavigationBarTitle({
-      title: '艺人入驻',
+      title: '选手报名',
     })
      
     // 获取所有省
@@ -151,8 +162,6 @@ Page({
       }
     })
     
-
-   
   },
 
   /**
@@ -676,13 +685,13 @@ Page({
           })
           return false;
         }
-        if (that.data.tvideo == '') {
-          wx.showToast({
-            title: '请上传授权视频',
-            icon: 'none'
-          })
-          return false;
-        }
+        // if (that.data.tvideo == '') {
+        //   wx.showToast({
+        //     title: '请上传授权视频',
+        //     icon: 'none'
+        //   })
+        //   return false;
+        // }
         wx.showLoading();
         if(that.data.npay == 0){
           wx.request({
@@ -699,6 +708,9 @@ Page({
               artistLabel: lid,
               personalPhoto: photos,
               authorizedVideo: that.data.tvideo,
+              organizationId: organizationId,
+              playerType: playerType,
+              playerId: playerId
             },
             method: 'POST',
             header: {
@@ -745,6 +757,9 @@ Page({
               artistLabel: lid,
               personalPhoto: photos,
               authorizedVideo: that.data.tvideo,
+              organizationId: organizationId,
+              playerType: playerType,
+              playerId: playerId
             },
             method: 'POST',
             header: {

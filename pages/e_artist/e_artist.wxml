@@ -39,7 +39,7 @@
 </view>
 <view class='wrap'>
     <view class='snitem' style='border-bottom: 0;'>
-        艺人类型： 
+        选手类型： 
         <text class='snlabels' adjust-position='true' style='width:auto;height:70rpx;' bindtap='showlabel'>{{artist_type}}</text>
     </view>
 </view>
@@ -53,7 +53,7 @@
     <image src='{{posters}}' bindtap="chooseImage" hidden='{{showadd}}'></image>
 </view>
 <view class='wrap'>
-    <view class='title'>授权视频(来段10s的精彩介绍)</view>
+    <view class='title'>授权视频(来段10s的精彩介绍,选填)</view>
     <view style='display: inline-block;margin-right: 20rpx;position:relative;'>
         <image src='../../images/head.jpg'></image>
         <view class='vmask' bindtap='showvideo' id='http://xt-ylsj.oss-cn-shenzhen.aliyuncs.com/file/fd2d1bb73ec44273b19106f4022d9ab7.mp4'>

@@ -75,13 +75,13 @@ App({
                 }
               });
             }
-            if (res.authSetting['scope.userInfo'] == undefined || res.authSetting['scope.userInfo'] == false) {
-              console.log(11)
-              wx.redirectTo({
-                url: '/pages/login/login',
-              })
+            // if (res.authSetting['scope.userInfo'] == undefined || res.authSetting['scope.userInfo'] == false) {
+            //   console.log(11)
+            //   wx.redirectTo({
+            //     url: '/pages/login/login',
+            //   })
               
-            }
+            // }
           }
         })
       }

@@ -14,7 +14,9 @@ Page({
     name:'',
     chooid:'',
     isart:true,
-
+    isgif:true,
+    isgift:true,
+    ishelp:true,
   },
 
   /**
@@ -22,8 +24,11 @@ Page({
    */
   onLoad: function (options) {
      var that = this;
+     console.log(options)
      that.setData({
-       id:options.id
+       id:options.id,
+       saiid:options.saiid,
+       isGift: options.isGift
      })
      that.getgift();
      that.getplayer();
@@ -88,13 +93,13 @@ Page({
       path: '/pages/e_home/e_home'
     }
   },
-  cance:function(){
+  no:function(){
     var that = this;
     that.setData({
       isart:!that.data.isart
     })
   },
-  deter:function(){
+  shi:function(){
     var that = this;
     that.setData({
       isart: !that.data.isart
@@ -102,6 +107,37 @@ Page({
     wx.navigateTo({
       url: '../recharge/recharge',
     })
+  },
+  que: function () {
+    var that = this;
+    this.setData({
+      isgift: !that.data.isgift,
+    })
+    //that.getuser();
+  },
+  cance: function () {
+    var that = this;
+    wx.navigateTo({
+      url: '../e_my-help/e_my-help'
+    })
+    that.setData({
+      isgif: !that.data.isgif,
+    })
+    
+  },
+  deter: function () {
+    var that = this;
+    this.setData({
+      isgif: !that.data.isgif,
+    })
+    //that.getuser();
+  },
+  haode: function () {
+    var that = this;
+    this.setData({
+      ishelp: !that.data.ishelp,
+    })
+    //that.getuser();
   },
   getplayer: function (e) {
     var that = this;
@@ -124,6 +160,14 @@ Page({
 
           })
 
+        } else if (res.data.status == 105) {
+          wx.showToast({
+            title: res.data.msg,
+            icon: 'none'
+          })
+          wx.navigateTo({
+            url: '../bindphone/bindphone',
+          })
         } else {
           wx.showToast({
             title: res.data.msg,
@@ -139,7 +183,7 @@ Page({
     wx.request({
       url: app.data.urlmall + "/apppcompetitionplayer/refuelgift.do",
       data: {
-        id: that.data.id,
+        organizerId: that.data.saiid,
         token: wx.getStorageSync('etoken')
       },
       method: 'POST',
@@ -195,9 +239,7 @@ Page({
         },
         dataType: 'json',
         success: function (res) {
-
           if (res.data.status === 100) {
-
             wx.request({
               url: app.data.urlmall + "appcompetitionpay/integralpay.do",
               data: {
@@ -210,11 +252,15 @@ Page({
               dataType: 'json',
               success: function (res) {
                 console.log(res.data.data)
-                if (res.data.status === 100) {             
-                  wx.showToast({
-                    title: '助力成功',
-                    icon: 'none'
-                  })
+                if (res.data.status === 100) {
+                  that.getplayer();   
+                  if(that.data.isGift == 0){        
+                    that.setData({
+                      ishelp: !that.data.ishelp
+                    })
+                  }else{
+                    that.getcanreceivegift();
+                  }
                 } else if (res.data.status === 106) {
                   console.log(111)
                   that.setData({
@@ -233,10 +279,18 @@ Page({
               title: res.data.msg,
               icon: 'none'
             })
-            wx.redirectTo({
+            wx.navigateTo({
               url: '/pages/login/login',
             })
 
+          } else if (res.data.status == 105) {
+            wx.showToast({
+              title: res.data.msg,
+              icon: 'none'
+            })
+            wx.navigateTo({
+              url: '../bindphone/bindphone',
+            })
           }else {
             wx.showToast({
               title: res.data.msg,
@@ -247,5 +301,61 @@ Page({
       })
     }
    
+  },
+  //用户距离下一个礼品票数
+  getcanreceivegift: function () {
+    var that = this;
+    wx.request({
+      url: app.data.urlmall + "apppcompetitionplayer/obtainorganizergift.do",
+      data: {
+        token: wx.getStorageSync('etoken'),
+        id: that.data.saiid
+      },
+      method: 'POST',
+      header: {
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+      dataType: 'json',
+      success: function (res) {
+        console.log(res.data.data)
+        if (res.data.status === 100) {
+          that.setData({
+            recegift: res.data.data,
+          })
+          if(res.data.data.giftType == 2) {
+
+            that.setData({
+              isgift: !that.data.isgift,
+            })
+          }else if (res.data.data.giftType == 1) {
+            that.setData({
+              isgif: !that.data.isgif,
+            })
+          }
+
+        } else if (res.data.status === 103) {
+          wx.showToast({
+            title: '请重新登录',
+            icon: 'none'
+          })
+          wx.navigateTo({
+            url: '../login/login',
+          })
+        } else if (res.data.status == 105) {
+          wx.showToast({
+            title: res.data.msg,
+            icon: 'none'
+          })
+          wx.navigateTo({
+            url: '../bindphone/bindphone',
+          })
+        } else {
+          wx.showToast({
+            title: res.data.msg,
+            icon: 'none'
+          })
+        }
+      }
+    })
   },
 })

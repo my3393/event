@@ -36,7 +36,16 @@ Page({
             data: res.data.data.user,
           })
           wx.redirectTo({
-            url: '../e_home/e_home'
+            url: '../e_home/e_home',
+          })
+
+        } else if (res.data.status === 103) {
+          wx.showToast({
+            title: res.data.msg,
+            icon: 'none'
+          })
+          wx.navigateTo({
+            url: '/pages/login/login',
           })
 
         } else {

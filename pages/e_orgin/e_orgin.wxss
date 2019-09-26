@@ -1,0 +1,126 @@
+/* pages/e_orgin/e_orgin.wxss */
+@import '../receive/receive.wxss';
+.jgtx{
+  background: #fff;
+  height: 100rpx;
+  line-height: 100rpx;
+  padding: 0 20rpx;
+  box-sizing: border-box;
+  border-bottom: 4rpx dotted #f2f2f2;
+}
+.photo>image{
+  width: 134rpx;
+  height: 100rpx;
+  
+}
+.photo{
+  display:inline-block;
+  float:right;
+  height: 100rpx;
+  margin-top: 16rpx;
+}
+.pho{
+  height: 130rpx;
+  line-height: 130rpx;
+}
+.jgtu{
+  display:inline-block;
+}
+.group{
+  margin-top: 40rpx;
+}
+.group-nav{
+  height: 80rpx;
+  line-height: 80rpx;
+  margin-top: 20rpx;
+  padding: 0 20rpx;
+  box-sizing: border-box;
+}
+.nav-l{
+  display: inline-block;
+  max-width: 440rpx;
+  vertical-align: middle;
+  font-size: 28rpx;
+}
+.leib{
+display: inline-block;
+margin-right: 10rpx;
+}
+.xia{
+  float: right;
+  width: 26rpx;
+  height: 24rpx;
+}
+.xia image{
+  width: 100%;
+  height: 100%;
+}
+.sai-yds{
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 12;
+}
+.v-input{
+  min-width: 200rpx;
+  margin-left: 4%;
+  display: inline-block;
+  vertical-align: middle;
+}
+.v-inpu{
+  width: 100%;
+}
+
+.sai-yd{
+	position:absolute;
+  width: calc(100% - 40rpx);
+  right:20rpx;
+	top: 10%;
+  background: #fff;
+  padding: 20rpx 0;
+  padding-bottom: 40rpx;
+  box-sizing: border-box;
+  border-radius: 12rpx;
+  overflow: scroll;
+  max-height: 500rpx;
+  z-index: 9999;
+}
+.divis{
+  width: calc((100% - 80rpx)/3);
+  margin-left: 20rpx;
+  background: #D8D8D8;
+  color: #fff;
+  border-radius: 12rpx;
+  display: inline-block;
+  text-align: center;
+  height: 75rpx;
+  line-height: 75rpx;
+  margin-top: 20rpx;
+  font-size: 26rpx;
+}
+.submit{
+  margin-bottom: 40rpx;
+}
+.sai-active{
+  background: #F861AA;
+}
+.act{
+  background: #F861AA;
+}
+.sunb{
+  background: #F861AA;
+}
+.add{
+  margin-top: 40rpx;
+  background: #F861AA;
+  color: #fff;
+  line-height: 70rpx;
+  text-align: center;
+  border-radius: 40rpx;
+  height: 70rpx;
+  width: 230rpx;
+  margin-left: 30rpx;
+}

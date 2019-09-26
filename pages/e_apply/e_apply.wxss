@@ -1,0 +1,70 @@
+/* pages/e_apply/e_apply.wxss */
+page{
+  font-size: 30rpx;
+}
+.top{
+  margin: 30rpx 20rpx;
+}
+.nav{
+  width: calc(100% - 40rpx);
+  height: 70rpx;
+  text-align: center;
+  margin-left: 20rpx;
+  line-height: 70rpx;
+  color:cornflowerblue;
+  border:1rpx solid cornflowerblue;
+  border-radius: 6rpx;
+  margin-top: 30rpx;
+}
+.bottom{
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100rpx;
+  font-size: 34rpx;
+  text-align: center;
+  line-height: 100rpx;
+  color: #fff;
+  background: #e65099;
+}
+.bott{
+  background: #fff;
+  color: #e65099;
+}
+.yds{
+   width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 12;
+}
+.yd{
+	position:absolute;
+  width: 500rpx;
+  background: #fff;
+  text-align: center;
+  font-size: 28rpx;
+  padding-top: 40rpx;
+	top: 40%;
+	left: 50%;
+  transform: translate(-50%,-50%);
+  border-radius: 8rpx;
+}
+.baodc{
+  width:100%;
+  text-align:center;
+  margin-top:30rpx;
+  color: #F861AA;
+}
+.xioe{
+  margin-top: 50rpx;
+  line-height: 70rpx;
+  display: flex;
+  justify-content: space-around
+}
+.deter{
+  color: #F861AA;
+}

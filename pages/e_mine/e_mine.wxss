@@ -1,0 +1,91 @@
+/* pages/e_mine/e_mine.wxss */
+page{
+  background: #f2f2f2;
+}
+
+.public{
+  margin-top: 20rpx;
+  width: calc(100% - 40rpx);
+  margin-left: 20rpx;
+  padding: 30rpx;
+  background: #fff;
+  box-sizing: border-box;
+  
+}
+.fons{
+  display: inline-block;
+}
+.enter{
+  float: right;
+  width: 16rpx;
+  height: 26rpx;
+}
+.enter image{
+  width: 100%;
+  height: 100%;
+}
+
+.footer{
+   height: 120rpx;
+   width: 100%;
+  background: #fff;
+  position: fixed;
+  left: 0;
+  bottom: 0rpx;
+  text-align: center;
+  font-size: 24rpx;
+  display: flex;
+  justify-content: space-around;
+}
+.rems{
+  text-align: center;
+}
+.png{
+  display: inline-block;
+  width: 60rpx;
+  height: 60rpx;
+  vertical-align: middle;
+  margin-top: 16rpx;
+}
+.png image{
+  width: 100%;
+  height: 100%;
+}
+.re-a{
+  color: #F861AA;
+}
+
+.ibottom{
+    width: calc(100% - 40rpx);
+    margin-left: 20rpx;
+    background: #fff;
+    padding: 0 20rpx;
+    line-height: 174rpx;
+    box-sizing: border-box;
+    margin-top: 20rpx;
+}
+.ibottom text{
+    float: left;
+    font-size: 28rpx;
+    color: #333;
+}
+.ibottom view{
+    display: inline-block;
+    font-size: 24rpx;
+    color: #fe5ba9;
+}
+
+.fhead{
+    width: 120rpx;
+    height: 120rpx;
+    position: relative;
+    overflow: hidden;
+    border-radius: 60rpx;
+    float: left;
+    margin-top: 20rpx;
+    margin-right: 20rpx;
+}
+.fhead image{
+    width: 100%;
+    height: 100%;
+}

@@ -1,0 +1,30 @@
+@import '../e_player/e_player.wxss';
+
+.group{
+  margin: 20rpx 0;
+  width: 100%;
+
+}
+.g-all{
+  width: 100%;
+  overflow: scroll;
+  white-space: nowrap; 
+  -webkit-overflow-scrolling: touch;
+  padding: 20rpx;
+  box-sizing: border-box;
+
+}
+.g-head{
+  height: 70rpx;
+  box-shadow: 0 0 2px #a7a7a7;
+  margin-right: 18rpx;
+  width: 70rpx;
+  border-radius: 70rpx;
+  margin-bottom: 4rpx;
+  display: inline-block;
+
+}
+.g-head image{
+  width: 100%;
+  height: 100%;
+}

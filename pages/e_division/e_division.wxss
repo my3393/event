@@ -14,7 +14,7 @@ page{
   margin-top: 20rpx;
 }
 .divis{
-  width: calc((100% - 100rpx)/4);
+  width: calc((100% - 60rpx)/2);
   margin-left: 20rpx;
   background: #D8D8D8;
   color: #fff;
@@ -41,8 +41,21 @@ page{
   text-align: center;
   line-height: 80rpx;
 }
+.saiqu{
+  overflow: scroll;
+  max-height: 400rpx;
+}
 .active{
   background: #F861AA!important;
+}
+.sai-yds{
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 12;
 }
 .yds{
    width: 100%;
@@ -59,8 +72,9 @@ page{
   background: #fff;
   text-align: center;
   font-size: 28rpx;
+  border-radius: 6rpx;
   padding-top: 40rpx;
-	top: 50%;
+	top: 40%;
 	left: 50%;
   transform: translate(-50%,-50%)
 }
@@ -78,4 +92,15 @@ color: #F861AA;
 }
 .deter{
   color: #F861AA;
+}
+.picker{
+  margin-top: 40rpx;
+  width: calc(100% - 60rpx);
+  margin-left: 30rpx;
+  height: 70rpx;
+  background: #e65099;
+  color: #fff;
+  line-height: 70rpx;
+  text-align: center;
+  border-radius: 10rpx;
 }

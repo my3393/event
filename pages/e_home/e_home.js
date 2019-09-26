@@ -22,7 +22,14 @@ Page({
    */
   onLoad: function (options) {
     var that = this;
-    that.getdetail();
+   
+    if (wx.getStorageSync('etoken')) {
+      that.getdetail();
+      console.log('token存在')
+    } else {
+      that.gettoken();
+      console.log('token不存在')
+    }
       // if(options.detailId){
       //   wx.navigateTo({
       //     url: '../e_detail/e_detail?id=' + options.detailId,
@@ -138,15 +145,71 @@ Page({
       path: '/pages/e_home/e_home'
     }
   },
+  yule: function (e) {
+    //娱乐世界
+    wx.navigateToMiniProgram({
+      appId: 'wxf556b39ee9c934b4',
+      path: 'pages/my_idol/my_idol',
+      extraData: {
+
+      },
+      envVersion: 'release',
+      success(res) {
+        // 打开成功
+      }
+    })
+
+  },
+  //我的
+  mine:function(){
+    wx.redirectTo({
+      url: '../e_mine/e_mine',
+    })
+  },
+  gettoken: function (e) {
+    var that = this;
+       
+      wx.request({
+        url: app.data.urlmall + "appcomeptition/default/token.do",
+        data: {
+         
+        },
+        method: 'POST',
+        header: {
+          'content-type': 'application/x-www-form-urlencoded'
+        },
+        dataType: 'json',
+        success: function (res) {
+          console.log(res.data.data)
+          if (res.data.status === 100) {
+            wx.setStorage({
+              key: 'etoken',
+              data: res.data.data.token,
+            })
+            wx.setStorage({
+              key: 'userinfo',
+              data: res.data.data.user,
+            })
+           setTimeout(function(){
+             that.getdetail();
+           },200)
+          } else if (res.data.status === 103) {
+            wx.redirectTo({
+              url: '/pages/login/login',
+            })
+
+          } else {
+            wx.showToast({
+              title: res.data.msg,
+              icon: 'none'
+            })
+          }
+        }
+      })
+   
+  },
   getdetail:function(e){
     var that = this;
-    var tok = wx.getStorageSync('etoken')
-    console.log(wx.getStorageSync('etoken'))
-    if (!wx.getStorageSync('etoken')){
-      wx.redirectTo({
-        url: '/pages/login/login',
-      })
-    }else{
       wx.showLoading({
         title: '加载中',
       })
@@ -187,6 +250,7 @@ Page({
               detail: detail,
               totalPage: res.data.data.totalPage
             })
+            
             console.log(that.data.endDatas)
           } else if (res.data.status === 103) {
             wx.redirectTo({
@@ -201,7 +265,7 @@ Page({
           }
         }
       })
-    }
+   
   },
   sumb:function(e){
     wx.navigateTo({
