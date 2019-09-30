@@ -417,7 +417,7 @@
     </view>
      <view class='gohot'>
        <view class='shop' wx:if="{{istime == 1}}">报名还未开始</view>
-       <view class='shop sunb' bindtap='submit' wx:elif="{{detail.status == 0}}" data-num="{{isNewUserPay}}" data-art="{{isArtistUserPay}}">立即报名</view>
+       <view class='shop sunb' hover-class="sunba" bindtap='submit' wx:elif="{{detail.status == 0}}" data-num="{{isNewUserPay}}" data-art="{{isArtistUserPay}}">立即报名</view>
        <view class='shop' wx:elif="{{detail.status == 1}}">报名截止</view>
        <view class='shop' wx:elif="{{detail.status == 2}}">活动结束</view>
        <!-- <text bindtap='submit'>立即报名</text> -->
@@ -449,6 +449,31 @@
 <view class="jgeve" wx:if='{{detail.isOrganization == 1}}' bindtap="jgeve" id="{{detail.id}}">机构
  <view>参赛</view>
 </view>
+<!-- 
+<view class="jgeve" wx:if='{{detail.isOrganization == 1}}' bindtap="jgeve" id="{{detail.id}}">机构
+ <view>参赛</view>
+</view> -->
+
+<!-- 娱乐世界 -->
+<view class="jgever"  bindtap="cai" id="{{detail.id}}"> 菜单
+ 
+</view>
+ <view class="ever-me" hidden="{{iscai}}">
+    <view class="ever-m" bindtap="shome">
+      <view class="ever-head">
+        <image src="../../images/index-n.png"></image>
+        
+      </view>
+      <view>首页</view>
+    </view>
+    <view class="ever-m" bindtap="yule">
+      <view class="ever-head">
+        <image src="../../images/ico-entertainment.png"></image>
+        
+      </view>
+      <view>娱乐世界</view>
+    </view>
+ </view>
 
 <!-- 赛区承办权-->
 <view wx:if='{{detail.isAgent == 1}}'>

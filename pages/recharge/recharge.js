@@ -85,8 +85,8 @@ Page({
    */
   onShareAppMessage: function () {
     return {
-      title: '《明日告白》影视剧组线上海选赛火热进行中，快进来看看吧~',
-      path: '/pages/home/home'
+      title: '艺赛联盟',
+      path: '/pages/e_home/e_home'
     }
   },
   yule: function (e) {

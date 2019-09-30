@@ -1,4 +1,5 @@
 // pages/e_mine/e_mine.js
+const app = getApp();
 Page({
 
   /**
@@ -12,7 +13,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+      this.getuser();
   },
 
   /**
@@ -72,7 +73,7 @@ Page({
   onShareAppMessage: function () {
 
   },
-  deter:function(){
+  login:function(){
     wx.redirectTo({
       url: '../login/login',
     })
@@ -86,6 +87,49 @@ Page({
   gift:function(){
     wx.navigateTo({
       url: '../e_my-help/e_my-help',
+    })
+  },
+  //艺呗
+  recharge: function () {
+    wx.navigateTo({
+      url: '../recharge/recharge',
+    })
+  },
+  getuser:function(){
+    var that = this;
+    wx.request({
+      url: app.data.urlmall + "appuserinfo/getuserinfo.do",
+      data: {       
+        token: wx.getStorageSync('etoken'),
+      },
+      method: 'POST',
+      header: {
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+      dataType: 'json',
+      success: function (res) {
+        console.log(res.data.data)
+        if (res.data.status === 100) {
+          that.setData({
+            userinfo: res.data.data.user,
+
+          })
+          wx.setStorage({
+            key: 'etoken',
+            data: res.data.data.token,
+          })
+          wx.setStorage({
+            key: 'userinfo',
+            data: res.data.data.user,
+          })
+
+        } else {
+          wx.showToast({
+            title: res.data.msg,
+            icon: 'none'
+          })
+        }
+      }
     })
   },
   yule: function (e) {

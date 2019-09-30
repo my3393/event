@@ -14,6 +14,14 @@
      <view class='flabel' bindtap='fan'>查看粉丝</view>
  </view> -->
 </view>
+<!-- <view class='public' bindtap='recharge' hidden='{{zhif}}'>
+   <view class='fons'>艺呗</view>
+    
+    <view class='enter'>
+       <image src='../../images/enter.png'></image>
+     </view>
+    <text style='float: right;margin-right:20rpx;'>{{userinfo.integral}}</text>   
+</view> -->
 <view class='public' bindtap='gift' >
    <view class='fons'>礼品兑换</view>
     
@@ -30,7 +38,14 @@
      </view>
     
 </view>
-
+<!-- <view class='public' bindtap='yule'>
+   <view class='fons'>联系客服</view>
+    <button open-type="contact" bindcontact="handleContact" class="btn"></button>
+    <view class='enter'>
+       <image src='../../images/enter.png'></image>
+     </view>
+    
+</view> -->
 
 <view class='footer'>
   <view class='rems'  bindtap='yisai'>

@@ -2,7 +2,17 @@
 page{
   background: #f2f2f2;
 }
-
+.btn{
+  position: absolute;
+  top: 18%;
+  height: 65rpx;
+  width: 64%;
+  left: 180rpx;
+  background-color: #fff;
+}
+button::after{
+  border: 0;
+}
 .public{
   margin-top: 20rpx;
   width: calc(100% - 40rpx);
@@ -10,7 +20,8 @@ page{
   padding: 30rpx;
   background: #fff;
   box-sizing: border-box;
-  
+  /* border: 1rpx solid #ccc; */
+  position: relative;
 }
 .fons{
   display: inline-block;

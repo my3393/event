@@ -91,6 +91,7 @@ Page({
     fullScreenFlag : false,
     isLive:'',
     ishelp:true,
+    iscai:true,
   },
 
   /**
@@ -100,16 +101,14 @@ Page({
      var that = this;
     // 调用函数时，传入new Date()参数，返回值是日期和时间
     var time = util.formatTime(new Date());
-    console.log(time)
+    console.log(options)
     // 再通过setData更改Page()里面的data，动态更新页面的数据
      that.setData({
        id:options.id,
        time: time
      })
     that.getdetail();
-    setTimeout(function(){
-     
-    },500)
+   
      setInterval(function () {
       that.setData({
         time: util.formatTime(new Date())
@@ -309,7 +308,7 @@ Page({
       })
     } else {
       that.setData({
-        currentPage: that.data.currentPage + 1,
+        p_currentPage: that.data.p_currentPage + 1,
       })
       that.getranklist();
 
@@ -339,6 +338,33 @@ Page({
        title: that.data.detail.competitionTitle + '正在火热进行中，快来报名参加吧!',
        path: '/pages/e_detail/e_detail?id=' + that.data.id,
      }
+  },
+  cai:function(){
+     var that = this;
+     that.setData({
+       iscai:!that.data.iscai
+     })
+  },
+  //回到首页
+  shome:function(){
+    wx.redirectTo({
+      url: '../e_home/e_home',
+    })
+  },
+  yule: function (e) {
+    //娱乐世界
+    wx.navigateToMiniProgram({
+      appId: 'wxf556b39ee9c934b4',
+      path: 'pages/my_idol/my_idol',
+      extraData: {
+
+      },
+      envVersion: 'release',
+      success(res) {
+        // 打开成功
+      }
+    })
+
   },
   statechange(e) {
     console.log('live-player code:', e.detail.code)
@@ -411,6 +437,7 @@ Page({
     dynamic=[];
     video=[];
     splayer=[];
+    ranklist=[];
     that.setData({
       isSearch:false,
       splayer:[],
@@ -727,6 +754,7 @@ Page({
      var competitionName = e.currentTarget.dataset.name;
      var qualifiedNumber = e.currentTarget.dataset.num;
      play = [];
+     ranklist = [];
      that.setData({
        competitionAreaId: e.currentTarget.id,
        competitionName: competitionName,
@@ -1014,15 +1042,18 @@ Page({
         console.log(res.data.data)
         if (res.data.status === 100) {
           wx.showToast({
-            title: '感谢你宝贵的一票',
-            icon:'none'
+            title: res.data.msg,
+            icon: 'none',
+            duration:2000
           })
-          play=[];
-          that.setData({
-            players:[]
-          })
-          that.getplayer();
-          that.getdetail();
+          setTimeout(function(){
+            play = [];
+            that.setData({
+              players: []
+            })
+            that.getplayer();
+            // that.getdetail();
+          },2000)
         }
         //  else if (res.data.status === 101){
         //   wx.showToast({
@@ -1158,6 +1189,7 @@ Page({
   },
   //艺人置顶
   top:function(e){
+    var that = this;
     wx.getSystemInfo({
       success: function (res) {
         that.setData({
@@ -1296,7 +1328,18 @@ Page({
     //     }
     //   }
     // })
-     if (that.data.user.phone == null || that.data.user.phone == '') {
+    if (that.data.user.user_id == null || that.data.user.user_id == '') {
+
+      wx.showToast({
+        title: '请先登录',
+        icon: 'none',
+
+      })
+      wx.navigateTo({
+        url: '../login/login',
+      })
+
+    }else if (that.data.user.phone == null || that.data.user.phone == '') {
 
           wx.showToast({
             title: '报名赛事需绑定手机号',
@@ -1307,11 +1350,15 @@ Page({
             url: '../bindphone/bindphone',
           })
 
-        } else{
+        } else if(that.data.detail.isOrganization == 1){
        wx.navigateTo({
          url: '../e_division/e_division?id=' + that.data.id + '&num=' + e.currentTarget.dataset.num + '&art=' + e.currentTarget.dataset.art + '&type=' + that.data.detail.isOrganization,
        })
-        }
+     } else if (that.data.detail.isOrganization == 0) {
+       wx.navigateTo({
+         url: '../e_divisions/e_divisions?id=' + that.data.id + '&num=' + e.currentTarget.dataset.num + '&art=' + e.currentTarget.dataset.art + '&type=' + that.data.detail.isOrganization,
+       })
+     }
     
     
      

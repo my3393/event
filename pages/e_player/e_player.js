@@ -57,8 +57,7 @@ Page({
       
       this.getplayer();
       if(options.isOrganization == 0){
-        this.getphoto();
-        this.getvideo();
+        
       }
   },
 
@@ -132,11 +131,7 @@ Page({
     var that = this;
     //模拟加载
      list=[];
-    detail= [],
-      votelist= [],
-        refue=[],
-          videos=[],
-          
+   
     setTimeout(function () {
     
       that.setData({
@@ -147,6 +142,7 @@ Page({
       })
       that.getdetail();
       that.getvote();
+      that.getrefue();
       if (that.data.isOrganization == 0) {
         this.getphoto();
         this.getvideo();
@@ -182,10 +178,6 @@ Page({
    */
   onShareAppMessage: function () {
     var that = this;
-    return {
-        title: '我正在参加' + that.data.text + ',快来投我一票吧~' ,
-        path: '/pages/e_home/e_home?playid=' + that.data.id + '&saiid=' + that.data.saiId,
-      }  
     wx.request({
       url: app.data.urlmall + "/apppcompetitionplayer/addforward.do",
       data: {
@@ -209,6 +201,12 @@ Page({
         }
       }
     })   
+    return {
+        title: '我正在参加' + that.data.text + ',快来投我一票吧~' ,
+        path: '/pages/e_player/e_player?id=' + that.data.id + '&saiid=' + that.data.saiId,
+      }  
+      console.log(111)
+    
   },
   //照片作品切换
   tag: function (e) {
@@ -320,7 +318,10 @@ Page({
             before:before,
             group: res.data.data.users
           })
-          
+          if(res.data.data.playerType == 1){
+            that.getphoto();
+            that.getvideo();
+          }
         } else if (res.data.status === 103) {
           wx.showToast({
             title: res.data.msg,
@@ -514,7 +515,7 @@ Page({
             list.push(res.data.data.data[i])
           }
           that.setData({
-            refue: list,
+            refue: res.data.data.data,
             totalPage: res.data.data.totalPage
           })
 
@@ -546,15 +547,11 @@ Page({
         if (res.data.status === 100) {
           wx.showToast({
             title: '感谢你宝贵的一票',
-            icon: 'none'
+            icon: 'none',
+            duration:2000
           })
           that.getdetail();
           that.getvote();
-        } else if (res.data.status === 101) {
-          wx.showToast({
-            title: '你已投票，请明天再来吧',
-            icon: 'none'
-          })
         } else if (res.data.status === 103) {
           wx.showToast({
             title: res.data.msg,
@@ -682,11 +679,15 @@ Page({
             url: '../bindphone/bindphone',
           })
 
-        }else{
+    } else if (that.data.event.isOrganization == 1){
       wx.navigateTo({
         url: '../e_division/e_division?id=' + that.data.saiId + '&num=' + that.data.event.isNewUserPay + '&art=' + that.data.event.isArtistUserPay + '&type=' + that.data.event.isOrganization,
       })
-        } 
+    } else if (that.data.event.isOrganization == 0){
+      wx.navigateTo({
+        url: '../e_divisions/e_divisions?id=' + that.data.saiId + '&num=' + that.data.event.isNewUserPay + '&art=' + that.data.event.isArtistUserPay + '&type=' + that.data.event.isOrganization,
+      })
+    } 
 
      
   },

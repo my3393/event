@@ -8,25 +8,16 @@ Page({
    * 页面的初始数据
    */
   data: {
-    saiId:'',
-    detail:[],
-    num:100000,
-    nums:100000,
-    id:'',
-    isart:true,
-    pay:'',
-    is_actor:'',
-    art:'',
-    issai:false,
-    isgorup:false,
-    playerId:'',
-    playerType:'',
-    isqu:1,
-    tag:[
-      {name:'团体',id:2},
-      {name:'单人',id:1}
-    ],
-    tar:10000,
+    saiId: '',
+    detail: [],
+   
+    id: '',
+    isart: true,
+    pay: '',
+    is_actor: '',
+    art: '',   
+    playerType: 1,
+    
 
   },
 
@@ -34,29 +25,23 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-     var that = this;
-     
-     console.log(options)
-     that.setData({
-       saiId: options.id,
-       pay: options.num,
-       art:options.art,
-       type: options.type,
-     })
-    that.getorganization();
-     if(options.type == 0){
-       that.setData({
-         isgorup:true,
-         isqu:2,
-        
-       })
-     }
+    var that = this;
+
+    console.log(options)
+    that.setData({
+      saiId: options.id,
+      pay: options.num,
+      art: options.art,
+      type: options.type,
+    })
+    that.getdetail();
+    
     // if (options.organizationId){
     //   organizationId = options.organizationId
     //  }
-   
-   
-   // that.getgroup();
+
+
+    // that.getgroup();
   },
 
   /**
@@ -74,11 +59,11 @@ Page({
     wx.getStorage({
       key: 'userinfo',
       success: function (res) {
-        if(res.data.phone == null || res.data.phone == ''){
+        if (res.data.phone == null || res.data.phone == '') {
           wx.showToast({
             title: '报名赛事需绑定手机号',
-            icon:'none',
-            duration:3000
+            icon: 'none',
+            duration: '3000'
           })
           wx.navigateTo({
             url: '../bindphone/bindphone',
@@ -90,21 +75,21 @@ Page({
         })
       }
     })
-    
+
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
-     
+
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
-   
+
   },
 
   /**
@@ -130,173 +115,16 @@ Page({
       path: '/pages/e_home/e_home'
     }
   },
-  //机构参赛
-  btn: function (e) {
-    wx.navigateTo({
-      url: '../e_orgin/e_orgin?id=' + this.data.saiId,
-    })
-  },
-  //单人选择
-  tar:function(e){
-    var that = this;
   
-    console.log(e)
-    that.setData({
-      tar:e.currentTarget.dataset.index,
-      playerType:e.currentTarget.id
-    })
-    if (e.currentTarget.id == 2 &&that.data.type == 1){
-      that.setData({
-        isg:2
-      })
-    }else{
-      that.setData({
-        isg: 1,
-        nums:100000,
-        playerId:'',
-      })
-    }
-  },
   //赛区选择
-   getdetail:function(){
-     var that = this;
-     wx.request({
-       url: app.data.urlmall + "apppcompetitionsignup/organizationarea.do",
-       data: {
-         organizerId: that.data.saiId,
-         token: wx.getStorageSync('etoken'),
-         id: organizationId
-       },
-       method: 'POST',
-       header: {
-         'content-type': 'application/x-www-form-urlencoded'
-       },
-       dataType: 'json',
-       success: function (res) {
-         console.log(res.data.data)
-         if (res.data.status === 100) {
-           that.setData({
-             detail: res.data.data,
-
-           })
-
-         } else {
-           wx.showToast({
-             title: res.data.msg,
-             icon: 'none'
-           })
-         }
-       }
-     })
-   },
-  tap:function(e){
-    console.log(e)
-    var that = this;
-    this.setData({
-      num : e.currentTarget.dataset.index,
-      id:e.currentTarget.id,
-      playerId: '',     
-      nums: 100000,
-      tar:100000,
-      playerType:''
-    })
-    
-    if (that.data.type == 1 ){
-     
-      that.getgroup();
-    }
-    // if (this.data.playerType == 2 && that.data.type == 0){
-    //    that.setData({
-    //      isg: 2
-    //    })
-    //    that.getgroup();
-    // }
-    // console.log(this.data.id)
-  },
-  //选择机构
-  bindPickerChange: function (e) {
-    var that = this;
-    console.log('picker发送选择改变，携带值为', e)
-    organizationId = that.data.orgin[e.detail.value].id
-    this.setData({
-      index: e.detail.value,
-      num:100000,
-      isg:1,
-      isqu: 2,
-      id:'',
-      nums: 100000
-    })
-    that.getdetail();
-    
-
-  },
-  //团体选择
-  tas: function (e) {
-    console.log(e)
-    var that = this;
-    this.setData({
-      nums: e.currentTarget.dataset.index,
-      playerId: e.currentTarget.id
-    })
-   
-  },
-  //单人
-  one:function(){
-    var that = this;
-    that.setData({
-      isgorup: !that.data.isgorup,
-    })
-  },
-  //团体
-  two: function () {
-    var that = this;
-    that.setData({
-      isgorup: !that.data.isgorup,
-      playerType:2,
-      
-    })
-  },
-  
-  //机构
-  getorganization:function(){
-     var that = this;
-     wx.request({
-       url: app.data.urlmall + "/apppcompetitionsignup/organization.do",
-       data: {
-         id: that.data.saiId,
-         token: wx.getStorageSync('etoken'),  
-       },
-       method: 'POST',
-       header: {
-         'content-type': 'application/x-www-form-urlencoded'
-       },
-       dataType: 'json',
-       success: function (res) {
-         console.log(res.data.data)
-         if (res.data.status === 100) {
-           that.setData({
-             orgin: res.data.data,
-
-           })
-
-         } else {
-           wx.showToast({
-             title: res.data.msg,
-             icon: 'none'
-           })
-         }
-       }
-     })
-  },
-  //团体
-  getgroup: function () {
+  getdetail: function () {
     var that = this;
     wx.request({
-      url: app.data.urlmall + "apppcompetitionsignup/playerteam.do",
+      url: app.data.urlmall + "appcompetition/competitionarea.do",
       data: {
-        id: that.data.id,
+        
         token: wx.getStorageSync('etoken'),
-        organizationId: organizationId,
+        id: that.data.saiId
       },
       method: 'POST',
       header: {
@@ -306,15 +134,8 @@ Page({
       success: function (res) {
         console.log(res.data.data)
         if (res.data.status === 100) {
-          if(res.data.data == ''){
-            wx.showToast({
-              title: "该类别下没有该团体，可选择别的",
-              icon: 'none',
-              duration:2000
-            })
-          }
           that.setData({
-            group: res.data.data,
+            detail: res.data.data,
 
           })
 
@@ -327,44 +148,41 @@ Page({
       }
     })
   },
+  tap: function (e) {
+    console.log(e)
+    var that = this;
+    this.setData({
+      num: e.currentTarget.dataset.index,
+      id: e.currentTarget.id,
+   
+    })
+
+  },
+ 
+  
+
+ 
+  
   //提交
-  submit:function(e){
+  submit: function (e) {
     var that = this;
     console.log(organizationId)
     console.log(that.data.type)
-        //  wx.showToast({
-        //   title: '由于相关规范，ios功能暂不可用',
-        //   icon:'none'
-        //  })
-    
+    //  wx.showToast({
+    //   title: '由于相关规范，ios功能暂不可用',
+    //   icon:'none'
+    //  })
 
-   // console.log(that.data.is_actor)
-    if (organizationId == '' && that.data.type == 1) {
-      
-        wx.showToast({
-          title: '请选择所属机构',
-          icon: 'none',
-          duration:2000
-        })
-     
-    }else if (that.data.id == '') {
+
+    // console.log(that.data.is_actor)
+    if (that.data.id == '') {
       wx.showToast({
-        title: '请选择报名节目',
+        title: '请选择赛区',
         icon: 'none'
       })
-    } else if (that.data.playerType == '') {
-      wx.showToast({
-        title: '请选择参赛类型',
-        icon: 'none'
-      })
-    }else if (that.data.playerId == '' && that.data.playerType == 2) {
-          wx.showToast({
-            title: '请选择要加入的团体',
-            icon: 'none'
-          })
-        } else{
-          console.log('进入')
-          that.is_actor();
+    }else {
+      console.log('进入')
+      that.is_actor();
       // wx.request({
       //   url: app.data.urlmall + "/apppcompetitionsignup/isjoin.do",
       //   data: {
@@ -381,7 +199,7 @@ Page({
 
       //     if (res.data.status === 100) {
       //        that.is_actor();
-           
+
       //     } else if (res.data.status === 101) {
       //       wx.showToast({
       //         title: '该赛事你已报名，去看看别的赛事吧',
@@ -398,7 +216,7 @@ Page({
     }
   },
   //报名判断后判断是否是艺人
-  is_actor:function(){
+  is_actor: function () {
     var that = this;
     if (that.data.is_actor == 2) {
       if (that.data.art == 0) {
@@ -421,13 +239,10 @@ Page({
             if (res.data.status === 100) {
               wx.showToast({
                 title: '报名成功',
-                duration:3000
               })
-              setTimeout(function(){
-                wx.redirectTo({
-                  url: '../e_home/e_home',
-                })
-              },3000)
+              wx.redirectTo({
+                url: '../e_home/e_home',
+              })
               // var pages = getCurrentPages();//当前页面栈
               // if (pages.length > 1) {
               //   var beforePage = pages[pages.length - 2];//获取上一个页面实例对象
@@ -473,13 +288,13 @@ Page({
                 success(res) {
                   wx.showToast({
                     title: '报名成功',
-                    duration: 3000
+                    icon: 'none',
+                    duration: 1000
+
                   })
-                  setTimeout(function () {
-                    wx.redirectTo({
-                      url: '../e_home/e_home',
-                    })
-                  }, 3000)
+                  wx.redirectTo({
+                    url: '../e_home/e_home',
+                  })
                   // var pages = getCurrentPages();//当前页面栈
                   // if (pages.length > 1) {
                   //   var beforePage = pages[pages.length - 2];//获取上一个页面实例对象
@@ -521,7 +336,7 @@ Page({
     }
   },
   //报名弹窗
-  cance : function () {
+  cance: function () {
     var that = this;
     that.setData({
       isart: !that.data.isart

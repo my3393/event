@@ -1,4 +1,4 @@
-
+/* pages/e_divisions/e_divisions.wxss */
 /* pages/e_division/e_division.wxss */
 page{
   background: #f2f2f2;
@@ -6,7 +6,7 @@ page{
 .top{
   padding-left: 20rpx;
   box-sizing: border-box;
-  margin-top: 24rpx;
+  margin-top: 30rpx;
 }
 .topfd{
   color: #B4B4B4;
@@ -14,7 +14,7 @@ page{
   margin-top: 20rpx;
 }
 .divis{
-  width: calc((100% - 80rpx)/3);
+  width: calc((100% - 60rpx)/2);
   margin-left: 20rpx;
   background: #D8D8D8;
   color: #fff;
@@ -26,14 +26,12 @@ page{
   overflow: hidden;
   text-overflow:ellipsis;
   white-space:nowrap;
-  font-size: 28rpx;
 }
 .subm{
-  /* position: absolute;
+  position: fixed;
   bottom: 30rpx;
-  left: 0rpx; */
+  left: 0rpx;
   width: calc(100% - 40rpx);
-  margin: 50rpx 0;
   margin-left: 20rpx;
   border-radius: 40rpx;
   height: 80rpx;
@@ -43,29 +41,13 @@ page{
   text-align: center;
   line-height: 80rpx;
 }
-.ruo{
-  padding: 0 20rpx;
-  box-sizing: border-box;
-  font-size: 28rpx;
-  color: #ccc;
-  margin-top: 30rpx;
-}
-.btn{
-  display: inline-block;
-  color: #e65099;
-  height: 50rpx;
-
-}
-
 .saiqu{
   overflow: scroll;
   -webkit-overflow-scrolling: touch;
-  max-height: 300rpx;
-  margin-top: 20rpx;
+  max-height: 400rpx;
 }
 .active{
   background: #F861AA!important;
-  
 }
 .sai-yds{
     width: 100%;

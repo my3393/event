@@ -44,7 +44,13 @@
 </view>
 <view class="footer">
 				<view class="waht">
-					<text class="spec">{{name}}</text>  <text class="pric">{{price}}艺呗</text>
+					<view style='height:40rpx;' wx:if='{{name.length != 0}}'>{{name}} {{price}}艺呗</view>
+           <view class='spec' wx:if='{{userinfo.integral == null}}'>
+             助力需要登录
+          </view>
+          <view class='spec' wx:else>
+            账户余额：{{userinfo.integral}}艺呗
+          </view>
 				</view>
 				<view class="pay" bindtap='pay'>
 					艺呗支付

@@ -61,7 +61,7 @@
       </view>
     </view>
 <view class="group">
-  <view style="margin-left:20rpx;">参选节目<text>(若有团队请填写)</text></view>
+  <view style="margin-left:20rpx;">参选节目</view>
   <view class="group-nav" wx:for='{{detail}}' wx:for:index = '{{index}}'>
     <view class="nav-l" bindtap="xuan" data-index="{{index}}">
       <view class="leib"> {{item.index >= 0 ? item.category : "选择类别"}}</view>

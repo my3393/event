@@ -505,6 +505,7 @@ color: #F861AA;
   box-sizing: border-box;
   border-radius: 12rpx;
   overflow: scroll;
+  -webkit-overflow-scrolling: touch;
   max-height: 500rpx;
 }
 .divis{
@@ -526,10 +527,10 @@ color: #F861AA;
 .act{
   background: #F861AA;
 }
-.sunb{
+.sunb{ 
   background: #F861AA;
 }
-.sunb:active{
+.sunba{
   background: #fff;
   color: #F861AA;
 }
@@ -606,18 +607,70 @@ color: #F861AA;
 }
 
 .jgeve{
-  width: 90rpx;
-  height: 87rpx;
+  width: 130rpx;
+  height: 130rpx;
   position: fixed;
   bottom: 140rpx;
   left: 44rpx;
   background: #e65099;
   color: yellow;
   text-align: center;
-  font-size: 28rpx;
+  
   border-radius: 50%;
   overflow: hidden;
   box-shadow: 0 0 9px #735656;
+  padding-top: 20rpx;
+  box-sizing: border-box;
+  font-size: 34rpx;
+}
+.jgever{
+  width: 130rpx;
+  height: 130rpx;
+  position: fixed;
+  bottom: 140rpx;
+  right: 44rpx;
+  background: #e65099;
+  color: yellow;
+  text-align: center;
+  
+  border-radius: 50%;
+  overflow: hidden;
+  box-shadow: 0 0 9px #735656;
+  line-height: 130rpx;
+  font-size: 34rpx;
+  z-index: 99;
+}
+.ever-me{
+  position: fixed;
+  bottom: 140rpx;
+  right: 44rpx;
+  background: #f2f2f2;
+  width: 380rpx;
+  height: 130rpx;
+  /* border-top-right-radius: 50%;
+  border-bottom-right-radius: 50%;
+  border-top-left-radius:40rpx; 
+  border-bottom-left-radius:40rpx;  */
+  border-radius: 180rpx;
+  overflow: hidden;
+  box-shadow: 0 0 9px #735656;
+}
+.ever-m{
+  font-size: 28rpx;
+  margin-left: 40rpx;
+  margin-top: 16rpx;
+  display: inline-block;
+  text-align: center;
+  
+}
+.ever-head{
+  width: 60rpx;
+  height: 64rpx;
+  display: inline-block;
+}
+.ever-head image{
+  width: 100%;
+  height: 100%;
 }
 
 

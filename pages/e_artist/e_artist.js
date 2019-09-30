@@ -27,6 +27,7 @@ var town_id = '';
 let organizationId;
 let playerType = 1;
 let playerId;
+let tsvides=''
 Page({
 
   /**
@@ -239,7 +240,7 @@ Page({
   chooseImage: function (e) {
     var that = this;
     wx.chooseImage({
-      count: 5,
+      count: 3,
       sizeType: ['original', 'compressed'], //可选择原图或压缩后的图片
       sourceType: ['album', 'camera'], //可选择性开放访问相册、相机
       success: res => {
@@ -271,7 +272,7 @@ Page({
               console.log(simages)
               // do something
               console.log(simages)
-              if (simages.length == 5) {
+              if (simages.length == 3) {
                 that.setData({
                   showadd: !that.data.showadd
                 })
@@ -327,14 +328,15 @@ Page({
               console.log(res)
               let datas = JSON.parse(res.data)
               console.log(datas)
-
+              tsvides = datas.data.fileName
               wx.hideLoading();
               wx.showToast({
                 title: '上传成功',
                 icon: 'success'
               })
               that.setData({
-                tvideo: datas.data.fileName
+                tvideo: datas.data.url,
+                tsvides: datas.data.fileName
               })
             }
           })
@@ -531,9 +533,19 @@ Page({
   quxiao: function (e) {
     var that = this;
     ids = [];
+    count = 0
     that.setData({
       showlabels: !that.data.showlabels,
-      labels: moren
+      labels: moren,
+      artist_type: "请选择选手类型",
+    })
+    labels = that.data.labels;
+    for(var i in labels){
+      labels[i].selected = true
+    }
+   
+    that.setData({
+      labels: labels
     })
     console.log(moren)
   },
@@ -603,6 +615,43 @@ Page({
   },
   getperson: function (e) {
     person = e.detail.value;
+  },
+  getuser: function () {
+    var that = this;
+    wx.request({
+      url: app.data.urlmall + "appuserinfo/getuserinfo.do",
+      data: {
+        token: wx.getStorageSync('etoken'),
+      },
+      method: 'POST',
+      header: {
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+      dataType: 'json',
+      success: function (res) {
+        console.log(res.data.data)
+        if (res.data.status === 100) {
+          that.setData({
+            userinfo: res.data.data,
+
+          })
+          wx.setStorage({
+            key: 'etoken',
+            data: res.data.data.token,
+          })
+          wx.setStorage({
+            key: 'userinfo',
+            data: res.data.data.user,
+          })
+
+        } else {
+          wx.showToast({
+            title: res.data.msg,
+            icon: 'none'
+          })
+        }
+      }
+    })
   },
   subnotice: function (e) {
     var photos;
@@ -678,9 +727,9 @@ Page({
           return false;
         }
 
-        if (photos == undefined) {
+        if (simages.length != 3) {
           wx.showToast({
-            title: '请至少上传一张个人照',
+            title: '请至少上传3张个人照',
             icon: 'none'
           })
           return false;
@@ -707,7 +756,7 @@ Page({
               artistIntroduce: person,
               artistLabel: lid,
               personalPhoto: photos,
-              authorizedVideo: that.data.tvideo,
+              authorizedVideo:that.data.tsvides,
               organizationId: organizationId,
               playerType: playerType,
               playerId: playerId
@@ -723,10 +772,11 @@ Page({
 
                 wx.hideLoading();
                 wx.showToast({
-                  title: '提交成功',
+                  title: '报名成功',
                   icon: 'success',
                   duration: 2500
                 })
+                that.getuser();
                  setTimeout(function(){
                    wx.redirectTo({
                      url: '../e_home/e_home',
@@ -756,7 +806,7 @@ Page({
               artistIntroduce: person,
               artistLabel: lid,
               personalPhoto: photos,
-              authorizedVideo: that.data.tvideo,
+              authorizedVideo: that.data.tsvides,
               organizationId: organizationId,
               playerType: playerType,
               playerId: playerId
@@ -783,6 +833,7 @@ Page({
                         icon: 'none',
                         duration: 1000
                       })
+                      that.getuser();
                       setTimeout(function () {
                         wx.redirectTo({
                           url: '../e_home/e_home',

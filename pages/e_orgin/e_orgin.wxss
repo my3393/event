@@ -85,6 +85,7 @@ margin-right: 10rpx;
   box-sizing: border-box;
   border-radius: 12rpx;
   overflow: scroll;
+  -webkit-overflow-scrolling: touch;
   max-height: 500rpx;
   z-index: 9999;
 }

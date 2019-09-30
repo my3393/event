@@ -28,7 +28,8 @@
     "pages/e_my-record/e_my-record",
     "pages/receive/receive",
     "pages/e_orgin/e_orgin",
-    "pages/undertake/undertake"
+    "pages/undertake/undertake",
+    "pages/e_divisions/e_divisions"
   ],
   "window": {
     "backgroundTextStyle": "light",

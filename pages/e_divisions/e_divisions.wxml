@@ -1,17 +1,7 @@
-<view class="top" wx:if='{{type == 1}}'>
-  <view>请选择所属机构</view>
-  <picker bindchange="bindPickerChange" id='{{orgin[index].id}}' value="{{index}}" range="{{orgin}}" range-key="{{'organizationName'}}">
-    <view class="picker">
-      点击选择：{{orgin[index].organizationName}}
-    </view>
-  </picker>
-</view>
-<view class="ruo">若未找到你所属机构，可联系贵机构申请加入，若你是机构人员可直接点击：
-  <text class="btn" bindtap="btn" >机构申请加入</text>
-</view>
-<view wx:if='{{isqu == 2}}'>
+
+<view >
   <view class='top' >
-    <view>请选择报名节目</view>
+    <view>请选择赛区</view>
     <view class='topfd'></view>
   </view>
   <view class="saiqu">
@@ -21,20 +11,7 @@
   </view>
 </view>
 
-<view class="top" >
-   <view>请选择参加的类型</view>
-   <view >
-     <view class="tuan {{tar == index?'actic':''}}" bindtap="tar" wx:for='{{tag}}' wx:key='{{index}}' data-index="{{index}}" id='{{item.id}}'>{{item.name}}</view>
-   </view>
-</view>
 
-<view wx:if='{{isg == 2}}' class="top">
-   <view>请选择要加入的团体</view>
-   <view class="saiqu">
-      <view class='divis {{nums == index?"active":""}}' wx:for="{{group}}" data-index='{{index}}' id='{{item.id}}'
-   bindtap='tas' >{{item.userName}}</view>
-   </view>
-</view>
 
 <view class='subm' bindtap='submit'>提交</view>
 

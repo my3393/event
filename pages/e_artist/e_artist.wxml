@@ -48,7 +48,7 @@
     <input placeholder='请输入个人介绍' bindinput='getperson' maxlength='500'></input>
 </view>
 <view class='wrap'>
-    <view class='title'>个人照片：</view>
+    <view class='title'>个人照片：(3张)</view>
     <image wx:for="{{imgs}}" wx:for-index="idx" data-idx="{{idx}}" bindtap="handleImagePreview" src='{{imgs[idx]}}' hidden='{{showimg}}' style='margin-right:20rpx;'></image>
     <image src='{{posters}}' bindtap="chooseImage" hidden='{{showadd}}'></image>
 </view>
@@ -72,6 +72,7 @@
             <text class='quxiao' bindtap='quxiao'>取消</text>
             <text class='sure' bindtap='sure'>确定</text>
         </view>
+        <view class="qxxz">点击取消可重新选择</view>
         <view class='ilablein'>
             <text wx:for='{{labels}}' data-name="{{labels[idx].name}}" data-index='{{idx}}' wx:for-index="idx" id='{{labels[idx].label_id}}' class='{{labels[idx].selected == false?"iact":""}}' bindtap='chooselabel'>{{labels[idx].name}}</text>
         </view>

@@ -84,7 +84,7 @@ page{
 	position: fixed;
 	bottom: 0;
 	left: 0;
-	height: 80rpx;
+	height: 100rpx;
 	width: 100%;
 	background: #FFFFFF;
 	line-height: 80rpx;
@@ -93,15 +93,16 @@ page{
 	float: left;
 	margin-left: 20rpx;
 	color: #000000;
-	
+	font-size: 26rpx;
 }
 .pay{
 	float: right;
 	background: #F861A9;
 	width: 180rpx;
-	height: 80rpx;
+	height: 100rpx;
 	text-align: center;
 	color: #FFFFFF;
+  line-height: 100rpx;
 }
 .waht{
   color: #F861A9;

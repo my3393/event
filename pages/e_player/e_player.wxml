@@ -1,7 +1,7 @@
 <view class="nwrap">
   <view class="ntops">
     {{detail.playerNumber}}号     {{detail.userName}}
-    <text bindtap='online' id='{{id}}' wx:if="{{deatil.playerType == 1}}">预约TA</text>
+    <text bindtap='online' id='{{id}}' wx:if="{{detail.playerType == 1}}">预约TA</text>
   </view>
   <view class="contents">我正在参加{{text}} {{detail.competitionName}}的评选，快投我一票吧！</view>
 </view>
@@ -66,7 +66,9 @@
       </view>
       <view class="group-name">{{item.userName}}</view>
     </view>
-    
+    <!-- <view>
+      <button open-type=""></button>
+    </view> -->
   </view>
 </view>
 <view class="te-t">
@@ -148,11 +150,11 @@
 <view class="searc">
   <view bindtap='home'>
     首页
-    <view class="xie"></view>
+    <!-- <view class="xie"></view> -->
   </view>
   <view bindtap='sai'>
     查看赛事
-    <view class="xie"></view>
+    <!-- <view class="xie"></view> -->
   </view>
   <view class="subm" bindtap='subm' wx:if='{{event.status == 0}}'>我要报名</view>
   <view class="jiez" wx:else>报名截止</view>

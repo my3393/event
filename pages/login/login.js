@@ -167,9 +167,7 @@ Page({
                         }
                     });
                 }else{
-                  that.gettoken();
-                 
-                    
+                  that.gettoken();            
                  
                 }
             }
@@ -199,7 +197,7 @@ Page({
             key: 'userinfo',
             data: res.data.data.user,
           })
-          wx.switchTab({
+          wx.redirectTo({
             url: '../e_home/e_home'
           })
           console.log(111)

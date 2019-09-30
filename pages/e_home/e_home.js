@@ -3,7 +3,10 @@ var app = getApp();
 var detail = [];
 
 Page({
-
+  handleContact(e) {
+    console.log(e.detail.path)
+    console.log(e.detail.query)
+  },
   /**
    * 页面的初始数据
    */
