@@ -33,7 +33,7 @@
           <image src='../../images/none-work.png'></image>
         </view>
         <view style="color: #AAAAAA;margin: 10px 0;">你还未上传视频作品</view>
-        <view class="go">前往上传~</view>
+        <view class="go" >可以前往公众号上传~</view>
       </view>
       <view style="width: 100%;text-align: center;" wx:else>
         <view class="work-kon">

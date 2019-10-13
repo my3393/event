@@ -110,65 +110,65 @@ Page({
                                 key: 'code',
                                 data: res.code,
                             })
-                            if (res.code) {
-                              console.log(res.iv)
-                                console.log(res.code)
-                                setTimeout(function () {
-                                    wx.request({
-                                      url: "https://yisai.xcx.1v.0.xingtu-group.cn/yisai-api-service/appcomeptition/xcx/login.do",
-                                        data: {
-                                            code: res.code,
-                                            nickName: avater.nickName,
-                                            headimgurl: avater.avatarUrl,
-                                            encryptedData:encryptedData,
-                                            iv: iv
-                                        },
-                                        method: 'POST',
-                                        header: {
-                                            'content-type': 'application/x-www-form-urlencoded'
-                                        },
-                                        dataType: 'json',
-                                        success: function (res) {
-                                            console.log(res.data.data);
-                                          
-                                            if(res.data.status == 100){
-                                                
-                                                wx.setStorage({
-                                                    key: 'etoken',
-                                                    data: res.data.data.token,
-                                                })
-                                              
-                                                wx.setStorage({
-                                                    key: 'userinfo',
-                                                    data: res.data.data.user,
-                                                })
-                                                if (res.data.data.user.phone == null || res.data.data.user.phone == '') {
-                                                    wx.redirectTo({
-                                                        url: '../bindphone/bindphone',
-                                                    })
-                                                } else {
-                                                  console.log(11)
-                                                  wx.redirectTo({
-                                                    url: '../e_home/e_home'
-                                                  })
-                                                }
-                                              
-                                            }else{
-                                                wx.showToast({
-                                                    title: res.data.msg,
-                                                    
-                                                })
-                                              console.log(11)
-                                            }
-                                        }
-                                    })
-                                }, 500)
+                      if (res.code) {
+                        console.log(res.iv)
+                        console.log(res.code)
+                        setTimeout(function () {
+                          wx.request({
+                            url: "https://yisai.xcx.1v.0.xingtu-group.cn/yisai-api-service/appcomeptition/xcx/login.do",
+                            data: {
+                              code: res.code,
+                              nickName: avater.nickName,
+                              headimgurl: avater.avatarUrl,
+                              encryptedData: encryptedData,
+                              iv: iv
+                            },
+                            method: 'POST',
+                            header: {
+                              'content-type': 'application/x-www-form-urlencoded'
+                            },
+                            dataType: 'json',
+                            success: function (res) {
+                              console.log(res.data.data);
+
+                              if (res.data.status == 100) {
+
+                                wx.setStorage({
+                                  key: 'etoken',
+                                  data: res.data.data.token,
+                                })
+
+                                wx.setStorage({
+                                  key: 'userinfo',
+                                  data: res.data.data.user,
+                                })
+                                if (res.data.data.user.phone == null || res.data.data.user.phone == '') {
+                                  wx.redirectTo({
+                                    url: '../bindphone/bindphone',
+                                  })
+                                } else {
+                                  console.log(11)
+                                  wx.redirectTo({
+                                    url: '../e_home/e_home'
+                                  })
+                                }
+
+                              } else {
+                                wx.showToast({
+                                  title: res.data.msg,
+
+                                })
+                                console.log(11)
+                              }
                             }
-                        }
-                    });
-                }else{
-                  that.gettoken();            
-                 
+                          })
+                        }, 500)
+                      }
+                    }
+                  });
+                } else {
+                  that.gettoken();
+
                 }
             }
         })

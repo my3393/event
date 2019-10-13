@@ -28,6 +28,21 @@ page{
   white-space:nowrap;
   font-size: 28rpx;
 }
+.divisen{
+  width: calc(100% - 40rpx);
+  margin-left: 20rpx;
+  background: #D8D8D8;
+  color: #fff;
+  display: inline-block;
+  text-align: center;
+  height: 80rpx;
+  line-height: 80rpx;
+  margin-top: 20rpx;
+  overflow: hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+  font-size: 28rpx;
+}
 .subm{
   /* position: absolute;
   bottom: 30rpx;

@@ -142,7 +142,10 @@ Page({
   que: function (e) {
     console.log(e)
     var that = this;
-    wx.navigateTo({
+    that.setData({
+      isgift: !that.data.isgift
+    })
+    wx.redirectTo({
       url: '../receive/receive?giftId=' + that.data.giftId,
     })
   },

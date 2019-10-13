@@ -11,6 +11,7 @@ Page({
     saiId:'',
     detail:[],
     num:100000,
+    tars:100000,
     nums:100000,
     id:'',
     isart:true,
@@ -23,11 +24,11 @@ Page({
     playerType:'',
     isqu:1,
     tag:[
-      {name:'团体',id:2},
+      {name:'团队',id:2},
       {name:'单人',id:1}
     ],
     tar:10000,
-
+    isdai:true,
   },
 
   /**
@@ -43,6 +44,11 @@ Page({
        art:options.art,
        type: options.type,
      })
+    if (options.num == 1) {
+      that.setData({
+        isdai: !that.data.isdai
+      })
+    }
     that.getorganization();
      if(options.type == 0){
        that.setData({
@@ -136,6 +142,21 @@ Page({
       url: '../e_orgin/e_orgin?id=' + this.data.saiId,
     })
   },
+  // 机构代报名
+  brbm: function () {
+    let that = this;
+    that.setData({
+      isdai: !that.data.isdai,
+      signUpType: 1
+    })
+  },
+  jgdbm: function () {
+    let that = this;
+    that.setData({
+      isdai: !that.data.isdai,
+      signUpType: 2
+    })
+  },
   //单人选择
   tar:function(e){
     var that = this;
@@ -217,9 +238,9 @@ Page({
   bindPickerChange: function (e) {
     var that = this;
     console.log('picker发送选择改变，携带值为', e)
-    organizationId = that.data.orgin[e.detail.value].id
+    organizationId = e.currentTarget.id
     this.setData({
-      index: e.detail.value,
+      tars: e.currentTarget.dataset.index,
       num:100000,
       isg:1,
       isqu: 2,
@@ -400,125 +421,132 @@ Page({
   //报名判断后判断是否是艺人
   is_actor:function(){
     var that = this;
-    if (that.data.is_actor == 2) {
-      if (that.data.art == 0) {
-        wx.request({
-          url: app.data.urlmall + "/apppcompetitionsignup/artistjoin.do",
-          data: {
-            id: that.data.id,
-            token: wx.getStorageSync('etoken'),
-            organizationId: organizationId,
-            playerType: that.data.playerType,
-            playerId: that.data.playerId
-          },
-          method: 'POST',
-          header: {
-            'content-type': 'application/x-www-form-urlencoded'
-          },
-          dataType: 'json',
-          success: function (res) {
-            console.log(res.data.data)
-            if (res.data.status === 100) {
-              wx.showToast({
-                title: '报名成功',
-                duration:3000
-              })
-              setTimeout(function(){
-                wx.redirectTo({
-                  url: '../e_home/e_home',
-                })
-              },3000)
-              // var pages = getCurrentPages();//当前页面栈
-              // if (pages.length > 1) {
-              //   var beforePage = pages[pages.length - 2];//获取上一个页面实例对象
-              //   var currPage = pages[pages.length - 1]; // 当前页面，若不对当前页面进行操作，可省去
-              //   // beforePage.setData({       //如果需要传参，可直接修改A页面的数据，若不需要，则可省去这一步
-              //   //   id: res.data.data
-              //   // })
-              //   beforePage.changeData();//触发父页面中的方法
-              // }
-              // wx.navigateBack({
-              //   delta: 1
-              // })
-            } else {
-              wx.showToast({
-                title: res.data.msg,
-                icon: 'none'
-              })
-            }
-          }
-        })
-      } else {
-        wx.request({
-          url: app.data.urlmall + "/apppcompetitionsignup/artistjoin/xcxpay.do",
-          data: {
-            id: that.data.id,
-            token: wx.getStorageSync('etoken'),
-            organizationId: organizationId
-          },
-          method: 'POST',
-          header: {
-            'content-type': 'application/x-www-form-urlencoded'
-          },
-          dataType: 'json',
-          success: function (res) {
-            console.log(res.data.data)
-            if (res.data.status === 100) {
-              wx.requestPayment({
-                timeStamp: res.data.data.sign.timeStamp,
-                nonceStr: res.data.data.sign.nonceStr,
-                package: res.data.data.sign.package,
-                signType: 'MD5',
-                paySign: res.data.data.sign.paySign,
-                success(res) {
-                  wx.showToast({
-                    title: '报名成功',
-                    duration: 3000
-                  })
-                  setTimeout(function () {
-                    wx.redirectTo({
-                      url: '../e_home/e_home',
-                    })
-                  }, 3000)
-                  // var pages = getCurrentPages();//当前页面栈
-                  // if (pages.length > 1) {
-                  //   var beforePage = pages[pages.length - 2];//获取上一个页面实例对象
-                  //   var currPage = pages[pages.length - 1]; // 当前页面，若不对当前页面进行操作，可省去
-                  //   // beforePage.setData({       //如果需要传参，可直接修改A页面的数据，若不需要，则可省去这一步
-                  //   //   id: res.data.data
-                  //   // })
-                  //   beforePage.changeData();//触发父页面中的方法
-                  // }
-                  // wx.navigateBack({
-                  //   delta: 1
-                  // })
-                },
-                fail(res) {
-                  wx.showToast({
-                    title: '支付失败',
-                    icon: 'none',
-                    duration: 1000
-                  })
-                }
-              })
-            } else {
-              wx.showToast({
-                title: res.data.msg,
-                icon: 'none'
-              })
-            }
-          }
-        })
-      }
-    } else {
-      // this.setData({
-      //   isart: !that.data.isart
-      // })
+    if (that.data.signUpType == 2){
       wx.navigateTo({
-        url: '../e_artist/e_artist?id=' + that.data.id + '&npay=' + that.data.pay + '&organizationId=' + organizationId + '&playerType=' + that.data.playerType + '&playerId=' + that.data.playerId + '&type=' + that.data.type,
+        url: '../e_artist/e_artist?id=' + that.data.id + '&npay=' + that.data.pay + '&organizationId=' + organizationId + '&playerType=' + that.data.playerType + '&playerId=' + that.data.playerId + '&type=' + that.data.type + '&signUpType=' + that.data.signUpType,
       })
+    }else{
+      if (that.data.is_actor == 2) {
+        if (that.data.art == 0) {
+          wx.request({
+            url: app.data.urlmall + "/apppcompetitionsignup/artistjoin.do",
+            data: {
+              id: that.data.id,
+              token: wx.getStorageSync('etoken'),
+              organizationId: organizationId,
+              playerType: that.data.playerType,
+              playerId: that.data.playerId
+            },
+            method: 'POST',
+            header: {
+              'content-type': 'application/x-www-form-urlencoded'
+            },
+            dataType: 'json',
+            success: function (res) {
+              console.log(res.data.data)
+              if (res.data.status === 100) {
+                wx.showToast({
+                  title: '报名成功',
+                  duration: 3000
+                })
+                setTimeout(function () {
+                  wx.redirectTo({
+                    url: '../e_home/e_home',
+                  })
+                }, 3000)
+                // var pages = getCurrentPages();//当前页面栈
+                // if (pages.length > 1) {
+                //   var beforePage = pages[pages.length - 2];//获取上一个页面实例对象
+                //   var currPage = pages[pages.length - 1]; // 当前页面，若不对当前页面进行操作，可省去
+                //   // beforePage.setData({       //如果需要传参，可直接修改A页面的数据，若不需要，则可省去这一步
+                //   //   id: res.data.data
+                //   // })
+                //   beforePage.changeData();//触发父页面中的方法
+                // }
+                // wx.navigateBack({
+                //   delta: 1
+                // })
+              } else {
+                wx.showToast({
+                  title: res.data.msg,
+                  icon: 'none'
+                })
+              }
+            }
+          })
+        } else {
+          wx.request({
+            url: app.data.urlmall + "/apppcompetitionsignup/artistjoin/xcxpay.do",
+            data: {
+              id: that.data.id,
+              token: wx.getStorageSync('etoken'),
+              organizationId: organizationId
+            },
+            method: 'POST',
+            header: {
+              'content-type': 'application/x-www-form-urlencoded'
+            },
+            dataType: 'json',
+            success: function (res) {
+              console.log(res.data.data)
+              if (res.data.status === 100) {
+                wx.requestPayment({
+                  timeStamp: res.data.data.sign.timeStamp,
+                  nonceStr: res.data.data.sign.nonceStr,
+                  package: res.data.data.sign.package,
+                  signType: 'MD5',
+                  paySign: res.data.data.sign.paySign,
+                  success(res) {
+                    wx.showToast({
+                      title: '报名成功',
+                      duration: 3000
+                    })
+                    setTimeout(function () {
+                      wx.redirectTo({
+                        url: '../e_home/e_home',
+                      })
+                    }, 3000)
+                    // var pages = getCurrentPages();//当前页面栈
+                    // if (pages.length > 1) {
+                    //   var beforePage = pages[pages.length - 2];//获取上一个页面实例对象
+                    //   var currPage = pages[pages.length - 1]; // 当前页面，若不对当前页面进行操作，可省去
+                    //   // beforePage.setData({       //如果需要传参，可直接修改A页面的数据，若不需要，则可省去这一步
+                    //   //   id: res.data.data
+                    //   // })
+                    //   beforePage.changeData();//触发父页面中的方法
+                    // }
+                    // wx.navigateBack({
+                    //   delta: 1
+                    // })
+                  },
+                  fail(res) {
+                    wx.showToast({
+                      title: '支付失败',
+                      icon: 'none',
+                      duration: 1000
+                    })
+                  }
+                })
+              } else {
+                wx.showToast({
+                  title: res.data.msg,
+                  icon: 'none'
+                })
+              }
+            }
+          })
+        }
+      } else {
+        // this.setData({
+        //   isart: !that.data.isart
+        // })
+        wx.navigateTo({
+          url: '../e_artist/e_artist?id=' + that.data.id + '&npay=' + that.data.pay + '&organizationId=' + organizationId + '&playerType=' + that.data.playerType + '&playerId=' + that.data.playerId + '&type=' + that.data.type + '&signUpType=' + that.data.signUpType,
+        })
 
+      }
     }
+    
   },
   //报名弹窗
   cance : function () {

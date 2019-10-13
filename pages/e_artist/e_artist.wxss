@@ -54,7 +54,9 @@ textarea{
     width: 60%;
     float: right;
     text-align: right;
+
 }
+
 .subnotice{
     width: calc(100% - 100rpx);
     margin-left: 50rpx;
@@ -155,4 +157,50 @@ input{
     border-radius: 10rpx;
     font-size: 24rpx;
     letter-spacing: 1rpx;
+}
+
+/* 代报名 */
+.yds{
+   width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 12;
+}
+.yd{
+	position:absolute;
+  width: 500rpx;
+  background: #fff;
+  border-radius: 12rpx;
+  text-align: center;
+  font-size: 28rpx;
+  padding-top: 40rpx;
+	top: 40%;
+	left: 50%;
+	padding: 20rpx 20rpx;
+	box-sizing: content-box;
+  transform: translate(-50%,-50%)
+}
+.lip{
+ margin-top: 30rpx;
+ margin-bottom: 40rpx;
+  
+}
+.baodc{
+width:100%;
+text-align:center;
+margin-top:30rpx;
+color: #F861AA;
+}
+.xioe{
+  margin-top: 50rpx;
+  line-height: 70rpx;
+  display: flex;
+  justify-content: space-around;
+  color: #F861AA;
+}
+.deter{
+  color: #F861AA;
 }

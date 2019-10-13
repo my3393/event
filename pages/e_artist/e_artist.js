@@ -27,7 +27,8 @@ var town_id = '';
 let organizationId;
 let playerType = 1;
 let playerId;
-let tsvides=''
+let tsvides='';
+let phone = '';
 Page({
 
   /**
@@ -63,7 +64,8 @@ Page({
     isqu: true,
     isjie: true,
     npay:'',
-
+    isdai:true,
+    signUpType:1,
   },
 
   /**
@@ -72,6 +74,7 @@ Page({
   onLoad: function (options) {
     var that = this;
     console.log(options)
+    
     that.setData({
       id: options.id,
       npay: options.npay,
@@ -81,7 +84,11 @@ Page({
       organizationId = options.organizationId
         playerType = options.playerType
         playerId = options.playerId
+      that.setData({
+        signUpType: options.signUpType
+      })
     }
+
     
     wx.setNavigationBarTitle({
       title: '选手报名',
@@ -236,6 +243,11 @@ Page({
       title: '艺赛联盟',
       path: '/pages/e_home/e_home'
     }
+  },
+  // 代报名手机号
+  inputs:function(e){
+    var that = this;
+    phone = e.detail.value
   },
   chooseImage: function (e) {
     var that = this;
@@ -719,6 +731,20 @@ Page({
           })
           return false;
         }
+        if (that.data.signUpType == 2 && phone == '') {
+          wx.showToast({
+            title: '请输入代报名手机号',
+            icon: 'none'
+          })
+          return false;
+        }
+        if (that.data.signUpType == 2  && phone.length != 11) {
+          wx.showToast({
+            title: '请输入正确手机号',
+            icon: 'none'
+          })
+          return false;
+        }
         if (person == '') {
           wx.showToast({
             title: '请输入个人介绍',
@@ -729,7 +755,7 @@ Page({
 
         if (simages.length != 3) {
           wx.showToast({
-            title: '请至少上传3张个人照',
+            title: '请上传3张个人照',
             icon: 'none'
           })
           return false;
@@ -759,7 +785,8 @@ Page({
               authorizedVideo:that.data.tsvides,
               organizationId: organizationId,
               playerType: playerType,
-              playerId: playerId
+              playerId: playerId,
+              
             },
             method: 'POST',
             header: {
@@ -774,7 +801,7 @@ Page({
                 wx.showToast({
                   title: '报名成功',
                   icon: 'success',
-                  duration: 2500
+                  duration: 2000
                 })
                 that.getuser();
                  setTimeout(function(){
@@ -809,7 +836,9 @@ Page({
               authorizedVideo: that.data.tsvides,
               organizationId: organizationId,
               playerType: playerType,
-              playerId: playerId
+              playerId: playerId,
+              signUpType: that.data.signUpType,
+              signUpPhone: phone
             },
             method: 'POST',
             header: {
@@ -831,7 +860,7 @@ Page({
                       wx.showToast({
                         title: '报名成功',
                         icon: 'none',
-                        duration: 1000
+                        duration: 2000
                       })
                       that.getuser();
                       setTimeout(function () {

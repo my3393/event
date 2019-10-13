@@ -19,6 +19,7 @@ Page({
     detail:[],
     ids:'',
     userinfo:'',
+    saiid:''
   },
 
   /**
@@ -26,7 +27,11 @@ Page({
    */
   onLoad: function (options) {
    var that = this;
+   console.log(options)
      that.getdetail();
+     that.setData({
+       saiid:options.id
+     })
   },
 
   /**
@@ -104,6 +109,43 @@ Page({
     })
 
   },
+  getuser: function () {
+    var that = this;
+    wx.request({
+      url: app.data.urlmall + "appuserinfo/getuserinfo.do",
+      data: {
+        token: wx.getStorageSync('etoken'),
+      },
+      method: 'POST',
+      header: {
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+      dataType: 'json',
+      success: function (res) {
+        console.log(res.data.data)
+        if (res.data.status === 100) {
+          that.setData({
+            userinfo: res.data.data.user,
+
+          })
+          wx.setStorage({
+            key: 'etoken',
+            data: res.data.data.token,
+          })
+          wx.setStorage({
+            key: 'userinfo',
+            data: res.data.data.user,
+          })
+
+        } else {
+          wx.showToast({
+            title: res.data.msg,
+            icon: 'none'
+          })
+        }
+      }
+    })
+  },
   pay:function(){
     var that =this;
     if(that.data.ids == ''){
@@ -128,7 +170,8 @@ Page({
               url: app.data.urlmall + "/appyb/xcxpay.do",
               data: {
                 token: wx.getStorageSync('etoken'),
-                id: that.data.ids
+                id: that.data.ids,
+                organizerId:that.data.saiid
               },
               method: 'POST',
               header: {
@@ -144,6 +187,7 @@ Page({
                     signType: 'MD5',
                     paySign: res.data.data.sign.paySign,
                     success(res) {
+                      that.getuser();
                       wx.showToast({
                         title: '充值成功',
                         icon: 'none',

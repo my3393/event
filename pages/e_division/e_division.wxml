@@ -1,10 +1,17 @@
 <view class="top" wx:if='{{type == 1}}'>
   <view>请选择所属机构</view>
-  <picker bindchange="bindPickerChange" id='{{orgin[index].id}}' value="{{index}}" range="{{orgin}}" range-key="{{'organizationName'}}">
+ <view class="saiqu">
+    <view class='divisen {{tars == index?"active":""}}' wx:for="{{orgin}}" data-index='{{index}}' id='{{item.id}}'
+    bindtap='bindPickerChange' >{{item.organizationName}}</view>
+    
+    
+  </view>
+   
+  <!-- <picker bindchange="bindPickerChange" id='{{orgin[index].id}}' value="{{index}}" range="{{orgin}}" range-key="{{'organizationName'}}">
     <view class="picker">
       点击选择：{{orgin[index].organizationName}}
     </view>
-  </picker>
+  </picker> -->
 </view>
 <view class="ruo">若未找到你所属机构，可联系贵机构申请加入，若你是机构人员可直接点击：
   <text class="btn" bindtap="btn" >机构申请加入</text>
@@ -29,7 +36,7 @@
 </view>
 
 <view wx:if='{{isg == 2}}' class="top">
-   <view>请选择要加入的团体</view>
+   <view>请选择要加入的团队</view>
    <view class="saiqu">
       <view class='divis {{nums == index?"active":""}}' wx:for="{{group}}" data-index='{{index}}' id='{{item.id}}'
    bindtap='tas' >{{item.userName}}</view>
@@ -44,6 +51,18 @@
         <view class='xioe'>
           <view bindtap='cance'>暂不考虑</view>
           <view class='deter' bindtap='deter' data-isUser='{{isUser}}'>确定入驻</view>
+        </view>
+			</view>
+</view>
+
+
+<view class="yds" hidden='{{isdai}}' >
+			<view class="yd">
+				 
+          <view class="lip"> 请选择是本人报名还是机构代报名</view>
+        <view class='xioe'>
+          <view class='deter' catchtap='brbm'>本人报名</view>
+          <view class='deter' catchtap='jgdbm' >机构代报名</view>
         </view>
 			</view>
 </view>

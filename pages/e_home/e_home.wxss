@@ -2,6 +2,7 @@
 page{
   background: #f2f2f2;
 }
+
 .btn{
   height: 60rpx;
 }
@@ -15,7 +16,7 @@ page{
   background: #F861AA;
   line-height: 82rpx;
   color: #fff;
-  border-radius: 10rpx;
+  border-radius: 50rpx;
 }
 .h-fb{
   display: inline-block;

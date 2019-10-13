@@ -25,7 +25,7 @@ Page({
    */
   onLoad: function (options) {
     var that = this;
-   
+    detail = [];
     if (wx.getStorageSync('etoken')) {
       that.getdetail();
       console.log('token存在')
@@ -145,7 +145,8 @@ Page({
   onShareAppMessage: function () {
     return {
       title: '艺赛联盟',
-      path: '/pages/e_home/e_home'
+      path: '/pages/e_home/e_home',
+      
     }
   },
   yule: function (e) {

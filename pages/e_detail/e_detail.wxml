@@ -1,14 +1,17 @@
 <!--pages/e_detail/e_detail.wxml-->
+<!-- <view class="smgz" bindtap="imgsrcs" data-src="../../images/smgz.jpg">
+   <image show-menu-by-longpress='true'  src="../../images/smgz.jpg" ></image>
+</view> -->
  <view wx:if='{{isLive == 1}}'>
-  <live-player id='player' class='banner' bindtap='bindfull' src="{{detail.tomliveUrl}}"   mode="RTC" autoplay='flase' bindstatechange="statechange" binderror="error"  />
+  <live-player id='player' class='banner' bindtap='bindfull' src="{{detail.tomliveXcxUrl}}"   mode="RTC" autoplay='flase' bindstatechange="statechange" binderror="error"  />
  
  </view>
   
 <view wx:else> 
-  <swiper class="banner" indicator-dots="true" circular="true" autoplay="true" duration="1000" indicator-color="#a7a7a7" indicator-active-color="#fe5ba9">
+  <swiper class="banner"  indicator-dots="true" circular="true" autoplay="true" duration="1000" indicator-color="#a7a7a7" indicator-active-color="#fe5ba9">
     <block wx:for='{{photos}}'>
       <swiper-item id="{{item.ids}}" bindtap="enters" class='swiper'>
-        <image class="banner_img" src="{{item}}" mode="aspectFit"></image>
+        <image class="banner_img" src="{{item}}"></image>
       </swiper-item>
     </block>
    
@@ -64,7 +67,7 @@
 
   
   <view class='partic'>
-    <view>
+    <view bindtap="all_play" id="{{detail.id}}">
       <view>参与人数</view> 
       <view class='sum'>{{detail.participateNumber}}</view>
     </view>
@@ -79,7 +82,7 @@
   </view>
   <view class='sai-time'>{{detail.seasonName}}时间：{{seasonStartDate}}~{{seaEndtDate}}</view>
 
-  <view class='sai-time' wx:if='{{competitionType == 1}}'>获奖人数 ：{{qualifiedNumber}} 名</view>
+  <view class='sai-time' wx:if='{{competitionType == 1}}'>获奖人数 ：{{qualifiedNumber}}名</view>
 
   <!-- <view class='' wx:if='{{competitionType == 1}}'>获奖人数 ： {{qualifiedNumber}} 名</view> -->
   
@@ -102,8 +105,8 @@
                 </view>
                 <view class='jies'>{{item.content}}</view>
                 <view class='clearfix'>
-                    <view class='dynamtu clearfix' wx:for='{{item.photos}}' wx:for-index='indexs' bindtap='imgsrc'                  data-index='{{indexs}}' data-num='{{idx}}' data-src='{{item}}'>
-                      <image src='{{item}}'></image>
+                    <view class='dynamtu clearfix' wx:for='{{item.photos}}' wx:for-index='indexs' bindtap='imgsrc'                  data-index='{{indexs}}' data-num='{{idx}}' data-src='{{item}}' >
+                      <image src='{{item}}' ></image>
                     </view>            
                     <view class='com'>
                         <view class='heng'></view>
@@ -125,7 +128,7 @@
       <view wx:elif='{{tab == 1}}'>
         <view class='csx'>
           <view class='search'>
-            <input type='text' class='seainp' confirm-type='search' placeholder='搜索编号/姓名' bindinput='searchinp'></input>
+            <input type='text' class='seainp' confirm-type='search' placeholder='搜索编号/姓名' bindinput='searchinp'  value="{{valu}}"></input>
           
           </view>
           <view class='evesai'>
@@ -466,12 +469,17 @@
       </view>
       <view>首页</view>
     </view>
-    <view class="ever-m" bindtap="yule">
-      <view class="ever-head">
+    <view class="ever-m" bindtap="imgsrcs">
+      <!-- <view class="outse">
+        <view class="out">
+          保存图片查看公众号
+        </view>
+      </view> -->
+      <view class="ever-head" >
         <image src="../../images/ico-entertainment.png"></image>
         
       </view>
-      <view>娱乐世界</view>
+      <view>公众号</view>
     </view>
  </view>
 

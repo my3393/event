@@ -43,6 +43,12 @@
         <text class='snlabels' adjust-position='true' style='width:auto;height:70rpx;' bindtap='showlabel'>{{artist_type}}</text>
     </view>
 </view>
+<view class='wrap' wx:if='{{signUpType == 2}}'>
+    <view class='snitem' style='border-bottom: 0;'>
+        代报名手机号： 
+        <view class='snlabels' adjust-position='true' style='width:auto;height:70rpx;margin-top:-12rpx;' ><input bindinput="inputs"  placeholder="请输入代报名手机号" class="input"></input></view>
+    </view>
+</view>
 <view class='wrap'>
     <view class='title'>个人介绍：</view>
     <input placeholder='请输入个人介绍' bindinput='getperson' maxlength='500'></input>
@@ -86,4 +92,7 @@
 <video class='maskvideo' hidden='{{isvideo}}' src='{{play}}'></video>
 
 
-<view class='subnotice' bindtap='subnotice'>申请入驻</view>
+<view class='subnotice' bindtap='subnotice'>报名</view>
+
+<!-- 代报名 -->
+

@@ -16,15 +16,19 @@
               <view class='hotre'> <image src='../../images/din.png'></image> </view>
               <text>{{item.cityName}}</text>
           </view>
-          <view class='hot' wx:if='{{item.status == 0}}'>
+          <view class='hot' wx:if='{{item.isshow == 1}}'>
+              
+            <text class='sta'>未开始</text>
+          </view>
+          <view class='hot' wx:elif='{{item.status == 0}}'>
               
             <text class='sta'>报名中</text>
           </view>
-          <view class='hot' wx:if='{{item.status == 1}}'>
+          <view class='hot' wx:elif='{{item.status == 1}}'>
             <view class='hotre'> <image src='../../images/hot.png'></image> </view>
             <text>火热进行中</text>
           </view>
-          <view class='hot' wx:if='{{item.status == 2}}'>
+          <view class='hot' wx:elif='{{item.status == 2}}'>
             
             <text class='end'>已结束</text>
           </view>

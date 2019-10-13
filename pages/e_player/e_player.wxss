@@ -125,10 +125,10 @@ page{
 .play-kon{
 	width: 100%;
 	text-align: center;
-     display: none;
 }
 .go{
 	color: #F861AA;
+  margin-bottom: 30rpx;
 }
 .zuo{
   font-size: 24rpx;

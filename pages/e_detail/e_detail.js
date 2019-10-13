@@ -22,7 +22,7 @@ Page({
   data: {
     tar: "2",
     tab:'2',
-    tas:'',
+    tas:1000000,
     istp: "",
     tag: [
       { id: 1, name: '动态' },
@@ -285,33 +285,36 @@ Page({
 
     }
     //选手
-    if (that.data.x_currentPage == that.data.x_totalPage) {
-      wx.showToast({
-        title: '已经到底了哦',
-        icon: 'none'
-      })
-    }else {
+    if (that.data.x_currentPage < that.data.x_totalPage) {
       that.setData({
         x_currentPage: that.data.x_currentPage + 1,
       })
-      if (that.data.isSearch == false){
-       that.getplayer();
-      }else{
+      if (that.data.isSearch == false) {
+        that.getplayer();
+      } else {
         that.searchinps();
       }
-    }
-    //排行榜
-    if (that.data.p_currentPage == that.data.p_totalPage) {
+     
+    }else {
       wx.showToast({
         title: '已经到底了哦',
         icon: 'none'
       })
-    } else {
-      that.setData({
-        p_currentPage: that.data.p_currentPage + 1,
-      })
-      that.getranklist();
+    }
+    //排行榜
+    if(that.data.competitionType == 2 && that.data.tab == 2){
+      if (that.data.p_currentPage == that.data.p_totalPage) {
+        wx.showToast({
+          title: '已经到底了哦',
+          icon: 'none'
+        })
+      } else {
+        that.setData({
+          p_currentPage: that.data.p_currentPage + 1,
+        })
+        that.getranklist();
 
+      }
     }
     //活动视频
     if (that.data.h_currentPage == that.data.h_totalPage) {
@@ -429,6 +432,7 @@ Page({
       ishelp: !that.data.ishelp
     })
   },
+  
   //商品切换
   tag: function (e) {
     var that = this;
@@ -742,7 +746,11 @@ Page({
   bind:function(){
     var that =this;
     this.setData({
-      isSai:!this.data.isSai
+      isSai:!this.data.isSai,
+      p_currentPage: 1,
+      isSearch:false,
+      x_currentPage: 1,
+      valu:'',
     })
     that.getNarea();
   },
@@ -1093,14 +1101,19 @@ Page({
     console.log(e);
     that.setData({
       isSearch:true,
-      valu:e.detail.value
+      valu:e.detail.value,
+      x_currentPage:1,
     })
+    console.log(that.data.x_currentPage)
+    splayer = []
     wx.request({
       url: app.data.urlmall + "/apppcompetitionplayer/playerlist.do",
       data: {
         id: that.data.id,
         token: wx.getStorageSync('etoken'),
         keyword:e.detail.value,
+        currentPage:that.data.x_currentPage,
+        competitionAreaId: that.data.competitionAreaId,
       },
       method: 'POST',
       header: {
@@ -1110,12 +1123,16 @@ Page({
       success: function (res) {
         console.log(res.data.data)
         if (res.data.status === 100) {
+          that.setData({
+            
+            x_totalPage: res.data.data.totalPage,
+          })
           for(var i in res.data.data.data){
             splayer.push(res.data.data.data[i])
           }
           that.setData({
             splayer: splayer,
-
+           
           })
 
         } else if (res.data.status === 103) {
@@ -1144,7 +1161,8 @@ Page({
         id: that.data.id,
         token: wx.getStorageSync('etoken'),
         keyword: that.data.valu,
-        currentPage: that.data.x_currentPage
+        currentPage: that.data.x_currentPage,
+        competitionAreaId: that.data.competitionAreaId,
       },
       method: 'POST',
       header: {
@@ -1183,9 +1201,11 @@ Page({
   },
   //查看选手详情
   detail: function (e) {
-    wx.navigateTo({
-      url: '../e_player/e_player?id=' + e.currentTarget.id + '&saiid=' + this.data.id + '&isOrganization=' + this.data.detail.isOrganization,
-    })
+    if (this.data.competitionType == 2) {
+      wx.navigateTo({
+        url: '../e_player/e_player?id=' + e.currentTarget.id + '&saiid=' + this.data.id + '&isOrganization=' + this.data.detail.isOrganization,
+      })
+    }
   },
   //艺人置顶
   top:function(e){
@@ -1285,49 +1305,7 @@ Page({
     console.log(e)
     var that = this;
    
-    // wx.request({
-    //   url: app.data.urlmall + "apppcompetitionsignup/isjoin.do",
-    //   data: {
-    //     id: that.data.competitionAreaId,
-    //     token: wx.getStorageSync('etoken'),
-    //   },
-    //   method: 'POST',
-    //   header: {
-    //     'content-type': 'application/x-www-form-urlencoded'
-    //   },
-    //   dataType: 'json',
-    //   success: function (res) {
-    //     console.log(res.data.data)
-    //     if (res.data.status === 100) {
-    //       wx.navigateTo({
-    //         url: '../e_division/e_division?id=' + that.data.id + '&num=' + e.currentTarget.dataset.num + '&art=' + e.currentTarget.dataset.art + '&type=' + that.data.detail.isOrganization,
-    //       })
-    //     } else if (res.data.status === 103) {
-    //       wx.showToast({
-    //         title: res.data.msg,
-    //         icon: 'none'
-    //       })
-    //       wx.navigateTo({
-    //         url: '/pages/login/login',
-    //       })
-
-    //     } else if (res.data.status === 105) {
-    //       wx.showToast({
-    //         title: res.data.msg,
-    //         icon: 'none'
-    //       })
-    //       wx.navigateTo({
-    //         url: '/pages/bindphone/bindphone',
-    //       })
-
-    //     } else {
-    //       wx.showToast({
-    //         title: res.data.msg,
-    //         icon: 'none'
-    //       })
-    //     }
-    //   }
-    // })
+    
     if (that.data.user.user_id == null || that.data.user.user_id == '') {
 
       wx.showToast({
@@ -1377,6 +1355,12 @@ Page({
       play: e.currentTarget.dataset.ids
     })
   },
+  //查看全部选手
+  all_play: function (e) {
+    wx.navigateTo({
+      url: '../all_player/all_player?id=' + e.currentTarget.id,
+    })
+  },
   //机构参赛
   jgeve:function(e){
     wx.navigateTo({
@@ -1400,6 +1384,26 @@ Page({
     wx.previewImage({
       current: selectindex, // 当前显示图片的http链接   
       urls: imgList // 需要预览的图片http链接列表
+    })
+  },
+  imgsrcs: function (e) {
+    var that = this;
+    console.log(e)
+    var num=0;
+    var imgList = []
+    wx.showToast({
+      title: '长按保存图片，扫码关注公众号',
+      icon:'none',
+      duration:3000
+    })
+    //var num = e.currentTarget.dataset.num;
+    var selectindex = e.currentTarget.dataset.src;//获取data-src
+      imgList[0] = e.currentTarget.dataset.src ;//获取data-list
+    //图片预览
+    wx.previewImage({
+      current: 'https://xt-ylsj.oss-cn-shenzhen.aliyuncs.com/22.jpg', // 当前显示图片的http链接   
+      urls: ['https://xt-ylsj.oss-cn-shenzhen.aliyuncs.com/22.jpg'] ,// 需要预览的图片http链接列表
+      
     })
   },
   bindPlayerPlay() {

@@ -1,0 +1,60 @@
+<view class='csx'>
+          <view class='search'>
+            <input type='text' class='seainp' confirm-type='search' placeholder='搜索编号/姓名' bindinput='searchinp'></input>
+          
+          </view>
+          <!-- <view class='evesai'>
+            <view class='saiq'>赛区：{{competitionName}} <text class='turn' bindtap='bind'>点击切换</text>
+            </view> 
+            <view class='top-num'>晋级人数： 前{{qualifiedNumber}}名</view> 
+          </view> -->
+          
+          <view wx:if='{{isSearch == false}}' >
+            <view class='baodc' wx:if='{{players.length == 0}}'>
+             <view class='noplay'> <image src='../../images/none-work.png'></image>  </view>
+             <view>还没人参加快去试试~</view>
+            </view>
+            <view wx:else>
+              <view class='player clearfix' wx:for='{{players}}' id='{{item.id}}' bindtap='detail' data-saiid='{{id}}'>
+                <view class='playhead'>
+                  <image src='{{item.headPhotoOssPath}}'></image>
+                </view>
+                <view class='bian'>编号：
+                  <text class='haom'>{{item.playerNumber}}</text> </view>
+                <view class='bian'>选手：
+                  <text class='haom'>{{item.userName}}</text> </view>
+                <view class='bian'>星值：
+                  <text class='haom'>{{item.starValue}}</text> </view>
+                <view class='zhi' catchtap='top' id="{{item.id}}">置顶</view>
+                <view class='zlp'>
+                  <view class='zl' catchtap='help' id="{{item.id}}" hidden='{{competitionType == 1}}'>助力</view>
+                  <view class='zl' catchtap='vote' id="{{item.id}}" hidden='{{competitionType == 1}}'>投他一票</view>
+                </view>
+              </view>
+            </view>
+          </view>
+          <view wx:else class='oj'>
+            <view class='baodc' wx:if='{{splayer.length == 0}}'>
+               <view class='noplay'> <image src='../../images/none-work.png'></image>  </view>
+               <view>未搜索到该选手!</view>
+            </view>   
+            <view wx:else>
+              <view class='player clearfix' wx:for='{{splayer}}' id='{{item.id}}' bindtap='detail'>
+                <view class='playhead'>
+                  <image src='{{item.headPhotoOssPath}}'></image>
+                </view>
+                <view class='bian'>编号：
+                  <text class='haom'>{{item.playerNumber}}</text> </view>
+                <view class='bian'>选手：
+                  <text class='haom'>{{item.userName}}</text> </view>
+                <view class='bian'>星值：
+                  <text class='haom'>{{item.starValue}}</text> </view>
+                <view class='zhi' catchtap='top' id="{{item.id}}">置顶</view>
+                <view class='zlp'>
+                  <view class='zl' catchtap='help' id="{{item.id}}" hidden='{{competitionType == 1}}'>助力</view>
+                  <view class='zl' catchtap='vote' id="{{item.id}}" hidden='{{competitionType == 1}}'>投他一票</view>
+                </view>
+              </view>
+            </view>  
+          </view>
+        </view>

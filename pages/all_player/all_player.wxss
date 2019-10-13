@@ -1,0 +1,2 @@
+/* pages/all_player/all_player.wxss */
+@import '../e_detail/e_detail.wxss';

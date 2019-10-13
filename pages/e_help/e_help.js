@@ -105,7 +105,7 @@ Page({
       isart: !that.data.isart
     })
     wx.navigateTo({
-      url: '../recharge/recharge',
+      url: '../recharge/recharge?id=' + that.data.saiid,
     })
   },
   que: function () {

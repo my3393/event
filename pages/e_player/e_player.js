@@ -82,7 +82,7 @@ Page({
     wx.getStorage({
       key: 'userinfo',
       success: function (res) {
-        bcode = res.data.user_id;
+       
         console.log(res.data)
         that.setData({
           is_actor: res.data.is_actor,
@@ -192,7 +192,7 @@ Page({
       success: function (res) {
         console.log(res.data.data)
         if (res.data.status === 100) {
-
+           that.getdetail();
         } else {
           wx.showToast({
             title: res.data.msg,
@@ -287,9 +287,22 @@ Page({
       }
     })
   },
+  qwsc:function(){
+    wx.navigateTo({
+      url: '../e_upwork/e_upwork',
+    })
+  },
   //详情
   getdetail: function (e) {
     var that = this;
+    wx.getStorage({
+      key: 'userinfo',
+      success: function (res) {
+        bcode = res.data.user_id;
+        
+        console.log(bcode)
+      },
+    })
     wx.request({
       url: app.data.urlmall + "/apppcompetitionplayer/detail.do",
       data: {
@@ -303,11 +316,14 @@ Page({
       dataType: 'json',
       success: function (res) {
         console.log(res.data.data)
+        console.log(res.data.data.userId)
+        console.log(bcode)
         if (res.data.status === 100) {
         var  before = res.data.data.beforeStarValue - res.data.data.starValue;
           if(before < 0){
              before = 0
           }
+          
           if (bcode == res.data.data.userId){
             that.setData({
               artId:true

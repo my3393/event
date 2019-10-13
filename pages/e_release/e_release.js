@@ -206,9 +206,13 @@ Page({
     that.setData({
       imgs: images
     })
-    console.log(that.data.imgs)
-    console.log(simages)
-    console.log(images)
+    console.log(simages.length)
+    if (simages.length < 5) {
+      that.setData({
+        showadd: false
+      })
+    }
+    
   },
   //企业LOGO
   chooseImage(e) {
@@ -577,7 +581,7 @@ Page({
     })
   },
   //微信号
-  num: function (e) {
+  wxchat: function (e) {
     var numb = e.detail.value
     this.setData({
       numb: numb
