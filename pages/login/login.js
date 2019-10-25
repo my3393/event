@@ -4,10 +4,17 @@ let encryptedData = '';
 const app = getApp();
 Page({
     data: {
-        canIUse: wx.canIUse('button.open-type.getUserInfo')
+        canIUse: wx.canIUse('button.open-type.getUserInfo'),
+        saiid:''
     },
-    onLoad() {
-       
+    onLoad(options) {
+      console.log(options)
+      let that = this;
+       if(options.saiid){
+          that.setData({
+            saiid:options.saiid
+          })
+       }
       // 查看是否授权
       wx.getSetting({
         success(res) {
@@ -148,9 +155,16 @@ Page({
                                   })
                                 } else {
                                   console.log(11)
-                                  wx.redirectTo({
-                                    url: '../e_home/e_home'
-                                  })
+                                  if(that.data.saiid != ''){
+                                    wx.redirectTo({
+                                      url: '../e_detail/e_detail?id=' + that.data.saiid
+                                    })
+                                  }else{
+                                    wx.redirectTo({
+                                      url: '../e_home/e_home'
+                                    })
+                                  }
+                                  
                                 }
 
                               } else {

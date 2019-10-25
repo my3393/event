@@ -145,9 +145,12 @@ Page({
     that.setData({
       isgift: !that.data.isgift
     })
-    wx.redirectTo({
-      url: '../receive/receive?giftId=' + that.data.giftId,
+    wx.navigateTo({
+      url: '../receive/receive?xcxAppId=' + that.data.recegift.xcxAppId + '&xcxUrl=' + that.data.recegift.xcxUrl + '&giftId=' + that.data.giftId,
     })
+    // wx.navigateTo({
+    //   url: '../receive/receive?giftId=' + that.data.giftId,
+    // })
   },
   //查看赛事
   trun: function (e) {

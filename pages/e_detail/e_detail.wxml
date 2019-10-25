@@ -14,7 +14,7 @@
         <image class="banner_img" src="{{item}}"></image>
       </swiper-item>
     </block>
-   
+    
   </swiper>
 
 </view>
@@ -43,7 +43,7 @@
     </view>
 
   </view> -->
-  <view class='conuttime' wx:if="{{istime == 2 || istime == 1}}">
+  <view class='conuttime' wx:if="{{countdown == 1}}">
     <text>距离报名结束：</text>
     <view class='ctimes' >
       <text class='days'>{{days}} 天</text>
@@ -53,8 +53,8 @@
     </view>
 
   </view>
-  <!-- <view class='conuttime' wx:if="{{istime == 3 || istime == 4}}">
-    <text>距离{{detail.seasonName}}结束：</text>
+  <view class='conuttime' wx:if="{{countdown == 2}}">
+    <text>距离{{detail.seasonName}}开始：</text>
     <view class='ctimes' >
       <text class='days'>{{daySea}} 天</text>
       <text class='days'>{{hourSea}} 时</text>
@@ -62,14 +62,24 @@
       <text class='days'>{{miaoSea}} 秒</text> 
     </view>
                   
-  </view> -->
+  </view>
+  <view class='conuttime' wx:if="{{countdown == 3}}">
+    <text>距离{{detail.seasonName}}结束：</text>
+    <view class='ctimes' >
+      <text class='days'>{{daySeas}} 天</text>
+      <text class='days'>{{hourSeas}} 时</text>
+      <text class='days'>{{minSeas}} 分</text>
+      <text class='days'>{{miaoSeas}} 秒</text> 
+    </view>
+                  
+  </view>
   
 
   
   <view class='partic'>
     <view bindtap="all_play" id="{{detail.id}}">
-      <view>参与人数</view> 
-      <view class='sum'>{{detail.participateNumber}}</view>
+      <view style="color:#e65099">参与人数</view> 
+      <view class='sum' style="color:#e65099"> {{detail.participateNumber}}</view>
     </view>
     <view hidden='{{competitionType == 1}}'>
       <view>总投票数</view>
@@ -108,7 +118,7 @@
                     <view class='dynamtu clearfix' wx:for='{{item.photos}}' wx:for-index='indexs' bindtap='imgsrc'                  data-index='{{indexs}}' data-num='{{idx}}' data-src='{{item}}' >
                       <image src='{{item}}' ></image>
                     </view>            
-                    <view class='com'>
+                    <!-- <view class='com'>
                         <view class='heng'></view>
                         <view class='comments'>
                           <view class='comtu'><image src='../../images/pl.png'></image></view>
@@ -118,7 +128,7 @@
                           <view class='comtu' bindtap='praise' id='{{item.id}}'><image src='../../images/zan.png'></image></view>
                           <text >{{item.thumbs}}</text>
                         </view>
-                    </view>
+                    </view> -->
                 </view>
               </view>
           </view>
@@ -309,7 +319,7 @@
                     <view class='dynamtu clearfix' wx:for='{{item.photos}}' wx:for-index='indexs' bindtap='imgsrc'                  data-index='{{indexs}}' data-num='{{idx}}' data-src='{{item}}'>
                       <image src='{{item}}'></image>
                     </view>            
-                    <view class='com'>
+                    <!-- <view class='com'>
                         <view class='heng'></view>
                         <view class='comments'>
                           <view class='comtu'><image src='../../images/pl.png'></image></view>
@@ -319,7 +329,7 @@
                           <view class='comtu' bindtap='praise' id='{{item.id}}'><image src='../../images/zan.png'></image></view>
                           <text >{{item.thumbs}}</text>
                         </view>
-                    </view>
+                    </view> -->
                 </view>
               </view>
           </view>
@@ -479,7 +489,7 @@
         <image src="../../images/ico-entertainment.png"></image>
         
       </view>
-      <view>公众号</view>
+      <view>我的主页</view>
     </view>
  </view>
 

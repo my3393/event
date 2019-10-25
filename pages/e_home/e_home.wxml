@@ -9,7 +9,17 @@
   <view class='eve'>
     <view class='event' wx:for='{{detail}}' wx:key='{{index}}' bindtap='trun' data-type='{{item.competitionType}}'
       data-id='{{item.id}}'>
-        <view class='event-head'> <image src='{{item.competitionLogoOssPath}}'></image> </view>
+        <view class='event-head'>
+            <swiper class="banner"  indicator-dots="true" circular="true" autoplay="true" duration="1000" indicator-color="#a7a7a7" indicator-active-color="#fe5ba9">
+    <block wx:for='{{item.posters}}'>
+      <swiper-item id="{{item.ids}}" bindtap="enters" class='swiper'>
+        <image class="banner_img" src="{{item}}"></image>
+      </swiper-item>
+    </block>
+   
+  </swiper>
+         <!-- <image src='{{item.competitionLogoOssPath}}'></image>  -->
+         </view>
         <view class='hotm'>{{item.competitionTitle}}</view>
         <view class='hotm'>  
           <view class='hotname'>
@@ -36,6 +46,7 @@
     </view>
   </view>
 </view>
+<view style="height:80rpx;"></view>
 <!-- 娱乐世界 -->
 
 <view class='footer'>

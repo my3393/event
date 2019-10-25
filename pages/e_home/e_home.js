@@ -61,6 +61,16 @@ Page({
     // setTimeout(function(){
     //   that.getdetail();
     // },500)
+    wx.getStorage({
+      key: 'userinfo',
+      success: function (res) {
+       
+        that.setData({
+          user: res.data
+        })
+        
+      },
+    })
   },
 
   /**
@@ -196,7 +206,7 @@ Page({
             })
            setTimeout(function(){
              that.getdetail();
-           },200)
+           },400)
           } else if (res.data.status === 103) {
             wx.redirectTo({
               url: '/pages/login/login',
@@ -252,6 +262,7 @@ Page({
 
             that.setData({
               detail: detail,
+              
               totalPage: res.data.data.totalPage
             })
             
@@ -272,9 +283,24 @@ Page({
    
   },
   sumb:function(e){
-    wx.navigateTo({
-      url: '../e_release/e_release',
-    })
+    let that = this;
+    if (that.data.user.user_id == null || that.data.user.user_id == '') {
+
+      wx.showToast({
+        title: '请先登录',
+        icon: 'none',
+
+      })
+      wx.navigateTo({
+        url: '../login/login',
+      })
+
+    }else{
+      wx.navigateTo({
+        url: '../e_release/e_release',
+      })
+    }
+    
   },
   trun: function (e) {
     console.log(e)

@@ -17,6 +17,7 @@ page{
   line-height: 82rpx;
   color: #fff;
   border-radius: 50rpx;
+  z-index: 999;
 }
 .h-fb{
   display: inline-block;
@@ -49,6 +50,14 @@ page{
   overflow: hidden;
 }
 .event-head image{
+  width: 100%;
+  height: 100%;
+}
+.banner{
+  width: 100%;
+  height: 350rpx;
+}
+.banner image{
   width: 100%;
   height: 100%;
 }

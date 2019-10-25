@@ -31,7 +31,8 @@ Page({
     iscity: true,
     isqu: true,
     isart:true,
-
+    xcxUrl:'',
+    xcxAppId:''
   },
 
   /**
@@ -42,6 +43,12 @@ Page({
     that.setData({
       giftId: options.giftId
     })
+    if (options.xcxUrl != '') {
+      that.setData({
+        xcxUrl: options.xcxUrl,
+        xcxAppId: options.xcxAppId
+      })
+    }
     // 获取所有省
     var province = [{
       id: '',
@@ -134,17 +141,35 @@ Page({
     that.setData({
       isart: !that.data.isart,
     })
-    // wx.navigateBack({
-    //   delta: 1
-    // })
-   wx.redirectTo({
-     url: '../e_mine/e_mine',
-   })
+    wx.navigateBack({
+      delta: 2
+    })
+  //  wx.redirectTo({
+  //    url: '../e_mine/e_mine',
+  //  })
   },
   deter: function () {
     var that = this;
     this.setData({
-      isart: !that.data.isart,
+      isart2: !that.data.isart2,
+    })
+
+    //娱乐世界
+    wx.navigateToMiniProgram({
+      appId: that.data.xcxAppId,
+      path: that.data.xcxUrl,
+      extraData: {
+
+      },
+      envVersion: 'release',
+      success(res) {
+        // 打开成功
+      },
+      fail() {
+        wx.navigateBack({
+          delta: 1
+        })
+      }
     })
    
   },

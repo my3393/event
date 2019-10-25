@@ -43,6 +43,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    let that = this;
     console.log(options)
       this.setData({
         id:options.id,
@@ -50,12 +51,14 @@ Page({
         isOrganization: options.isOrganization,
       })
       console.log(this.data.saiId)
-      this.getdetail();
-      this.getdetailss();
-      this.getrefue();
-      this.getvote();
+    if (wx.getStorageSync('etoken')) {
+      that.getdetail();
+      console.log('token存在')
+    } else {
+      that.gettoken();
+      console.log('token不存在')
+    }
       
-      this.getplayer();
       if(options.isOrganization == 0){
         
       }
@@ -141,8 +144,7 @@ Page({
         videos:[],
       })
       that.getdetail();
-      that.getvote();
-      that.getrefue();
+      
       if (that.data.isOrganization == 0) {
         this.getphoto();
         this.getvideo();
@@ -247,6 +249,48 @@ Page({
       play: e.currentTarget.dataset.src
     })
   },
+  gettoken: function (e) {
+    var that = this;
+
+    wx.request({
+      url: app.data.urlmall + "appcomeptition/default/token.do",
+      data: {
+
+      },
+      method: 'POST',
+      header: {
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+      dataType: 'json',
+      success: function (res) {
+        console.log(res.data.data)
+        if (res.data.status === 100) {
+          wx.setStorage({
+            key: 'etoken',
+            data: res.data.data.token,
+          })
+          wx.setStorage({
+            key: 'userinfo',
+            data: res.data.data.user,
+          })
+          setTimeout(function () {
+            that.getdetail();
+          }, 400)
+        } else if (res.data.status === 103) {
+          wx.redirectTo({
+            url: '/pages/login/login',
+          })
+
+        } else {
+          wx.showToast({
+            title: res.data.msg,
+            icon: 'none'
+          })
+        }
+      }
+    })
+
+  },
   getplayer: function (e) {
     var that = this;
     wx.request({
@@ -315,9 +359,11 @@ Page({
       },
       dataType: 'json',
       success: function (res) {
-        console.log(res.data.data)
-        console.log(res.data.data.userId)
-        console.log(bcode)
+        that.getdetailss();
+        that.getrefue();
+        that.getvote();
+
+        that.getplayer();
         if (res.data.status === 100) {
         var  before = res.data.data.beforeStarValue - res.data.data.starValue;
           if(before < 0){
@@ -587,11 +633,20 @@ Page({
     })
   },
   //艺人主页
-  funcicle:function(e){
-    console.log(e)
-    wx.navigateTo({
-      url: '../funcicle_detail/funcicle_detail?user_id=' + e.currentTarget.id,
+  yule: function (e) {
+    //娱乐世界
+    wx.navigateToMiniProgram({
+      appId: 'wxf556b39ee9c934b4',
+      path: 'pages/my_idol/my_idol',
+      extraData: {
+
+      },
+      envVersion: 'release',
+      success(res) {
+        // 打开成功
+      }
     })
+
   },
   //助力
   help: function () {

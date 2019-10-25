@@ -166,6 +166,7 @@ Page({
   onUnload: function () {
     simages = []
     images = [];
+    province_id = '';
     this.setData({
       imgs: []
     })

@@ -19,7 +19,7 @@
       </view>
     </picker>
      </view>
-    <view class='enter'> <image src='../../images/enter.png'></image> </view>
+    <!-- <view class='enter'> <image src='../../images/enter.png'></image> </view> -->
   </view>
   <view class='infor' hidden='{{iscity}}'>
     <view class='inform'>机构所在市</view>
@@ -30,7 +30,7 @@
       </view>
     </picker>
      </view>
-    <view class='enter'> <image src='../../images/enter.png'></image> </view>
+    <!-- <view class='enter'> <image src='../../images/enter.png'></image> </view> -->
   </view>
    <view class='infor' hidden='{{isqu}}'>
     <view class='inform'>机构所在区</view>
@@ -41,7 +41,7 @@
       </view>
     </picker>
      </view>
-    <view class='enter'> <image src='../../images/enter.png'></image> </view>
+    <!-- <view class='enter'> <image src='../../images/enter.png'></image> </view> -->
   </view>
     <view class='infor'hidden='{{isjie}}'>
       <view class='inform'>机构所在街</view>
@@ -70,7 +70,7 @@
       </view>
     </view>
     <view class="v-input">
-      <input class="v-inpu"  value="{{item.name}}" placeholder="填写名称" data-index="{{index}}" bindinput="input"></input>
+      <input class="v-inpu" placeholder-style="color:#e65099"  value="{{item.name}}" placeholder="填写名称" data-index="{{index}}" bindinput="input"></input>
     </view>
   </view>
     <!-- <block wx:for='{{array0}}'>
@@ -103,7 +103,7 @@
 <view class='submit' bindtap='submit'>
    提交
 </view>
-
+<view class="foohr"></view>
 <view class="sai-yds" hidden='{{isSai}}'>
 			<view class="sai-yd">
 			   <view class='divis {{tas == index?"act":""}}' wx:for="{{narea}}" id='{{item.id}}' data-index='{{index}}'  data-name='{{item.competitionName}}' data-num='{{item.qualifiedNumber}}'  bindtap='narea'>{{item.competitionName}}</view>

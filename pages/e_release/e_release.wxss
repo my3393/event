@@ -14,6 +14,7 @@ page{
   box-sizing: border-box;
   border-bottom: 4rpx dotted #f2f2f2;
   line-height: 100rpx;
+  position: relative;
 }
 .inform{
   display: inline-block;
@@ -25,14 +26,18 @@ page{
   vertical-align: middle;
 }
 .inforin input{
-  width: 500rpx;
+  width: 560rpx;
   letter-spacing: 2rpx;
 }
 .forin{
   margin-left: 30rpx;
 }
 .enter{
-  float: right;
+  position: absolute;
+  right: 20rpx;
+   width: 14rpx;
+  height: 26rpx;
+  top: 0rpx;
 }
 .enter image{
   width: 14rpx;
@@ -50,10 +55,14 @@ page{
   margin-top: 40rpx;
   margin-bottom: 40rpx;
 }
+.foohr{
+  height: 40rpx;
+  width: 100%;
+}
 .pick{
   display: inline-block;
   color: #666;
-  width: 500rpx;
+  width: 540rpx;
 }
 .jgtx{
   background: #fff;

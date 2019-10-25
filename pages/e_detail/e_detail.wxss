@@ -11,6 +11,7 @@ page{
 .navs{
   padding-bottom: 140rpx;
   box-sizing: border-box;
+  
 }
 .active{
   color: #F861AA;
@@ -29,6 +30,7 @@ page{
   background: #fff;
   padding: 20rpx 20rpx;
   box-sizing: border-box;
+  font-size: 26rpx;
 }
 .headport{
   float: left;

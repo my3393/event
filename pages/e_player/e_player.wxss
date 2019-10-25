@@ -396,6 +396,8 @@ height:75rpx;
 }
 .gifts{
   font-size: 28rpx;
+  padding-bottom: 20rpx;
+  box-sizing: border-box;
 }
 .pnum{
   display: inline-block;

@@ -17,7 +17,7 @@
       <view class='inform'>赛事类型</view>
       <view class='inforin ' > <input disabled='true' type='text'  value='{{artist_type}}' placeholder='请选择赛事类型'
       bindtap='showlabel'></input> </view>
-        <view class='enter'> <image src='../../images/enter.png'></image> </view>
+        <!-- <view class='enter' bindtap='showlabel'> <image src='../../images/enter.png'></image> </view> -->
     </view>
     <view class='jgtx pho'>
       <view class='jgtu'>活动赛事封面</view>
@@ -41,7 +41,7 @@
         </view>
       </picker>
       </view>
-      <view class='enter'> <image src='../../images/enter.png'></image> </view>
+      <!-- <view class='enter' bindtap="getprov"> <image src='../../images/enter.png'></image> </view> -->
     </view>
     <view class='infor' hidden='{{iscity}}'>
       <view class='inform'>活动所在市</view>
@@ -52,7 +52,7 @@
         </view>
       </picker>
       </view>
-      <view class='enter'> <image src='../../images/enter.png'></image> </view>
+      <!-- <view class='enter'> <image src='../../images/enter.png'></image> </view> -->
     </view>
     <view class='infor' hidden='{{isqu}}'>
       <view class='inform'>活动所在区</view>
@@ -63,7 +63,7 @@
         </view>
       </picker>
       </view>
-      <view class='enter'> <image src='../../images/enter.png'></image> </view>
+      <!-- <view class='enter'> <image src='../../images/enter.png'></image> </view> -->
     </view>
     <!-- <view class='infor'hidden='{{isjie}}'>
       <view class='inform'>活动所在街</view>
@@ -104,14 +104,14 @@
     </view>
     <view class='infor'>
       <view class='inform'>微信号</view>
-      <view class='inforin'> <input type='number' placeholder='请输入微信号（选填）'bindinput='wxchat'></input> </view>
+      <view class='inforin'> <input type='text' placeholder='请输入微信号（选填）'bindinput='wxchat'></input> </view>
     </view>
   </view>
   <view class='submit' bindtap='submit'>
     提交
   </view>
 </view>
-
+<view class="foohr"></view>
 <!-- 赛事类型 -->
 
 <view class='yds' hidden='{{showlabels}}'>

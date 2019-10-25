@@ -60,7 +60,7 @@
 <view class="group" wx:else>
   <view>团队成员</view>
   <view class='g-all'>
-    <view class="g-head" wx:for='{{group}}' id='{{item.userId}}' bindtap="funcicle">
+    <view class="g-head" wx:for='{{group}}' id='{{item.userId}}' bindtap="yule">
       <view class="g-img" >
         <image src='{{item.headPhoto}}'></image>
       </view>
@@ -145,7 +145,9 @@
       <view class='ranktime'>{{item.createDate}}</view>
     </view>
     <!-- <view class="jilu">仅显示最新五条记录</view> -->
+   
   </view>
+   <view style="height:100rpx"></view>
 </view>
 <view class="searc">
   <view bindtap='home'>

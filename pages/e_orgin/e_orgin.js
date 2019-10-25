@@ -127,7 +127,8 @@ Page({
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
-
+     province_id = '';
+     postersis == ''
   },
 
   /**
@@ -152,17 +153,36 @@ Page({
   },
   addNew() {
     var that = this;
+    
     var array = this.data.detail
       console.log(array.length)
       conut = array.length 
+    if(conut == 0){
     array.push({ index: -1, category: '', name: '' })
-    this.setData({
+      this.setData({
       detail: array
     })
-    that.setData({
+      that.setData({
       isSai: !that.data.isSai
     })
-    this.getNarea();
+      this.getNarea();
+  }else if (array[conut-1].category != '' && array[conut-1].name == '' ){
+      wx.showToast({
+        title: '请填写类别名称',
+        icon:'none',
+        duration:2000
+      })
+    }else{
+      array.push({ index: -1, category: '', name: '' })
+      this.setData({
+        detail: array
+      })
+      that.setData({
+        isSai: !that.data.isSai
+      })
+      this.getNarea();
+    }
+   
   },
   xuan:function(e){
      var that = this;
@@ -645,6 +665,15 @@ Page({
               delta: 1
             })
           }, 2000)
+        } else if (res.data.status === 103) {
+          wx.showToast({
+            title: res.data.msg,
+            icon: 'none'
+          })
+          wx.redirectTo({
+            url: '/pages/login/login',
+          })
+
         } else {
           wx.showToast({
             title: res.data.msg,

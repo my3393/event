@@ -2,7 +2,7 @@
 @import '../receive/receive.wxss';
 .jgtx{
   background: #fff;
-  height: 100rpx;
+  height: 100rpx; 
   line-height: 100rpx;
   padding: 0 20rpx;
   box-sizing: border-box;
@@ -69,6 +69,7 @@ margin-right: 10rpx;
   margin-left: 4%;
   display: inline-block;
   vertical-align: middle;
+  
 }
 .v-inpu{
   width: 100%;
@@ -103,7 +104,11 @@ margin-right: 10rpx;
   font-size: 26rpx;
 }
 .submit{
-  margin-bottom: 40rpx;
+  margin-bottom: 60rpx;
+}
+.foohr{
+  height: 40rpx;
+  width: 100%;
 }
 .sai-active{
   background: #F861AA;

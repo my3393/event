@@ -32,17 +32,22 @@ Page({
             success: function (res) {
                 console.log(res.data.data)
                 if (res.data.status == 100) {
-                    article_id = res.data.data.user_id;
-                    wx.hideLoading();
-                    that.setData({
+                    if(res.data.data == null){
+                     
+                    }else{
+                      article_id = res.data.data.user_id;
+                      wx.hideLoading();
+                      that.setData({
                         datas: res.data.data
-                    });
+                      });
+                    }
                 } else {
                     wx.showToast({
                         title: res.data.msg,
                         icon: 'none'
                     })
                 }
+              
             }
         })
     },

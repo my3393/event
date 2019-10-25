@@ -14,6 +14,9 @@ var seasonStartDate;
 var cleartime;
 var detail = [];
 var ybm = false;
+let down1;
+let down2;
+let down3;
 Page({
 
   /**
@@ -92,6 +95,7 @@ Page({
     isLive:'',
     ishelp:true,
     iscai:true,
+    countdown:1,
   },
 
   /**
@@ -107,14 +111,26 @@ Page({
        id:options.id,
        time: time
      })
-    that.getdetail();
+    if (wx.getStorageSync('etoken')) {
+      that.getdetail();
+      console.log('token存在')
+    } else {
+      that.gettoken();
+      console.log('token不存在')
+    }
+   
    
      setInterval(function () {
       that.setData({
         time: util.formatTime(new Date())
       })
-      that.gettime();
-      that.settime();
+      
+        that.gettime();
+      
+        that.settime();
+       that.settimes();
+      
+     
 
     }, 1000)
 
@@ -252,7 +268,13 @@ Page({
       })
       
       setTimeout(function () {
-        that.getdetail();
+        if (wx.getStorageSync('etoken')) {
+          that.getdetail();
+          console.log('token存在')
+        } else {
+          that.gettoken();
+          console.log('token不存在')
+        }
        
         that.gettime();
         that.settime();
@@ -437,30 +459,87 @@ Page({
   tag: function (e) {
     var that = this;
     console.log(e.currentTarget.dataset.num);
-    play= [];
-    dynamic=[];
+    if(e.currentTarget.dataset.num == 0){
+      dynamic = [];
+      that.setData({
+        d_currentPage: 1,
+        dynamic: [],
+      })
+      that.getdynamic();
+    } else if (e.currentTarget.dataset.num == 1){
+      play = [];
+      that.setData({
+        x_currentPage: 1,
+        players: [],
+      })
+      that.getplayer();
+    }
+    
+   
     video=[];
     splayer=[];
     ranklist=[];
     that.setData({
       isSearch:false,
       splayer:[],
-      players:[],
-      dynamic:[],
+     
+     
       video:[],
       p_currentPage:1,
       h_currentPage:1,
-      d_currentPage:1,
-      x_currentPage:1,
+     
+      
       
       tar: e.currentTarget.dataset.num,
       tab: e.currentTarget.dataset.num
     })
     
-    that.getplayer();
+   
     that.getranklist();
-    that.getdynamic();
+    
     that.getvideo();
+  },
+  gettoken: function (e) {
+    var that = this;
+
+    wx.request({
+      url: app.data.urlmall + "appcomeptition/default/token.do",
+      data: {
+
+      },
+      method: 'POST',
+      header: {
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+      dataType: 'json',
+      success: function (res) {
+        console.log(res.data.data)
+        if (res.data.status === 100) {
+          wx.setStorage({
+            key: 'etoken',
+            data: res.data.data.token,
+          })
+          wx.setStorage({
+            key: 'userinfo',
+            data: res.data.data.user,
+          })
+          setTimeout(function () {
+            that.getdetail();
+          }, 400)
+        } else if (res.data.status === 103) {
+          wx.redirectTo({
+            url: '/pages/login/login',
+          })
+
+        } else {
+          wx.showToast({
+            title: res.data.msg,
+            icon: 'none'
+          })
+        }
+      }
+    })
+
   },
   getdetail: function (e) {
     var that = this;
@@ -683,7 +762,8 @@ Page({
           })
           dynamic=[];
           that.setData({
-            dynamic:[]
+            
+            d_currentPage:1
           })
           that.getdynamic();
         } else if (res.data.status === 103) {
@@ -930,12 +1010,13 @@ Page({
      
     }
     var bbb_end = Date.parse(spt) 
-    var ti = aaa_start - bbb_end
-    // if(ti < 0){
+    down1 = aaa_start - bbb_end
+    // if (down1 > 0){
     //   that.setData({
-    //     istime :1
+    //      countdown :2
     //   })
     // }
+    
     var timer2 = spt[1].split(':');
     var end = new Date(timer1[0], timer1[1], timer1[2], timer2[0],timer2[1],timer2[2])
     var oft = Math.round((end - start) / 1000);
@@ -976,28 +1057,29 @@ Page({
     var that = this
     var aaa = that.data.time.replace(/-/g, '/');
     var aaa_start = Date.parse(aaa)
-    var nspt = aaa.split(' ')  
+    var nspt = aaa.split(' ')
     var timer3 = nspt[0].split('/');
     var timer4 = nspt[1].split(':');
     var start = new Date(timer3[0], timer3[1], timer3[2], timer4[0], timer4[1], timer4[2])
-    var bbb = that.data.seasonEndtDate.replace(/-/g, '/');
-    
+    var bbb = that.data.seasonStartDate.replace(/-/g, '/');
+
     var spt = bbb.split(' ');
-    
+
     var timer1 = spt[0].split('/');
     if (spt[1] == undefined) {
-      spt[1] = '23:59:59'
-      
+      spt[1] = '00:00:00'
+
     }
     var bbb_end = Date.parse(spt)
-    var ti = aaa_start - bbb_end
-    // if (ti < 0) {
-    //   that.setData({
-    //     istime: 4
-    //   })
-    // }
+     down2 = aaa_start - bbb_end
+    if (down2 < 0 && down1 > 0) {
+      that.setData({
+        countdown: 2
+      })
+    }
+    
     var timer2 = spt[1].split(':');
-   
+
     var end = new Date(timer1[0], timer1[1], timer1[2], timer2[0], timer2[1], timer2[2])
     var oft = Math.round((end - start) / 1000);
     var ofd = parseInt(oft / 3600 / 24);
@@ -1022,6 +1104,71 @@ Page({
       hourSea: ofh,
       minSea: ofm,
       miaoSea: ofs
+    })
+
+
+    if (ofs < 0) {
+      this.setData({
+        istime: 1
+      })
+    };
+
+  },
+  //复赛倒计时
+  settimes: function countDown() {
+    var that = this
+    var aaa = that.data.time.replace(/-/g, '/');
+    var aaa_start = Date.parse(aaa)
+    var nspt = aaa.split(' ')  
+    var timer3 = nspt[0].split('/');
+    var timer4 = nspt[1].split(':');
+    var start = new Date(timer3[0], timer3[1], timer3[2], timer4[0], timer4[1], timer4[2])
+    var bbb = that.data.seasonEndtDate.replace(/-/g, '/');
+    
+    var spt = bbb.split(' ');
+    
+    var timer1 = spt[0].split('/');
+    if (spt[1] == undefined) {
+      spt[1] = '23:59:59'
+      
+    }
+    var bbb_end = Date.parse(spt)
+    down3 = aaa_start - bbb_end
+    if (down2 > 0 && down3 < 0) {
+      that.setData({
+        countdown: 3
+      })
+    }else if(down3 > 0){
+      that.setData({
+        countdown: 4
+      })
+    }
+    var timer2 = spt[1].split(':');
+   
+    var end = new Date(timer1[0], timer1[1], timer1[2], timer2[0], timer2[1], timer2[2])
+    var oft = Math.round((end - start) / 1000);
+    var ofd = parseInt(oft / 3600 / 24);
+    var ofh = parseInt((oft % (3600 * 24)) / 3600);
+    var ofm = parseInt((oft % 3600) / 60);
+    var ofs = oft % 60;
+    if (ofd < 10) {
+      ofd = '0' + ofd
+    }
+    if (ofh < 10) {
+      ofh = '0' + ofh
+    }
+    if (ofm < 10) {
+      ofm = '0' + ofm
+    }
+    if (ofs < 10) {
+      ofs = '0' + ofs
+
+    }
+    this.setData({
+      daySeas: ofd,
+      hourSeas: ofh,
+      minSeas: ofm,
+      miaoSeas: ofs
     })
 
 
@@ -1304,20 +1451,22 @@ Page({
   submit:function(e){
     console.log(e)
     var that = this;
-   
-    
-    if (that.data.user.user_id == null || that.data.user.user_id == '') {
+    wx.getStorage({
+      key: 'userinfo',
+      success: function (res) {
+        bcode = res.data.user_id;
+        if (res.data.user_id == null || res.data.user_id == '') {
 
-      wx.showToast({
-        title: '请先登录',
-        icon: 'none',
+          wx.showToast({
+            title: '请先登录',
+            icon: 'none',
 
-      })
-      wx.navigateTo({
-        url: '../login/login',
-      })
+          })
+          wx.navigateTo({
+            url: '../login/login?saiid=' + that.data.detail.id,
+          })
 
-    }else if (that.data.user.phone == null || that.data.user.phone == '') {
+        } else if (that.data.user.phone == null || that.data.user.phone == '') {
 
           wx.showToast({
             title: '报名赛事需绑定手机号',
@@ -1328,18 +1477,18 @@ Page({
             url: '../bindphone/bindphone',
           })
 
-        } else if(that.data.detail.isOrganization == 1){
-       wx.navigateTo({
-         url: '../e_division/e_division?id=' + that.data.id + '&num=' + e.currentTarget.dataset.num + '&art=' + e.currentTarget.dataset.art + '&type=' + that.data.detail.isOrganization,
-       })
-     } else if (that.data.detail.isOrganization == 0) {
-       wx.navigateTo({
-         url: '../e_divisions/e_divisions?id=' + that.data.id + '&num=' + e.currentTarget.dataset.num + '&art=' + e.currentTarget.dataset.art + '&type=' + that.data.detail.isOrganization,
-       })
-     }
-    
-    
-     
+        } else if (that.data.detail.isOrganization == 1) {
+          wx.navigateTo({
+            url: '../e_division/e_division?id=' + that.data.id + '&num=' + e.currentTarget.dataset.num + '&art=' + e.currentTarget.dataset.art + '&type=' + that.data.detail.isOrganization,
+          })
+        } else if (that.data.detail.isOrganization == 0) {
+          wx.navigateTo({
+            url: '../e_divisions/e_divisions?id=' + that.data.id + '&num=' + e.currentTarget.dataset.num + '&art=' + e.currentTarget.dataset.art + '&type=' + that.data.detail.isOrganization,
+          })
+        }
+        
+      },
+    })
       
   },
   hidevideo: function (e) {
@@ -1363,15 +1512,79 @@ Page({
   },
   //机构参赛
   jgeve:function(e){
-    wx.navigateTo({
-      url: '../e_orgin/e_orgin?id=' + e.currentTarget.id,
+    let that = this;
+    wx.getStorage({
+      key: 'userinfo',
+      success: function (res) {
+        bcode = res.data.user_id;
+        if (res.data.user_id == null || res.data.user_id == '') {
+
+          wx.showToast({
+            title: '请先登录',
+            icon: 'none',
+
+          })
+          wx.navigateTo({
+            url: '../login/login?saiid=' + that.data.detail.id,
+          })
+
+        } else if (that.data.user.phone == null || that.data.user.phone == '') {
+
+          wx.showToast({
+            title: '报名赛事需绑定手机号',
+            icon: 'none',
+
+          })
+          wx.navigateTo({
+            url: '../bindphone/bindphone',
+          })
+
+        } else {
+          wx.navigateTo({
+            url: '../e_orgin/e_orgin?id=' + e.currentTarget.id,
+          })
+        }
+      },
     })
+    
   },
   //赛区承办权
   undertake: function (e) {
-    wx.navigateTo({
-      url: '../undertake/undertake?id=' + e.currentTarget.id,
+    let that = this;
+    wx.getStorage({
+      key: 'userinfo',
+      success: function (res) {
+        bcode = res.data.user_id;
+        if (res.data.user_id == null || res.data.user_id == '') {
+
+          wx.showToast({
+            title: '请先登录',
+            icon: 'none',
+
+          })
+          wx.navigateTo({
+            url: '../login/login?saiid=' + that.data.detail.id,
+          })
+
+        } else if (that.data.user.phone == null || that.data.user.phone == '') {
+
+          wx.showToast({
+            title: '报名赛事需绑定手机号',
+            icon: 'none',
+
+          })
+          wx.navigateTo({
+            url: '../bindphone/bindphone',
+          })
+
+        } else {
+          wx.navigateTo({
+            url: '../undertake/undertake?id=' + e.currentTarget.id,
+          })
+        }
+      },
     })
+    
   },
   //查看图片
   imgsrc: function (e) {
