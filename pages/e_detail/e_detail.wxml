@@ -2,10 +2,15 @@
 <!-- <view class="smgz" bindtap="imgsrcs" data-src="../../images/smgz.jpg">
    <image show-menu-by-longpress='true'  src="../../images/smgz.jpg" ></image>
 </view> -->
- <view wx:if='{{isLive == 1}}'>
-  <live-player id='player' class='banner' bindtap='bindfull' src="{{detail.tomliveXcxUrl}}"   mode="RTC" autoplay='flase' bindstatechange="statechange" binderror="error"  />
+
+ <view wx:if='{{isLive == 1}}' class='banner'>
+  <video src="{{detail.tomliveXcxUrl}}" autoplay="true" title='CCTV中学生《点亮中国》'></video>
  
  </view>
+ <!-- <view wx:elif='{{isLive == 1}}'>
+  <live-player id='player' class='banner' bindtap='bindfull' src="{{detail.tomliveXcxUrl}}"   mode="RTC" autoplay='flase' bindstatechange="statechange" binderror="error"  />
+ 
+ </view> -->
   
 <view wx:else> 
   <swiper class="banner"  indicator-dots="true" circular="true" autoplay="true" duration="1000" indicator-color="#a7a7a7" indicator-active-color="#fe5ba9">
@@ -13,16 +18,12 @@
       <swiper-item id="{{item.ids}}" bindtap="enters" class='swiper'>
         <image class="banner_img" src="{{item}}"></image>
       </swiper-item>
-    </block>
-    
+    </block> 
   </swiper>
-
 </view>
 <view>
-   
 </view>
 <view class='nav clearfix'>
- 
   <view>
       <text class='sai-num'>{{detail.seasonName}}</text> <text class='sai-n'>#{{detail.typeName}}#</text>
      {{detail.competitionTitle}}
@@ -41,7 +42,6 @@
     <view class='ctimes' >
        报名开始时间：{{detail.startDate}}
     </view>
-
   </view> -->
   <view class='conuttime' wx:if="{{countdown == 1}}">
     <text>距离报名结束：</text>
@@ -78,7 +78,7 @@
   
   <view class='partic'>
     <view bindtap="all_play" id="{{detail.id}}">
-      <view style="color:#e65099">参与人数</view> 
+      <view style="color:#e65099">参选节目</view> 
       <view class='sum' style="color:#e65099"> {{detail.participateNumber}}</view>
     </view>
     <view hidden='{{competitionType == 1}}'>
@@ -142,7 +142,7 @@
           
           </view>
           <view class='evesai'>
-            <view class='saiq'>赛区：{{competitionName}} <text class='turn' bindtap='bind'>点击切换</text>
+            <view class='saiq'>分类：{{competitionName}} <text class='turn' bindtap='bind'>点击切换</text>
             </view> 
             <view class='top-num'>晋级人数： 前{{qualifiedNumber}}名</view> 
           </view>
@@ -167,6 +167,17 @@
                 <view class='zlp'>
                   <view class='zl' catchtap='help' id="{{item.id}}" hidden='{{competitionType == 1}}'>助力</view>
                   <view class='zl' catchtap='vote' id="{{item.id}}" hidden='{{competitionType == 1}}'>投他一票</view>
+                </view>
+                <view class='g-all'>
+                  <view class="g-head" wx:for='{{item.users}}' id='{{item.userId}}' tap="yule">
+                    <view class="g-img" >
+                      <image src='{{item.headPhoto}}'></image>
+                    </view>
+                    <view class="group-name">{{item.userName}}</view>
+                  </view>
+                  <!-- <view>
+                    <button open-type=""></button>
+                  </view> -->
                 </view>
               </view>
             </view>
@@ -203,7 +214,7 @@
 
       <view wx:elif='{{tab == 2}}' hidden='{{competitionType == 1}}'>
         <view class='evesai'>
-          <view class='saiq'>赛区：{{competitionName}} <text class='turn' bindtap='bind'>点击切换</text>
+          <view class='saiq'>分类：{{competitionNames}} <text class='turn' bindtap='bind'>点击切换</text>
           </view> 
           <view class='top-num'>晋级人数： 前{{qualifiedNumber}}名</view> 
           <!-- <view class='gz'>排名规则：星值=总票数+助力数×2+转发数</view> -->
@@ -460,7 +471,7 @@
 </view>
 
 <view class="jgeve" wx:if='{{detail.isOrganization == 1}}' bindtap="jgeve" id="{{detail.id}}">机构
- <view>参赛</view>
+ <view>参选</view>
 </view>
 <!-- 
 <view class="jgeve" wx:if='{{detail.isOrganization == 1}}' bindtap="jgeve" id="{{detail.id}}">机构

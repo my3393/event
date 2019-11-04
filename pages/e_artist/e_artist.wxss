@@ -40,14 +40,14 @@ textarea{
     letter-spacing: 1rpx;
 }
 .wrap image{
-    width: 80rpx;
-    height: 80rpx;
+    width: 120rpx;
+    height: 120rpx;
 }
 .snitem{
     font-size: 26rpx;
     color: #333;
     letter-spacing: 2rpx;
-    border-bottom: 2rpx solid #dddddd;
+   
     line-height: 60rpx;
 }
 .snlabels{
@@ -118,8 +118,8 @@ textarea{
     border: 1px solid #fe5ba9 !important;
 }
 .vmask{
-    width: 80rpx;
-    height: 80rpx;
+    width: 120rpx;
+    height: 120rpx;
     position: absolute;
     top: 0;
     left: 0;
@@ -127,7 +127,7 @@ textarea{
     background: rgba(0,0,0,0.3);
     text-align: center;
     color: white;
-    line-height: 80rpx;
+    line-height: 120rpx;
     font-size: 20rpx;
 }
 .mask{
@@ -203,4 +203,105 @@ color: #F861AA;
 }
 .deter{
   color: #F861AA;
+}
+/* 地区选择 */
+.picker{
+  float: right;
+}
+.inpu{
+ width: 500rpx;
+ border: 0;
+ height: 80rpx;
+ background: #fff;
+ text-align: right;
+ margin-top: -10rpx;
+}
+.xia{
+  float: right;
+  width: 36rpx;
+  margin-right: 20rpx;
+  height: 16rpx;
+}
+.xia image{
+  width: 100%;
+  height: 100%;
+}
+.mwrap{
+	width: 100%;
+	position: fixed;
+	bottom: 0;
+	left: 0;
+}
+.mtitle{
+
+	height: 80rpx;
+	line-height: 80rpx;
+	background-color: #e6e6e6 !important;
+	width: 100%;
+	font-size: 30rpx;
+	color: #333;
+	text-align: center;
+}
+.province{
+	background-color: white;
+	width: 100%;
+	height: 520rpx;
+	overflow: scroll;
+	-webkit-overflow-scrolling: touch;
+}
+.province view{
+	line-height: 80rpx;
+	padding-left: 40rpx;
+	box-sizing: border-box;
+	border-bottom: 1px solid #DDDDDD;
+	font-size: 28rpx;
+	color: #333;
+}
+.province_active{
+	background-color: #FE5BA9;
+	color: white !important;
+}
+.next{
+   width: calc(100% - 40rpx);
+  margin-left: 20rpx;
+  border-radius: 40rpx;
+  height: 80rpx;
+  background: #F861AA;
+  color: #fff;
+  text-align: center;
+  line-height: 80rpx;
+  margin-top: 40rpx;
+}
+.xse{
+  border: 0;
+  background: #fff;
+  font-size: 32rpx;
+}
+
+/* 删除照片 */
+.der{
+  position: relative;
+  display: inline-block;
+}
+.detel{
+  width: 36rpx;
+  height: 36rpx;
+  position: absolute;
+  top: 10rpx;
+  right: 25rpx;
+}
+.detels{
+  width: 36rpx;
+  height: 36rpx;
+  position: absolute;
+  top: 6rpx;
+  right: 6rpx;
+}
+.detel image{
+  width: 100%;
+  height: 100%;
+}
+.detels image{
+  width: 100%;
+  height: 100%;
 }

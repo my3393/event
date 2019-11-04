@@ -17,26 +17,29 @@ var ybm = false;
 let down1;
 let down2;
 let down3;
+let narea=[];
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    tar: "2",
-    tab:'2',
+    allType:'0',
+    tar: "1",
+    tab:'1',
     tas:1000000,
     istp: "",
+    tapTime: '',
     tag: [
       { id: 1, name: '动态' },
-      { id: 2, name: '参赛选手' },
+      { id: 2, name: '参选选手' },
       { id: 3, name: '排行榜' },
       { id: 4, name: '活动视频' },
       { id: 5, name: '活动介绍' },
     ],
     tag2: [
       { id: 1, name: '动态' },
-      { id: 2, name: '参赛选手' },
+      { id: 2, name: '参选选手' },
       { id: 4, name: '活动视频' },
       { id: 5, name: '活动介绍' },
     ],
@@ -78,7 +81,8 @@ Page({
     v_totalPage:'',//
     competitionAreaId:'',//赛区id
     narea:'',
-    competitionName:'',//赛区名称
+    competitionName:'全部',//赛区名称
+    competitionNames:'',
     qualifiedNumber:'',//晋级人数
     seaEndtDate:'',//复赛结束时间
     competitionType:'',//赛事类型
@@ -127,13 +131,12 @@ Page({
       
         that.gettime();
       
-        that.settime();
+       that.settime();
        that.settimes();
       
      
 
     }, 1000)
-
     console.log(that.data.endDate)
   },
 
@@ -166,7 +169,7 @@ Page({
         that.setData({
           user:res.data
         })
-        console.log(bcode)
+       // console.log(bcode)
       },
     })
    
@@ -179,7 +182,7 @@ Page({
     var that =this;
     that.setData({
        istp:'',
-      isSearch: false,
+      // isSearch: false,
       isart:true,
     })
   },
@@ -292,36 +295,40 @@ Page({
   onReachBottom: function () {
     var that = this;
     //动态
-    if (that.data.d_currentPage == that.data.d_totalPage) {
-      wx.showToast({
-        title: '已经到底了哦',
-        icon: 'none'
-      })
-    }else {
-      console.log(that.data.d_currentPage)
-      console.log(that.data.d_totalPage)
-      that.setData({
-        d_currentPage: that.data.d_currentPage + 1,
-      })
-      that.getdynamic();
+    if(that.data.tab == 0){
+      if (that.data.d_currentPage == that.data.d_totalPage) {
+        wx.showToast({
+          title: '已经到底了哦',
+          icon: 'none'
+        })
+      } else {
+        console.log(that.data.d_currentPage)
+        console.log(that.data.d_totalPage)
+        that.setData({
+          d_currentPage: that.data.d_currentPage + 1,
+        })
+        that.getdynamic();
 
+      }
     }
     //选手
-    if (that.data.x_currentPage < that.data.x_totalPage) {
-      that.setData({
-        x_currentPage: that.data.x_currentPage + 1,
-      })
-      if (that.data.isSearch == false) {
-        that.getplayer();
+    if(that.data.tab == 1){
+      if (that.data.x_currentPage < that.data.x_totalPage) {
+        that.setData({
+          x_currentPage: that.data.x_currentPage + 1,
+        })
+        if (that.data.isSearch == false) {
+          that.getplayer();
+        } else {
+          that.searchinps();
+        }
+
       } else {
-        that.searchinps();
+        wx.showToast({
+          title: '已经到底了哦',
+          icon: 'none'
+        })
       }
-     
-    }else {
-      wx.showToast({
-        title: '已经到底了哦',
-        icon: 'none'
-      })
     }
     //排行榜
     if(that.data.competitionType == 2 && that.data.tab == 2){
@@ -339,17 +346,19 @@ Page({
       }
     }
     //活动视频
-    if (that.data.h_currentPage == that.data.h_totalPage) {
-      wx.showToast({
-        title: '已经到底了哦',
-        icon: 'none'
-      })
-    }else {
-      that.setData({
-        h_currentPage: that.data.h_currentPage + 1,
-      })
-      that.getvideo();
+    if (that.data.competitionType == 2 && that.data.tab == 3) {
+      if (that.data.h_currentPage == that.data.h_totalPage) {
+        wx.showToast({
+          title: '已经到底了哦',
+          icon: 'none'
+        })
+      }else {
+        that.setData({
+          h_currentPage: that.data.h_currentPage + 1,
+        })
+        that.getvideo();
 
+      }
     }
   },
 
@@ -362,6 +371,7 @@ Page({
      return{
        title: that.data.detail.competitionTitle + '正在火热进行中，快来报名参加吧!',
        path: '/pages/e_detail/e_detail?id=' + that.data.id,
+       
      }
   },
   cai:function(){
@@ -458,19 +468,24 @@ Page({
   //商品切换
   tag: function (e) {
     var that = this;
+    var nowTime = new Date();
+    if (nowTime - this.data.tapTime < 500) {
+      console.log('阻断')
+      return;
+    }
     console.log(e.currentTarget.dataset.num);
     if(e.currentTarget.dataset.num == 0){
       dynamic = [];
       that.setData({
         d_currentPage: 1,
-        dynamic: [],
+       
       })
       that.getdynamic();
     } else if (e.currentTarget.dataset.num == 1){
       play = [];
       that.setData({
         x_currentPage: 1,
-        players: [],
+        allType:"0"
       })
       that.getplayer();
     }
@@ -481,19 +496,15 @@ Page({
     ranklist=[];
     that.setData({
       isSearch:false,
-      splayer:[],
-     
-     
-      video:[],
+      // splayer:[],
+      // video:[],
+      valu:'',
       p_currentPage:1,
       h_currentPage:1,
-     
-      
-      
       tar: e.currentTarget.dataset.num,
       tab: e.currentTarget.dataset.num
     })
-    
+    this.setData({ tapTime: nowTime });
    
     that.getranklist();
     
@@ -614,7 +625,7 @@ Page({
           console.log(that.data.istime)
           that.setData({
             competitionAreaId: res.data.data.competitionAreaId,
-            competitionName: res.data.data.competitionAreaName,
+            competitionNames: res.data.data.competitionAreaName,
             qualifiedNumber: res.data.data.areaQualifiedNumber,
             detail:res.data.data,
             photos: res.data.data.posters,
@@ -656,7 +667,8 @@ Page({
         id: that.data.id,
         token: wx.getStorageSync('etoken'),
         competitionAreaId: that.data.competitionAreaId,
-        currentPage:that.data.x_currentPage
+        currentPage:that.data.x_currentPage,
+        type:that.data.allType
       },
       method: 'POST',
       header: {
@@ -787,6 +799,8 @@ Page({
   //赛区
   getNarea:function(){
     var that = this;
+    narea = []
+    console.log(narea)
     wx.request({
       url: app.data.urlmall + "/appcompetition/competitionarea.do",
       data: {
@@ -801,8 +815,13 @@ Page({
       success: function (res) {
         console.log(res.data.data)
         if (res.data.status === 100) {
+          narea.push(...res.data.data)
+          if(that.data.tab == 1){
+            let res = { id: 0, competitionName: '全部', }
+            narea.push(res)
+          }
           that.setData({
-            narea:res.data.data
+            narea: narea
           })
         } else if (res.data.status === 103) {
           wx.showToast({
@@ -825,12 +844,22 @@ Page({
   //赛区切换
   bind:function(){
     var that =this;
+    // if (that.data.tab == 1) {
+    //    narea = [
+    //     { id: 0, competitionName: '全部', }
+    //   ];
+    // } else {
+    //    narea = [
+         
+    //   ];
+    // }
     this.setData({
       isSai:!this.data.isSai,
       p_currentPage: 1,
       isSearch:false,
       x_currentPage: 1,
       valu:'',
+      
     })
     that.getNarea();
   },
@@ -839,23 +868,47 @@ Page({
      console.log(e)
      var that = this;
      var index = e.currentTarget.dataset.index;
+     if(index != 0){
+       var qualifiedNumber = e.currentTarget.dataset.num;
+       that.setData({
+         qualifiedNumber: qualifiedNumber,
+         allType: ''
+       })
+     }else{
+       that.setData({
+         allType:'0'
+       })
+     }
      var competitionName = e.currentTarget.dataset.name;
-     var qualifiedNumber = e.currentTarget.dataset.num;
-     play = [];
-     ranklist = [];
+     if(that.data.tab == 1){
+       play = [];
+       that.setData({
+         competitionName: competitionName,
+       })
+       that.getplayer();
+     } else if (that.data.tab == 2){
+       ranklist = [];
+       that.setData({
+         competitionNames: competitionName,
+        //  ranklist: [],
+        //  top_1: '',
+        //  top_2: '',
+        //  top_3: '',
+       })
+       that.getranklist();
+       
+     }
+     
+     
      that.setData({
        competitionAreaId: e.currentTarget.id,
-       competitionName: competitionName,
-       qualifiedNumber: qualifiedNumber,
+      
        isSai: !this.data.isSai,
        tas:index,
-       players:[],
-       ranklist: [],
-       top_1:'',
-       top_2:'',
-       top_3:'',
+       //players:[],
+       
      })
-    that.getplayer();
+   
     that.getdynamic();
     that.getranklist();
    
@@ -1261,6 +1314,7 @@ Page({
         keyword:e.detail.value,
         currentPage:that.data.x_currentPage,
         competitionAreaId: that.data.competitionAreaId,
+        type:that.data.allType
       },
       method: 'POST',
       header: {
@@ -1310,6 +1364,7 @@ Page({
         keyword: that.data.valu,
         currentPage: that.data.x_currentPage,
         competitionAreaId: that.data.competitionAreaId,
+        type: that.data.allType
       },
       method: 'POST',
       header: {

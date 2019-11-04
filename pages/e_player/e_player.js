@@ -298,7 +298,8 @@ Page({
       data: {
         id: that.data.id,
         token: wx.getStorageSync('etoken'),
-        competitionAreaId: that.data.saiId
+        competitionAreaId: that.data.saiId,
+        type:''
       },
       method: 'POST',
       header: {
@@ -363,7 +364,7 @@ Page({
         that.getrefue();
         that.getvote();
 
-        that.getplayer();
+       // that.getplayer();
         if (res.data.status === 100) {
         var  before = res.data.data.beforeStarValue - res.data.data.starValue;
           if(before < 0){

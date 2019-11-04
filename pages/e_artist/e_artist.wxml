@@ -5,42 +5,19 @@
 
 <view class='wrap'>
     <view class="section snitem">
-        所在省：
-        <picker bindchange="getprov" class='snlabels' value="{{province[poindex].id}}" data-selecthx="{{province[poindex].name}}" range="{{province}}" range-key="{{'name'}}">
-            <view class="picker">
-                {{province[poindex].name}}
+        所在地：
+       
+            <view class="picker" bindtap="diz">
+                 <input placeholder="请选择所在地" value="{{addres}}" class="inpu" disabled="true"></input>
             </view>
-        </picker>
+      
     </view>
-    <view class="section snitem" style='border-bottom:0;' hidden='{{iscity}}'>
-        所在市：
-        <picker bindchange="getcity" class='snlabels' value="{{city[cindex].id}}" data-selecthx="{{city[cindex].name}}" range="{{city}}" range-key="{{'name'}}">
-            <view class="picker">
-                {{city[cindex].name}}
-            </view>
-        </picker>
-    </view>
-    <view class="section snitem" style='border-bottom:0;' hidden='{{isqu}}'>
-        所在区：
-        <picker bindchange="getarea" class='snlabels' value="{{area[aindex].id}}" data-selecthx="{{area[aindex].name}}" range="{{area}}" range-key="{{'name'}}">
-            <view class="picker">
-                {{area[aindex].name}}
-            </view>
-        </picker>
-    </view>
-    <view class="section snitem" style='border-bottom:0;' hidden='{{isjie}}'>
-        所在街：
-        <picker bindchange="gettown" class='snlabels' value="{{town[tindex].id}}" data-selecthx="{{town[tindex].name}}" range="{{town}}" range-key="{{'name'}}">
-            <view class="picker">
-                {{town[tindex].name}}
-            </view>
-        </picker>
-    </view>
+    
 </view>
 <view class='wrap'>
     <view class='snitem' style='border-bottom: 0;'>
         艺人类型： 
-        <text class='snlabels' adjust-position='true' style='width:auto;height:70rpx;' bindtap='showlabel'>{{artist_type}}</text>
+        <text class='snlabels' adjust-position='true' style='width:auto;height:70rpx;' >未来之星</text>
     </view>
 </view>
 <view class='wrap' wx:if='{{signUpType == 2}}'>
@@ -52,12 +29,17 @@
     </view>
 </view>
 <view class='wrap'>
-    <view class='title'>个人介绍：</view>
+    <view class='title'>个人介绍(选填)：</view>
     <input placeholder='请输入个人介绍' bindinput='getperson' maxlength='500'></input>
 </view>
 <view class='wrap'>
-    <view class='title'>个人照片：</view>
-    <image wx:for="{{imgs}}" wx:for-index="idx" data-idx="{{idx}}" bindtap="handleImagePreview" src='{{imgs[idx]}}' hidden='{{showimg}}' style='margin-right:20rpx;'></image>
+    <view class='title'>个人照片3张（选填）：</view>
+     <view class="der"  wx:for="{{imgs}}"  wx:for-index="idx" data-idx="{{idx}}" bindtap="handleImagePreview">
+            <image  src='{{item}}' hidden='{{showimg}}' style='margin-right:20rpx;'></image>
+            <view class="detel" catchtap="detel" id="{{item}}" data-index='{{idx}}'>
+                <image  src="../../images/detel.png" />
+            </view>
+        </view>
     <image src='{{posters}}' bindtap="chooseImage" hidden='{{showadd}}'></image>
 </view>
 <view class='wrap'>
@@ -68,7 +50,13 @@
             示例
         </view>
     </view>
-    <image src='../../images/plays.png' bindtap='showvideo' id='{{tvideo}}' hidden='{{!showadds}}'></image>
+    <view class="der" hidden='{{!showadds}}'>
+      <image src='../../images/plays.png' bindtap='showvideo' id='{{tvideo}}' ></image>
+       <view class="detel" catchtap="detels" >
+                <image  src="../../images/detel.png" />
+            </view>
+    </view>
+    
     <image src='../../images/upimg.png' bindtap="chooseVideo" hidden='{{showadds}}'></image>
 </view>
 
@@ -94,3 +82,23 @@
 
 
 <view class='subnotice' bindtap='subnotice'>报名</view>
+
+
+ <!-- 居住地选择 -->
+  <view class="mask addrsss" id="citypick" hidden="{{isardess}}">
+        <view class="mwrap">
+          <view class="mtitle">选择地址</view>
+          <view class="province" hidden="{{isprov}}">
+            <view wx:for="{{province}}" id="{{item.id}}" data-name="{{item.name}}" bindtap="getprovs">{{item.name}}</view>
+          </view>
+          <view class="province" hidden="{{iscity}}">
+            <view wx:for="{{city}}" id="{{item.id}}" data-name="{{item.name}}" bindtap="getcity">{{item.name}}</view>
+          </view>
+          <view class="province" hidden="{{isqu}}">
+            <view wx:for="{{area}}" id="{{item.id}}" data-name="{{item.name}}" bindtap="getarea" data-index="{{index}}">{{item.name}}</view>
+          </view>
+          <view class="province" hidden="{{isjie}}">
+            <view wx:for="{{town}}" id="{{item.id}}" data-name="{{item.name}}" bindtap="gettown">{{item.name}}</view>
+          </view>
+        </view>
+  </view>   

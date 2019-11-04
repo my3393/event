@@ -1,5 +1,5 @@
 {
-  "navigationBarTitleText": "发布活动赛事",
+  "navigationBarTitleText": "申请联盟",
     "usingComponents": {
       "swiper-out": "../../plugin/swiperout/swiperout",
       "imgcut": "../../plugin/imgcut/imgcut"

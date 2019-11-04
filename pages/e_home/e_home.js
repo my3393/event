@@ -18,6 +18,7 @@ Page({
     startDatas:[],
     endDatas:[],
     status:'',
+    isvideo: true,
   },
 
   /**
@@ -242,29 +243,36 @@ Page({
           console.log(res.data.data)
           if (res.data.status === 100) {
             wx.hideLoading()
-            for (var i in res.data.data.data) {
+            if(res.data.data.data == ''){
+              wx.showToast({
+                title: '已经到底了哦',
+                icon:'none'
+              })
+            }else{
+              for (var i in res.data.data.data) {
 
-              var date = Date.parse(new Date())
-              var endDatas = Date.parse(res.data.data.data[i].endDate)
-              var startDatas = Date.parse(res.data.data.data[i].startDate)
-              var t2 = date - endDatas;
-              var t1 = date - startDatas;
-              if (t1 < 0) {
-                res.data.data.data[i].isshow = 1
-              } else if (t1 > 0 && t2 < 0) {
-                res.data.data.data[i].isshow = 2
-              } else if (t2 > 0) {
-                res.data.data.data[i].isshow = 3
+                var date = Date.parse(new Date())
+                var endDatas = Date.parse(res.data.data.data[i].endDate)
+                var startDatas = Date.parse(res.data.data.data[i].startDate)
+                var t2 = date - endDatas;
+                var t1 = date - startDatas;
+                if (t1 < 0) {
+                  res.data.data.data[i].isshow = 1
+                } else if (t1 > 0 && t2 < 0) {
+                  res.data.data.data[i].isshow = 2
+                } else if (t2 > 0) {
+                  res.data.data.data[i].isshow = 3
 
+                }
+                detail.push(res.data.data.data[i])
               }
-              detail.push(res.data.data.data[i])
-            }
 
-            that.setData({
-              detail: detail,
-              
-              totalPage: res.data.data.totalPage
-            })
+              that.setData({
+                detail: detail,
+
+                totalPage: res.data.data.totalPage
+              })
+            }
             
             console.log(that.data.endDatas)
           } else if (res.data.status === 103) {

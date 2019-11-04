@@ -52,7 +52,7 @@
           </view>
         </picker>
       </view>
-      <view class='enter'> <image src='../../images/enter.png'></image> </view>
+      <!-- <view class='enter'> <image src='../../images/enter.png'></image> </view> -->
     </view>
     <view class='jgtx pho'>
       <view class='jgtu'>营业执照</view>

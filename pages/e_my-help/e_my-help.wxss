@@ -105,6 +105,6 @@ page{
   width: 100%;
   text-align: center;
   position: fixed;
-  bottom: 60rpx;
+  bottom: 15rpx;
   z-index: 9;
 }

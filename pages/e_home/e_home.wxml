@@ -16,7 +16,11 @@
         <image class="banner_img" src="{{item}}"></image>
       </swiper-item>
     </block>
-   
+     <!-- <block wx:if='{{item.advertiseVideo.length != 0}}'>
+      <swiper-item id="{{item.ids}}" bindtap="enters" class='swiper'>
+        <image class="banner_img" src="{{item.competitionLogoOssPath}}"></image>
+      </swiper-item>
+    </block> -->
   </swiper>
          <!-- <image src='{{item.competitionLogoOssPath}}'></image>  -->
          </view>
@@ -70,5 +74,10 @@
   </view>
 </view>
 
+
+<!-- 预览视频 -->
+<view class='mask' catchtouchmove='true' hidden='{{isvideo}}' catchtap='hidevideo'>
+</view>
+<video class='maskvideo' hidden='{{isvideo}}' src='{{play}}'></video>
 
 

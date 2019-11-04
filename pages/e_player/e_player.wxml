@@ -12,7 +12,23 @@
     </view>
   </view>
   <view wx:if='{{tab == 0}}'>
-    <view class="te">
+     <!-- 无作品时 -->
+    <view wx:if='{{photo.length == 0}}'>
+      <view class="play-kon" wx:if="{{artId}}">
+        <view class="work-kon">
+          <image src='../../images/none-work.png'></image>
+        </view>
+        <view style="color: #AAAAAA;margin: 10px 0;">你还未上传个人照</view>
+        <view class="go" >可以前往娱乐世界公众号 我的-艺人资料页面上传~</view>
+      </view>
+      <view style="width: 100%;text-align: center;" wx:else>
+        <view class="work-kon">
+          <image src='../../images/work-kon.png'></image>
+        </view>
+        <view style="color: #AAAAAA;margin: 10px 0;">TA好像有点懒</view>
+      </view>
+    </view>
+    <view class="te" wx:else>
       <view class="te-photo">
         <swiper class="te-pho" indicator-dots="true" autoplay="false" duration="1000" indicator-color="#a7a7a7" indicator-active-color="#fe5ba9">
           <block wx:for="{{photos}}">
@@ -33,7 +49,7 @@
           <image src='../../images/none-work.png'></image>
         </view>
         <view style="color: #AAAAAA;margin: 10px 0;">你还未上传视频作品</view>
-        <view class="go" >可以前往公众号上传~</view>
+        <view class="go" >可以前往娱乐世界公众号 我的-艺人资料页面上传~</view>
       </view>
       <view style="width: 100%;text-align: center;" wx:else>
         <view class="work-kon">

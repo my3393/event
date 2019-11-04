@@ -2,28 +2,31 @@
 
 const app = getApp();
 var count = 0;
-var ids = [];
-var moren = [];
-var names = undefined;
+//var ids = [];
+//var moren = [];
+//var names = undefined;
+let artistId = '92';
 var token;
 var images = [];
 var simages = [];
 var title = '';
 var person = '';
-var prices = [];
-var maxprice = '';
-var minprice = '';
 var tokenn;
-var photos;
+var photos = '';
 var labels = [];
 var bcode;
-var province_id = '';
-var city_id = '';
-var citys = [];
-var areas = [];
-var towns = [];
-var area_id = '';
-var town_id = '';
+let province = [];
+let citys = [];
+let areas = [];
+let towns = [];
+let province_id = '';
+let city_id = '';
+let area_id = '';
+let town_id = '';
+let p_name;
+let c_name;
+let q_name;
+let j_name
 let organizationId;
 let playerType = 1;
 let playerId;
@@ -35,31 +38,25 @@ Page({
    * 页面的初始数据
    */
   data: {
+    isardess: true,
+    iscity: true,
+    isprov: false,
+    isjie: true,
     id:'',
+    tsvides:'',
     showimg: true,
-    artist_type: "请选择选手类型",
+   // artist_type: "未来之星",
     showlabels: true,
     labels: [],
     posters: '../../images/upimg.png',
-    province: [],
-    poindex: 0,
-    city: [],
-    cindex: 0,
+   
     imgs: [],
     isvideo: true,
     showadd: false,
     showadds: false,
     tvideo: '',
     price: [],
-    pindex: 0,
-    provinceId: '',
-    cityId: '',
-    areaId: '',
-    townId: '',
-    area: [],
-    aindex: 0,
-    town: [],
-    tindex: 0,
+    
     iscity: true,
     isqu: true,
     isjie: true,
@@ -95,80 +92,17 @@ Page({
     })
      
     // 获取所有省
-    var province = [{
-      id: '',
-      name: '请选择所在省'
-    }]
+  
     wx.getStorage({
       key: 'etoken',
       success: function (res) {
         token = res.data;
       },
     })
-    wx.request({
-      url: app.data.urlmall + "/apparea/nextlist.do",
-      data: {
-        grade: "1",
-        token: wx.getStorageSync('etoken'),
-      },
-      method: 'POST',
-      header: {
-        'content-type': 'application/x-www-form-urlencoded'
-      },
-      dataType: 'json',
-      success: function (res) {
-         console.log(res.data.data)
-        if (res.data.status === 100) {
-          for (var i in res.data.data) {
-            province.push(res.data.data[i])
-          }
-          that.setData({
-            province: province
-          })
-
-        } else {
-          wx.showToast({
-            title: res.data.msg,
-            icon: 'none'
-          })
-        }
-      }
-    })
     
     
-    // 获取艺人标签
-    wx.request({
-      url: app.data.urlmall + "/appartistlabel/alllabel.do",
-      data: {
-        token: wx.getStorageSync('etoken'),
-      },
-      method: 'POST',
-      header: {
-        'content-type': 'application/x-www-form-urlencoded'
-      },
-      dataType: 'json',
-      success: function (res) {
-        console.log(res.data.data)
-        if (res.data.status == 100) {
-         
-          for(var i in res.data.data){
-            res.data.data[i].selected = true;
-          }
-          that.setData({
-            labels: res.data.data
-          })
-          console.log(res.data.data)
-          moren = res.data.data;
-        } else {
-          wx.showToast({
-            title: res.data.msg,
-            icon: 'none',
-            duration: 500
-          })
-        }
-
-      }
-    })
+    
+    
     
   },
 
@@ -207,14 +141,13 @@ Page({
     images = [];
     simages = [];
     count = 0;
-    ids = "";
+    // ids = "";
     title = '';
     province_id = '';
     city_id = '';
     person = "";
     photos = '';
-    maxprice = '';
-    minprice = '';
+   
     that.setData({
       imgs: []
     })
@@ -373,32 +306,96 @@ Page({
       urls: images,  //所有要预览的图片
     })
   },
-  // 省跳市
-  getprov: function (e) {
+  //删除个人照照片
+  detel: function (e) {
     var that = this;
     console.log(e)
-    that.setData({ //给变量赋值
-      poindex: e.detail.value,
-      cindex: 0,
-      aindex: 0,
-      tindex: 0
+    console.log(that.data.imgs)
+
+
+    simages.splice(e.currentTarget.dataset.index, 1)
+    images.splice(e.currentTarget.dataset.index, 1)
+    that.setData({
+      imgs: images
     })
-    province_id = that.data.province[e.detail.value].id;
-    city_id = '';
-    area_id = '';
-    town_id = '';
-    console.log(province_id);
-    citys = [{
-      id: '',
-      name: '请选择所在市'
-    }]
+    if (simages.length < 5) {
+      that.setData({
+        showadd: false
+      })
+    }
+  },
+  //删除视频
+  detels(){
+    let that = this;
+    that.setData({
+      showadds: !that.data.showadds,
+      tsvides:''
+    })
+  },
+  //选择地址
+  diz: function () {
+    this.getprov();
+    this.setData({
+      isardess: false,
+      isprov: false,
+      isqu: true,
+      iscity: true,
+      isjie: true,
+    })
+  },
+  //省
+  getprov: function () {
+    var that = this;
+    province = []
+    wx.request({
+      url: app.data.urlmall + "/apparea/nextlist.do",
+      data: {
+        grade: "1",
+        token: wx.getStorageSync('etoken'),
+      },
+      method: 'POST',
+      header: {
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+      dataType: 'json',
+      success: function (res) {
+        console.log(res.data.data)
+        if (res.data.status === 100) {
+          for (var i in res.data.data) {
+            province.push(res.data.data[i])
+          }
+          that.setData({
+            province: province
+          })
+
+        } else {
+          wx.showToast({
+            title: res.data.msg,
+            icon: 'none'
+          })
+        }
+      }
+    })
+  },
+  // 省跳市
+  getprovs: function (e) {
+    var that = this;
+    console.log(e)
+    citys = [];
+    province_id = e.currentTarget.id;
+    p_name = e.currentTarget.dataset.name
+    var nowTime = new Date();
+    if (nowTime - this.data.tapTime < 500) {
+      console.log('阻断')
+      return;
+    }
     // 获取所有市
     wx.request({
       url: app.data.urlmall + "/apparea/nextlist.do",
       data: {
         grade: '2',
+        id: province_id,
         token: wx.getStorageSync('etoken'),
-        id: province_id
       },
       method: 'POST',
       header: {
@@ -413,6 +410,7 @@ Page({
           }
           that.setData({
             city: citys,
+            isprov: true,
             iscity: false
           })
         } else {
@@ -425,33 +423,26 @@ Page({
 
       }
     })
+    this.setData({ tapTime: nowTime });
   },
   // 市跳区
   getcity: function (e) {
     var that = this;
-    that.setData({ //给变量赋值
-      cindex: e.detail.value,
-      aindex: 0,
-      tindex: 0
-    })
-    city_id = that.data.city[e.detail.value].id;
-    area_id = 0;
-    town_id = 0;
-    console.log(city_id);
-    areas = [{
-      id: '',
-      name: '请选择所在区'
-    }]
-    that.setData({
-      isqu: false
-    })
+    areas = []
+    city_id = e.currentTarget.id;;
+    c_name = e.currentTarget.dataset.name
+    var nowTime = new Date();
+    if (nowTime - this.data.tapTime < 500) {
+      console.log('阻断')
+      return;
+    }
     // 获取所有区
     wx.request({
       url: app.data.urlmall + "/apparea/nextlist.do",
       data: {
         grade: '3',
+        id: city_id,
         token: wx.getStorageSync('etoken'),
-        id: city_id
       },
       method: 'POST',
       header: {
@@ -465,7 +456,10 @@ Page({
             areas.push(res.data.data[i])
           }
           that.setData({
-            area: areas
+            area: areas,
+            iscity: true,
+            isqu: false,
+
           })
         } else {
           wx.showToast({
@@ -477,31 +471,26 @@ Page({
 
       }
     })
+    this.setData({ tapTime: nowTime });
   },
   // 区跳街道
   getarea: function (e) {
     var that = this;
-    that.setData({ //给变量赋值
-      aindex: e.detail.value,
-      tindex: 0
-    })
-    area_id = that.data.area[e.detail.value].id;
-    town_id = '';
-    console.log(area_id);
-    towns = [{
-      id: '',
-      name: '请选择所在街道'
-    }]
-    that.setData({
-      isjie: false
-    })
-    // 获取街道
+    towns = []
+    q_name = e.currentTarget.dataset.name
+    area_id = e.currentTarget.id;
+    var nowTime = new Date();
+    if (nowTime - this.data.tapTime < 500) {
+      console.log('阻断')
+      return;
+    }
+    // 获取所有区
     wx.request({
       url: app.data.urlmall + "/apparea/nextlist.do",
       data: {
         grade: '4',
+        id: area_id,
         token: wx.getStorageSync('etoken'),
-        id: area_id
       },
       method: 'POST',
       header: {
@@ -515,7 +504,9 @@ Page({
             towns.push(res.data.data[i])
           }
           that.setData({
-            town: towns
+            town: towns,
+            isjie: false,
+            isqu: true,
           })
         } else {
           wx.showToast({
@@ -527,15 +518,28 @@ Page({
 
       }
     })
+    this.setData({ tapTime: nowTime });
   },
+  //街道
   gettown: function (e) {
     var that = this;
+    towns = []
+    console.log(e)
+    town_id = e.currentTarget.id;
+    j_name = e.currentTarget.dataset.name;
     that.setData({ //给变量赋值
-      tindex: e.detail.value,
+      addres: p_name + '-' + c_name + '-' + q_name + '-' + j_name,
+      isardess: true,
     })
-    town_id = that.data.town[e.detail.value].id;
-    console.log(town_id);
   },
+  // gettown: function (e) {
+  //   var that = this;
+  //   that.setData({ //给变量赋值
+  //     tindex: e.detail.value,
+  //   })
+  //   town_id = that.data.town[e.detail.value].id;
+  //   console.log(town_id);
+  // },
   showlabel: function (e) {
     var that = this;
     that.setData({
@@ -666,29 +670,27 @@ Page({
     })
   },
   subnotice: function (e) {
-    var photos;
-    var lid;
-    console.log(ids)
+    var photos = '';
+    // var lid;
+    //console.log(ids)
     wx.getStorage({
       key: 'etoken',
       success: function (res) {
         tokenn = res.data;
-        console.log(tokenn)
+        //console.log(tokenn)
       },
     })
     var that = this;
     wx.checkSession({
       success: function (res) {
-        if (simages.length < 2) {
-          photos = simages[0];
-        } else {
+        if (simages.length != 0) {
           photos = simages.join(",");
-        }
-        if (ids.length < 2) {
-          lid = ids[0];
-        } else {
-          lid = ids.join(",");
-        }
+        } 
+        // if (ids.length < 2) {
+        //   lid = ids[0];
+        // } else {
+        //   lid = ids.join(",");
+        // }
         if (title == '') {
           wx.showToast({
             title: '请输入艺名',
@@ -698,7 +700,7 @@ Page({
         }
         if (province_id == '') {
           wx.showToast({
-            title: '请选择所在省',
+            title: '请选择所在地',
             icon: 'none'
           })
           return false;
@@ -724,13 +726,13 @@ Page({
           })
           return false;
         }
-        if (lid == undefined) {
-          wx.showToast({
-            title: '请选择艺人标签',
-            icon: 'none'
-          })
-          return false;
-        }
+        // if (lid == undefined) {
+        //   wx.showToast({
+        //     title: '请选择艺人标签',
+        //     icon: 'none'
+        //   })
+        //   return false;
+        // }
         if (that.data.signUpType == 2 && phone == '') {
           wx.showToast({
             title: '请输入代报名手机号',
@@ -745,15 +747,15 @@ Page({
           })
           return false;
         }
-        if (person == '') {
-          wx.showToast({
-            title: '请输入个人介绍',
-            icon: 'none'
-          })
-          return false;
-        }
+        // if (person == '') {
+        //   wx.showToast({
+        //     title: '请输入个人介绍',
+        //     icon: 'none'
+        //   })
+        //   return false;
+        // }
 
-        if (simages.length != 3) {
+        if (simages.length != 3 && simages.length != 0) {
           wx.showToast({
             title: '请上传3张个人照',
             icon: 'none'
@@ -831,7 +833,7 @@ Page({
               areaId: area_id,
               townId: area_id,
               artistIntroduce: person,
-              artistLabel: lid,
+              artistLabel: artistId,
               personalPhoto: photos,
               authorizedVideo: that.data.tsvides,
               organizationId: organizationId,
@@ -915,6 +917,43 @@ Page({
         //         })
         //     }
         // })
+      }
+    })
+  },
+  // 获取艺人标签
+  getable(){
+    var that = this;
+    
+    wx.request({
+      url: app.data.urlmall + "/appartistlabel/alllabel.do",
+      data: {
+        token: wx.getStorageSync('etoken'),
+      },
+      method: 'POST',
+      header: {
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+      dataType: 'json',
+      success: function (res) {
+        console.log(res.data.data)
+        if (res.data.status == 100) {
+
+          for (var i in res.data.data) {
+            res.data.data[i].selected = true;
+          }
+          that.setData({
+            labels: res.data.data
+          })
+          console.log(res.data.data)
+          moren = res.data.data;
+        } else {
+          wx.showToast({
+            title: res.data.msg,
+            icon: 'none',
+            duration: 500
+          })
+        }
+
       }
     })
   }
