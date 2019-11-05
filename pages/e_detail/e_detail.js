@@ -192,7 +192,8 @@ Page({
    */
   onUnload: function () {
     var that = this;
-    ranklist = [];
+    play = [];
+    
     that.setData({
       istp: '',
       isSearch: false,
@@ -256,7 +257,7 @@ Page({
         v_totalPage: '',//
         competitionAreaId: '',//赛区id
         narea: '',
-        competitionName: '',//赛区名称
+        // competitionName: '',//赛区名称
         qualifiedNumber: '',//晋级人数
         seaEndtDate: '',//复赛结束时间
         competitionType: '',//赛事类型
@@ -485,10 +486,29 @@ Page({
       play = [];
       that.setData({
         x_currentPage: 1,
-        allType:"0"
+        allType:"0",
+        competitionName:'全部'
       })
       that.getplayer();
-    }
+    } else if (e.currentTarget.dataset.num == 2) {
+     
+      
+     
+       
+        ranklist = [];
+        that.setData({
+          top_1:'',
+          top_2:'',
+          top_3:'',
+          p_currentPage: 1,
+          competitionAreaId:that.data.p_id,
+          competitionNames:that.data.p_name
+         // competitionNames:that.data.competitionName
+        })
+        that.getranklist();
+      }
+     
+  
     
    
     video=[];
@@ -499,14 +519,14 @@ Page({
       // splayer:[],
       // video:[],
       valu:'',
-      p_currentPage:1,
+      
       h_currentPage:1,
       tar: e.currentTarget.dataset.num,
       tab: e.currentTarget.dataset.num
     })
     this.setData({ tapTime: nowTime });
    
-    that.getranklist();
+  
     
     that.getvideo();
   },
@@ -625,6 +645,8 @@ Page({
           console.log(that.data.istime)
           that.setData({
             competitionAreaId: res.data.data.competitionAreaId,
+            p_id: res.data.data.competitionAreaId,
+            p_name: res.data.data.competitionAreaName,
             competitionNames: res.data.data.competitionAreaName,
             qualifiedNumber: res.data.data.areaQualifiedNumber,
             detail:res.data.data,
@@ -859,7 +881,7 @@ Page({
       isSearch:false,
       x_currentPage: 1,
       valu:'',
-      
+      tas:100000
     })
     that.getNarea();
   },
@@ -867,16 +889,26 @@ Page({
   narea:function(e){
      console.log(e)
      var that = this;
+     console.log(that.data.tab)
+    that.setData({
+      competitionAreaId: e.currentTarget.id,
+
+      isSai: !this.data.isSai,
+      tas: index,
+      //players:[],
+
+    })
      var index = e.currentTarget.dataset.index;
-     if(index != 0){
+     if(index == that.data.narea.length - 1){
+       that.setData({
+         allType: 0
+       })
+       console.log(1111)
+     }else{
        var qualifiedNumber = e.currentTarget.dataset.num;
        that.setData({
          qualifiedNumber: qualifiedNumber,
-         allType: ''
-       })
-     }else{
-       that.setData({
-         allType:'0'
+         allType: ""
        })
      }
      var competitionName = e.currentTarget.dataset.name;
@@ -890,27 +922,19 @@ Page({
        ranklist = [];
        that.setData({
          competitionNames: competitionName,
-        //  ranklist: [],
-        //  top_1: '',
-        //  top_2: '',
-        //  top_3: '',
+         top_1:'',
+         top_2:'',
+         top_3:'',
        })
        that.getranklist();
        
      }
+     console.log(that.data.competitionNames)
      
      
-     that.setData({
-       competitionAreaId: e.currentTarget.id,
-      
-       isSai: !this.data.isSai,
-       tas:index,
-       //players:[],
-       
-     })
    
     that.getdynamic();
-    that.getranklist();
+    //that.getranklist();
    
   },
   //排行榜
@@ -1166,6 +1190,12 @@ Page({
       })
     };
 
+  },
+  xiaochu() {
+    let that = this;
+    that.setData({
+      isSai: !that.data.isSai
+    })
   },
   //复赛倒计时
   settimes: function countDown() {

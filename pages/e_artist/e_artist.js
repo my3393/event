@@ -57,9 +57,7 @@ Page({
     tvideo: '',
     price: [],
     
-    iscity: true,
-    isqu: true,
-    isjie: true,
+    
     npay:'',
     isdai:true,
     signUpType:1,
@@ -807,8 +805,8 @@ Page({
                 })
                 that.getuser();
                  setTimeout(function(){
-                   wx.redirectTo({
-                     url: '../e_home/e_home',
+                   wx.navigateBack({
+                     delta: 2
                    })
                  },2000)
                   
@@ -866,8 +864,11 @@ Page({
                       })
                       that.getuser();
                       setTimeout(function () {
-                        wx.redirectTo({
-                          url: '../e_home/e_home',
+                        // wx.redirectTo({
+                        //   url: '../e_home/e_home',
+                        // })
+                        wx.navigateBack({
+                          delta: 2
                         })
                       }, 2000)
                     },

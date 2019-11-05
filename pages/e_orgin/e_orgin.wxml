@@ -10,50 +10,16 @@
     <view class='inform'>联系方式</view>
     <view class='inforin'> <input maxlength='11' type='number' placeholder='请输入联系方式'bindinput='scope'></input>  </view>
   </view>
-   <view class='infor'>
-    <view class='inform'>机构所在省</view>
-    <view class='inforin'>
-         <picker bindchange='getprov' class='pick' value="{{province[poindex].id}}" data-selecthx="{{province[poindex].name}}" range="{{province}}" range-key="{{'name'}}">
-      <view class="picker">
-        {{province[poindex].name}}
-      </view>
-    </picker>
-     </view>
-    <!-- <view class='enter'> <image src='../../images/enter.png'></image> </view> -->
-  </view>
-  <view class='infor' hidden='{{iscity}}'>
-    <view class='inform'>机构所在市</view>
-    <view class='inforin'>
-         <picker bindchange='getcity' class='pick' value="{{city[cindex].id}}" data-selecthx="{{city[cindex].name}}" range="{{city}}" range-key="{{'name'}}">
-      <view class="picker">
-        {{city[cindex].name}}
-      </view>
-    </picker>
-     </view>
-    <!-- <view class='enter'> <image src='../../images/enter.png'></image> </view> -->
-  </view>
-   <view class='infor' hidden='{{isqu}}'>
-    <view class='inform'>机构所在区</view>
-    <view class='inforin'>
-        <picker bindchange='getarea' class='pick' value="{{area[aindex].id}}" data-selecthx="{{area[aindex].name}}" range="{{area}}" range-key="{{'name'}}">
-      <view class="picker">
-        {{area[aindex].name}}
-      </view>
-    </picker>
-     </view>
-    <!-- <view class='enter'> <image src='../../images/enter.png'></image> </view> -->
-  </view>
-    <view class='infor'hidden='{{isjie}}'>
-      <view class='inform'>机构所在街</view>
-      <view class='inforin'>
-          <picker bindchange='gettown' class='pick' value="{{town[tindex].id}}" data-selecthx="{{town[tindex].name}}" range="{{town}}" range-key="{{'name'}}">
-          <view class="picker">
-            {{town[tindex].name}}
-          </view>
-        </picker>
-      </view>
-      <!-- <view class='enter'> <image src='../../images/enter.png'></image> </view> -->
+  <view class='infor' bindtap="diz">
+    <view class='inform'>地 址  </view>
+    <view class='inforin '>
+      <input disabled='true' type='text' value='{{addres}}' placeholder= '请选择机构所在地' bindtap='showlabel'></input>
     </view>
+    <view class='enter'>
+      <image src='../../images/enter.png'></image>
+    </view>
+  </view> 
+ 
     <view class='jgtx pho'>
       <view class='jgtu'>营业执照</view>
       <view class='photo'>
@@ -110,3 +76,22 @@
 			</view>
 </view>
 
+
+<!-- 居住地选择 -->
+  <view class="mask addrsss" id="citypick" hidden="{{isardess}}">
+        <view class="mwrap">
+          <view class="mtitle">选择地址</view>
+          <view class="province" hidden="{{isprov}}">
+            <view wx:for="{{province}}" id="{{item.id}}" data-name="{{item.name}}" bindtap="getprovs">{{item.name}}</view>
+          </view>
+          <view class="province" hidden="{{iscity}}">
+            <view wx:for="{{city}}" id="{{item.id}}" data-name="{{item.name}}" bindtap="getcity">{{item.name}}</view>
+          </view>
+          <view class="province" hidden="{{isqu}}">
+            <view wx:for="{{area}}" id="{{item.id}}" data-name="{{item.name}}" bindtap="getarea" data-index="{{index}}">{{item.name}}</view>
+          </view>
+          <view class="province" hidden="{{isjie}}">
+            <view wx:for="{{town}}" id="{{item.id}}" data-name="{{item.name}}" bindtap="gettown">{{item.name}}</view>
+          </view>
+        </view>
+  </view>   

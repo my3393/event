@@ -450,8 +450,8 @@ Page({
                   duration: 3000
                 })
                 setTimeout(function () {
-                  wx.redirectTo({
-                    url: '../e_home/e_home',
+                  wx.navigateBack({
+                    delta: 1
                   })
                 }, 3000)
                 // var pages = getCurrentPages();//当前页面栈
@@ -502,8 +502,8 @@ Page({
                       duration: 3000
                     })
                     setTimeout(function () {
-                      wx.redirectTo({
-                        url: '../e_home/e_home',
+                      wx.navigateBack({
+                        delta: 1
                       })
                     }, 3000)
                     // var pages = getCurrentPages();//当前页面栈

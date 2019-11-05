@@ -456,9 +456,9 @@
 </view>
 <video class='maskvideo' hidden='{{isvideo}}' src='{{play}}'></video>
 
-<view class="sai-yds" hidden='{{isSai}}'>
+<view class="sai-yds" hidden='{{isSai}}' bindtap="xiaochu">
 			<view class="sai-yd">
-			   <view class='divis {{tas == index?"act":""}}' wx:for="{{narea}}" id='{{item.id}}' data-index='{{index}}'  data-name='{{item.competitionName}}' data-num='{{item.qualifiedNumber}}'  bindtap='narea'>{{item.competitionName}}</view>
+			   <view class='divis {{tas == index?"act":""}}' wx:for="{{narea}}" id='{{item.id}}' data-index='{{index}}'  data-name='{{item.competitionName}}' data-num='{{item.qualifiedNumber}}'  catchtap='narea'>{{item.competitionName}}</view>
 			</view>
 </view>
 
