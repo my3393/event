@@ -109,6 +109,9 @@ page{
 }
 .pice{
   font-size: 26rpx;
+   white-space: nowrap;
+   overflow: hidden;
+   text-overflow: ellipsis;
 }
 .spec{
   color: #000000;

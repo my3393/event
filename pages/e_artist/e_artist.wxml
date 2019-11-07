@@ -17,7 +17,7 @@
 <view class='wrap'>
     <view class='snitem' style='border-bottom: 0;'>
         艺人类型： 
-        <text class='snlabels' adjust-position='true' style='width:auto;height:70rpx;' >未来之星</text>
+        <text class='snlabels' adjust-position='true' style='width:auto;height:70rpx;'>未来之星</text>
     </view>
 </view>
 <view class='wrap' wx:if='{{signUpType == 2}}'>

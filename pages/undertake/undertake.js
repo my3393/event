@@ -1,12 +1,17 @@
 // pages/receve/receive.js
 const app = getApp();
-let province_id = '';
-let city_id = '';
+let province = [];
 let citys = [];
 let areas = [];
 let towns = [];
+let province_id = '';
+let city_id = '';
 let area_id = '';
 let town_id = '';
+let p_name;
+let c_name;
+let q_name;
+let j_name
 let postersis = '';
 var saiid;
 Page({
@@ -18,22 +23,13 @@ Page({
     names: '',
     scope: '',
     minute: '',
-    provinceId: '',
-    cityId: '',
-    areaId: '',
-    townId: '',
-    province: [],
-    poindex: 0,
-    city: [],
-    cindex: 0,
-    area: [],
-    aindex: 0,
-    town: [],
-    tindex: 0,
+    isardess: true,
     iscity: true,
-    isqu: true,
+    isprov: false,
+    isjie: true,
+   
     isart: true,
-    isjie:true,
+    
     posters: '../../images/chuan_03.png',
   },
 
@@ -45,42 +41,7 @@ Page({
      console.log(options)
       saiid = options.id
    
-    // 获取所有省
-    var province = [{
-      id: '',
-      name: '请选择公司所在省'
-    }]
-    //省
-    wx.request({
-      url: app.data.urlmall + "/apparea/nextlist.do",
-      data: {
-        grade: "1",
-
-        token: wx.getStorageSync('etoken'),
-      },
-      method: 'POST',
-      header: {
-        'content-type': 'application/x-www-form-urlencoded'
-      },
-      dataType: 'json',
-      success: function (res) {
-        console.log(res.data.data)
-        if (res.data.status === 100) {
-          for (var i in res.data.data) {
-            province.push(res.data.data[i])
-          }
-          that.setData({
-            province: province
-          })
-
-        } else {
-          wx.showToast({
-            title: res.data.msg,
-            icon: 'none'
-          })
-        }
-      }
-    })
+    
   },
 
   /**
@@ -304,32 +265,70 @@ Page({
     })
 
   },
+  //选择地址
+  diz: function () {
+    this.getprov();
+    this.setData({
+      isardess: false,
+      isprov: false,
+      isqu: true,
+      iscity: true,
+      isjie: true,
+    })
+  },
+  //省
+  getprov: function () {
+    var that = this;
+    province = []
+    wx.request({
+      url: app.data.urlmall + "/apparea/nextlist.do",
+      data: {
+        grade: "1",
+        token: wx.getStorageSync('etoken'),
+      },
+      method: 'POST',
+      header: {
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+      dataType: 'json',
+      success: function (res) {
+        console.log(res.data.data)
+        if (res.data.status === 100) {
+          for (var i in res.data.data) {
+            province.push(res.data.data[i])
+          }
+          that.setData({
+            province: province
+          })
+
+        } else {
+          wx.showToast({
+            title: res.data.msg,
+            icon: 'none'
+          })
+        }
+      }
+    })
+  },
   // 省跳市
-  getprov: function (e) {
+  getprovs: function (e) {
     var that = this;
     console.log(e)
-    that.setData({ //给变量赋值
-      poindex: e.detail.value,
-      cindex: 0,
-      aindex: 0,
-      tindex: 0
-    })
-    province_id = that.data.province[e.detail.value].id;
-    city_id = '';
-    area_id = '';
-    town_id = '';
-    console.log(province_id);
-    citys = [{
-      id: '',
-      name: '请选择所在市'
-    }]
+    citys = [];
+    province_id = e.currentTarget.id;
+    p_name = e.currentTarget.dataset.name
+    var nowTime = new Date();
+    if (nowTime - this.data.tapTime < 500) {
+      console.log('阻断')
+      return;
+    }
     // 获取所有市
     wx.request({
       url: app.data.urlmall + "/apparea/nextlist.do",
       data: {
         grade: '2',
+        id: province_id,
         token: wx.getStorageSync('etoken'),
-        id: province_id
       },
       method: 'POST',
       header: {
@@ -344,6 +343,7 @@ Page({
           }
           that.setData({
             city: citys,
+            isprov: true,
             iscity: false
           })
         } else {
@@ -356,33 +356,26 @@ Page({
 
       }
     })
+    this.setData({ tapTime: nowTime });
   },
   // 市跳区
   getcity: function (e) {
     var that = this;
-    that.setData({ //给变量赋值
-      cindex: e.detail.value,
-      aindex: 0,
-      tindex: 0
-    })
-    city_id = that.data.city[e.detail.value].id;
-    area_id = 0;
-    town_id = 0;
-    console.log(city_id);
-    areas = [{
-      id: '',
-      name: '请选择所在区'
-    }]
-    that.setData({
-      isqu: false
-    })
+    areas = []
+    city_id = e.currentTarget.id;;
+    c_name = e.currentTarget.dataset.name
+    var nowTime = new Date();
+    if (nowTime - this.data.tapTime < 500) {
+      console.log('阻断')
+      return;
+    }
     // 获取所有区
     wx.request({
       url: app.data.urlmall + "/apparea/nextlist.do",
       data: {
         grade: '3',
+        id: city_id,
         token: wx.getStorageSync('etoken'),
-        id: city_id
       },
       method: 'POST',
       header: {
@@ -396,7 +389,10 @@ Page({
             areas.push(res.data.data[i])
           }
           that.setData({
-            area: areas
+            area: areas,
+            iscity: true,
+            isqu: false,
+
           })
         } else {
           wx.showToast({
@@ -408,31 +404,26 @@ Page({
 
       }
     })
+    this.setData({ tapTime: nowTime });
   },
   // 区跳街道
   getarea: function (e) {
     var that = this;
-    that.setData({ //给变量赋值
-      aindex: e.detail.value,
-      tindex: 0
-    })
-    area_id = that.data.area[e.detail.value].id;
-    town_id = '';
-    console.log(area_id);
-    towns = [{
-      id: '',
-      name: '请选择所在街道'
-    }]
-    that.setData({
-      isjie: false
-    })
-    // 获取街道
+    towns = []
+    q_name = e.currentTarget.dataset.name
+    area_id = e.currentTarget.id;
+    var nowTime = new Date();
+    if (nowTime - this.data.tapTime < 500) {
+      console.log('阻断')
+      return;
+    }
+    // 获取所有区
     wx.request({
       url: app.data.urlmall + "/apparea/nextlist.do",
       data: {
         grade: '4',
+        id: area_id,
         token: wx.getStorageSync('etoken'),
-        id: area_id
       },
       method: 'POST',
       header: {
@@ -446,7 +437,9 @@ Page({
             towns.push(res.data.data[i])
           }
           that.setData({
-            town: towns
+            town: towns,
+            isjie: false,
+            isqu: true,
           })
         } else {
           wx.showToast({
@@ -458,14 +451,19 @@ Page({
 
       }
     })
+    this.setData({ tapTime: nowTime });
   },
+  //街道
   gettown: function (e) {
     var that = this;
+    towns = []
+    console.log(e)
+    town_id = e.currentTarget.id;
+    j_name = e.currentTarget.dataset.name;
     that.setData({ //给变量赋值
-      tindex: e.detail.value,
+      addres: p_name + '-' + c_name + '-' + q_name + '-' + j_name,
+      isardess: true,
     })
-    town_id = that.data.town[e.detail.value].id;
-    console.log(town_id);
   },
   getxcx: function () {
     var that = this;

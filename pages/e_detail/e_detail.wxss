@@ -145,9 +145,9 @@ page{
   color: #000;
 }
 .zhi{
-  width: 80rpx;
-  height: 36rpx;
-  line-height: 36rpx;
+  width: 100rpx;
+  height: 40rpx;
+  line-height: 40rpx;
   text-align: center;
   color: #fff;
   background:#F861AA; 
@@ -165,12 +165,12 @@ page{
 .zl{
   display: inline-block;
   width: 130rpx;
-  height: 40rpx;
+  height: 50rpx;
   border: 1rpx solid #F861AA;
   text-align: center;
-  line-height: 40rpx;
+  line-height: 50rpx;
   color: #F861AA;
-  font-size: 24rpx;
+  font-size: 28rpx;
   margin-left: 20rpx;
   border-radius: 4rpx;
 }
@@ -199,7 +199,6 @@ page{
   width: 120rpx;
   height: 120rpx;
   display: inline-block;
- 
 }
 .top_heads image{
   width: 100%;

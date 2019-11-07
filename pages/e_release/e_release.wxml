@@ -56,7 +56,7 @@
     </view>
     <view class='jgtx xfdf'>
         <view class='tit'>活动赛事介绍</view>
-        <textarea hidden='{{istext}}' class='evedetil' auto-height placeholder='请详细描述下此活动赛事' bindinput='evedetail' maxlength='150'>
+        <textarea hidden='{{istext}}' class='evedetil'  placeholder='请详细描述下此活动赛事' bindinput='evedetail' maxlength='150'>
         </textarea>
     </view>
   </view>

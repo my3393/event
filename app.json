@@ -1,6 +1,6 @@
 {
   "pages": [
-   
+    
     "pages/e_home/e_home",
     "pages/e_apply/e_apply",
     "pages/e_ group/e_ group",
@@ -32,7 +32,9 @@
     "pages/undertake/undertake",
     "pages/e_divisions/e_divisions",
     "pages/all_player/all_player",
-    "pages/recharge/recharge"
+    "pages/recharge/recharge",
+    "pages/e_advert/e_advert"
+    
   ],
   "window": {
     "backgroundTextStyle": "light",

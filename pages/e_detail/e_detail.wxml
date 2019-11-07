@@ -169,7 +169,7 @@
                   <view class='zl' catchtap='vote' id="{{item.id}}" hidden='{{competitionType == 1}}'>投他一票</view>
                 </view>
                 <view class='g-all'>
-                  <view class="g-head" wx:for='{{item.users}}' id='{{item.userId}}' tap="yule">
+                  <view class="g-head" wx:for='{{item.users}}' id='{{item.userId}}' catchtap="yule">
                     <view class="g-img" >
                       <image src='{{item.headPhoto}}'></image>
                     </view>
@@ -214,7 +214,7 @@
 
       <view wx:elif='{{tab == 2}}' hidden='{{competitionType == 1}}'>
         <view class='evesai'>
-          <view class='saiq'>分类：{{competitionNames}} <text class='turn' bindtap='bind'>点击切换</text>
+          <view class='saiq'>分类：{{competitionName}} <text class='turn' bindtap='bind'>点击切换</text>
           </view> 
           <view class='top-num'>晋级人数： 前{{qualifiedNumber}}名</view> 
           <!-- <view class='gz'>排名规则：星值=总票数+助力数×2+转发数</view> -->

@@ -272,7 +272,7 @@ Page({
     var city_idreg = city_id;
     var area_idreg = area_id;
     var town_idreg = town_id;
-    var phonetel = /^(((13[0-9]{1})|(15[0-9]{1})|(18[0-9]{1})|(17[0-9]{1}))+\d{8})$/;
+    var phonetel = /^[1]([3-9])[0-9]{9}$/;
     if (that.data.names == '') {
       wx.showToast({
         title: '请输入机构名称',
@@ -650,14 +650,14 @@ Page({
           wx.showToast({
             title: '提交成功',
             icon: 'none',
-            duration: 2000
+            duration: 1500
           })
           
           setTimeout(function () {
             wx.navigateBack({
               delta: 1
             })
-          }, 2000)
+          }, 1500)
         } else if (res.data.status === 103) {
           wx.showToast({
             title: res.data.msg,

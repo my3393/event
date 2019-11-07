@@ -32,6 +32,7 @@ let playerType = 1;
 let playerId;
 let tsvides='';
 let phone = '';
+let saiId = '';
 Page({
 
   /**
@@ -76,9 +77,10 @@ Page({
      
     })
     if (options.type == 1){
-      organizationId = options.organizationId
-        playerType = options.playerType
-        playerId = options.playerId
+      saiId = options.saiId
+       organizationId = options.organizationId
+      //   playerType = options.playerType
+      //   playerId = options.playerId
       that.setData({
         signUpType: options.signUpType
       })
@@ -91,12 +93,12 @@ Page({
      
     // 获取所有省
   
-    wx.getStorage({
-      key: 'etoken',
-      success: function (res) {
-        token = res.data;
-      },
-    })
+    // wx.getStorage({
+    //   key: 'etoken',
+    //   success: function (res) {
+    //     token = res.data;
+    //   },
+    // })
     
     
     
@@ -679,8 +681,8 @@ Page({
       },
     })
     var that = this;
-    wx.checkSession({
-      success: function (res) {
+   
+      
         if (simages.length != 0) {
           photos = simages.join(",");
         } 
@@ -745,6 +747,7 @@ Page({
           })
           return false;
         }
+         
         // if (person == '') {
         //   wx.showToast({
         //     title: '请输入个人介绍',
@@ -760,6 +763,24 @@ Page({
           })
           return false;
         }
+        if (that.data.signUpType == 2){
+              wx.showModal({
+                title: '提示',
+                content: '请确认手机号码为本人或亲属号码',
+
+                confirmColor: '#e65099',
+                success(res) {
+                  if (res.confirm) {
+                    that.benren();
+                  } else if (res.cancel) {
+                    console.log('用户点击取消')
+                  }
+                }
+
+              })
+            }else{
+              that.benren();
+            }
         // if (that.data.tvideo == '') {
         //   wx.showToast({
         //     title: '请上传授权视频',
@@ -767,159 +788,169 @@ Page({
         //   })
         //   return false;
         // }
-        wx.showLoading();
-        if(that.data.npay == 0){
-          wx.request({
-            url: app.data.urlmall + "/apppcompetitionsignup/averageuserjoin.do",
-            data: {
-              token: tokenn,
-              id: that.data.id,
-              userName: title,
-              provinceId: province_id,
-              cityId: city_id,
-              areaId: area_id,
-              townId: area_id,
-              artistIntroduce: person,
-              artistLabel: lid,
-              personalPhoto: photos,
-              authorizedVideo:that.data.tsvides,
-              organizationId: organizationId,
-              playerType: playerType,
-              playerId: playerId,
-              
-            },
-            method: 'POST',
-            header: {
-              'content-type': 'application/x-www-form-urlencoded'
-            },
-            dataType: 'json',
-            success: function (res) {
-              console.log(res.data.data)
-              if (res.data.status == 100) {
+       
 
-                wx.hideLoading();
-                wx.showToast({
-                  title: '报名成功',
-                  icon: 'success',
-                  duration: 2000
+    
+  },
+ 
+  benren(){
+    let that = this;
+    wx.showLoading();
+    if (that.data.npay == 0) {
+      wx.request({
+        url: app.data.urlmall + "/apppcompetitionsignup/averageuserjoin.do",
+        data: {
+          token: tokenn,
+          id: that.data.id,
+          userName: title,
+          provinceId: province_id,
+          cityId: city_id,
+          areaId: area_id,
+          townId: area_id,
+          artistIntroduce: person,
+          artistLabel: lid,
+          personalPhoto: photos,
+          authorizedVideo: that.data.tsvides,
+          organizationId: organizationId,
+          playerType: playerType,
+          playerId: playerId,
+
+        },
+        method: 'POST',
+        header: {
+          'content-type': 'application/x-www-form-urlencoded'
+        },
+        dataType: 'json',
+        success: function (res) {
+          console.log(res.data.data)
+          if (res.data.status == 100) {
+
+            wx.hideLoading();
+            wx.showToast({
+              title: '报名成功',
+              icon: 'success',
+              duration: 2000
+            })
+            that.getuser();
+            setTimeout(function () {
+              // wx.navigateBack({
+              //   delta: 2
+              // })
+              // wx.redirectTo({
+              //   url: '../e_detail/e_detail?id=' + saiId,
+                
+              // })
+               var pages = getCurrentPages();//当前页面栈
+                if (pages.length > 1) {
+                  var beforePage = pages[pages.length - 3];//获取上一个页面实例对象
+                  var currPage = pages[pages.length - 1]; // 当前页面，若不对当前页面进行操作，可省去
+                  // beforePage.setData({       //如果需要传参，可直接修改A页面的数据，若不需要，则可省去这一步
+                  //   id: res.data.data
+                  // })
+                  beforePage.changeData();//触发父页面中的方法
+                }
+                wx.navigateBack({
+                  delta: 2
                 })
-                that.getuser();
-                 setTimeout(function(){
-                   wx.navigateBack({
-                     delta: 2
-                   })
-                 },2000)
-                  
-              } else {
-                wx.showToast({
-                  title: res.data.msg,
-                  icon: 'none'
-                })
-              }
+            }, 2000)
 
-            }
-          })
-        } else if (that.data.npay == 1) {
-          wx.request({
-            url: app.data.urlmall + "/apppcompetitionsignup/averageuserjoin/xcxpay.do",
-            data: {
-              token: tokenn,
-              id: that.data.id,
-              userName: title,
-              provinceId: province_id,
-              cityId: city_id,
-              areaId: area_id,
-              townId: area_id,
-              artistIntroduce: person,
-              artistLabel: artistId,
-              personalPhoto: photos,
-              authorizedVideo: that.data.tsvides,
-              organizationId: organizationId,
-              playerType: playerType,
-              playerId: playerId,
-              signUpType: that.data.signUpType,
-              signUpPhone: phone
-            },
-            method: 'POST',
-            header: {
-              'content-type': 'application/x-www-form-urlencoded'
-            },
-            dataType: 'json',
-            success: function (res) {
-              console.log(res.data.data)
-              if (res.data.status == 100) {
-                wx.hideLoading();
-                setTimeout(function () {
-                  wx.requestPayment({
-                    timeStamp: res.data.data.sign.timeStamp,
-                    nonceStr: res.data.data.sign.nonceStr,
-                    package: res.data.data.sign.package,
-                    signType: 'MD5',
-                    paySign: res.data.data.sign.paySign,
-                    success(res) {
-                      wx.showToast({
-                        title: '报名成功',
-                        icon: 'none',
-                        duration: 2000
-                      })
-                      that.getuser();
-                      setTimeout(function () {
-                        // wx.redirectTo({
-                        //   url: '../e_home/e_home',
-                        // })
-                        wx.navigateBack({
-                          delta: 2
-                        })
-                      }, 2000)
-                    },
-                    fail(res) {
-                      wx.showToast({
-                        title: '支付失败',
-                        icon: 'none',
-                        duration: 1000
-                      })
-                    }
-                  })
+          } else {
+            wx.showToast({
+              title: res.data.msg,
+              icon: 'none'
+            })
+          }
 
-                }, 1000)
-              } else {
-                wx.showToast({
-                  title: res.data.msg,
-                  icon: 'none'
-                })
-              }
-
-            }
-          }) 
         }
-      },
-      fail: function (res) {
-        console.log(res, '登录过期了')
-        wx.showModal({
-          title: '提示',
-          content: '你的登录信息过期了，请重新登录',
-        })
-        //再次调用wx.login()
-        // wx.login({
-        //     success: function (res) {
-        //         console.log(res.code)
-        //         //发送请求
-        //         wx.request({
-        //             url: '自己的域名', //仅为示例，并非真实的接口地址
-        //             data: {
-        //                 code: res.code
-        //             },
-        //             header: {
-        //                 'content-type': 'application/json' // 默认值
-        //             },
-        //             success(res) {
-        //                 console.log(res)
-        //             }
-        //         })
-        //     }
-        // })
-      }
-    })
+      })
+    } else if (that.data.npay == 1) {
+      wx.request({
+        url: app.data.urlmall + "/apppcompetitionsignup/averageuserjoin/xcxpay.do",
+        data: {
+          token: tokenn,
+          id: that.data.id,
+          userName: title,
+          provinceId: province_id,
+          cityId: city_id,
+          areaId: area_id,
+          townId: area_id,
+          artistIntroduce: person,
+          artistLabel: artistId,
+          personalPhoto: photos,
+          authorizedVideo: that.data.tsvides,
+          organizationId: organizationId,
+          playerType: playerType,
+          playerId: playerId,
+          signUpType: that.data.signUpType,
+          signUpPhone: phone
+        },
+        method: 'POST',
+        header: {
+          'content-type': 'application/x-www-form-urlencoded'
+        },
+        dataType: 'json',
+        success: function (res) {
+          console.log(res.data.data)
+          if (res.data.status == 100) {
+            wx.hideLoading();
+            setTimeout(function () {
+              wx.requestPayment({
+                timeStamp: res.data.data.sign.timeStamp,
+                nonceStr: res.data.data.sign.nonceStr,
+                package: res.data.data.sign.package,
+                signType: 'MD5',
+                paySign: res.data.data.sign.paySign,
+                success(res) {
+                  wx.showToast({
+                    title: '报名成功',
+                    icon: 'none',
+                    duration: 2000
+                  })
+                  that.getuser();
+                  setTimeout(function () {
+                    // wx.redirectTo({
+                    //   url: '../e_home/e_home',
+                    // })
+                    // wx.navigateBack({
+                    //   delta: 2
+                    // })
+                    // wx.redirectTo({
+                    //   url: '../e_detail/e_detail?id=' + saiId,
+                    // })
+                    var pages = getCurrentPages();//当前页面栈
+                    if (pages.length > 1) {
+                      var beforePage = pages[pages.length - 3];//获取上一个页面实例对象
+                      var currPage = pages[pages.length - 1]; // 当前页面，若不对当前页面进行操作，可省去
+                      // beforePage.setData({       //如果需要传参，可直接修改A页面的数据，若不需要，则可省去这一步
+                      //   id: res.data.data
+                      // })
+                      beforePage.changeData();//触发父页面中的方法
+                    }
+                    wx.navigateBack({
+                      delta: 2
+                    })
+                  }, 2000)
+                },
+                fail(res) {
+                  wx.showToast({
+                    title: '支付失败',
+                    icon: 'none',
+                    duration: 1000
+                  })
+                }
+              })
+
+            }, 1000)
+          } else {
+            wx.showToast({
+              title: res.data.msg,
+              icon: 'none'
+            })
+          }
+
+        }
+      })
+    }
   },
   // 获取艺人标签
   getable(){

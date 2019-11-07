@@ -92,6 +92,14 @@ Page({
     bindGetUserInfo(e) {
         console.log(e.detail.userInfo)
         var that = this;
+      var nowTime = new Date();
+      if (nowTime - this.data.tapTime < 800) {
+        console.log('阻断')
+        return;
+      }
+      wx.showLoading({
+        title: '登录中',
+      })
         wx.getSetting({
             success(res) {
                 console.log(res)
@@ -139,7 +147,7 @@ Page({
                               console.log(res.data.data);
 
                               if (res.data.status == 100) {
-
+                                wx.hideLoading()
                                 wx.setStorage({
                                   key: 'etoken',
                                   data: res.data.data.token,
@@ -186,6 +194,7 @@ Page({
                 }
             }
         })
+      this.setData({ tapTime: nowTime });
     },
   gettoken: function (e) {
     var that = this;

@@ -359,6 +359,7 @@ Page({
       isqu: true,
       iscity: true,
       isjie: true,
+      istext:true,
     })
   },
   //省
@@ -548,6 +549,7 @@ Page({
     that.setData({ //给变量赋值
       addres: p_name + '-' + c_name + '-' + q_name + '-' + j_name,
       isardess: true,
+      istext:false
     })
   },
   //活动名称
@@ -593,7 +595,7 @@ Page({
     var city_idreg = city_id;
     var area_idreg = area_id;
     
-    var phonetel = /^(((13[0-9]{1})|(15[0-9]{1})|(18[0-9]{1})|(17[0-9]{1}))+\d{8})$/;
+    var phonetel = /^[1]([3-9])[0-9]{9}$/;
     if (simages.length < 2) {
       photos = simages[0];
       console.log(photos)

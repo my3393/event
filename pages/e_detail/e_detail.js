@@ -17,7 +17,7 @@ var ybm = false;
 let down1;
 let down2;
 let down3;
-let narea=[];
+let src = '';
 Page({
 
   /**
@@ -100,6 +100,7 @@ Page({
     ishelp:true,
     iscai:true,
     countdown:1,
+    
   },
 
   /**
@@ -221,7 +222,7 @@ Page({
     setTimeout(function () {
       detail = [];
       that.setData({
-       
+        p_currentPage:1,
         detail: [],
         photos: [],
         players: [],
@@ -255,7 +256,7 @@ Page({
         rich: '',
         eventId: '',
         v_totalPage: '',//
-        competitionAreaId: '',//赛区id
+        //competitionAreaId: '',//赛区id
         narea: '',
         // competitionName: '',//赛区名称
         qualifiedNumber: '',//晋级人数
@@ -375,6 +376,22 @@ Page({
        
      }
   },
+  //艺人主页
+  yule: function (e) {
+    //娱乐世界
+    wx.navigateToMiniProgram({
+      appId: 'wxf556b39ee9c934b4',
+      path: 'pages/my_idol/my_idol',
+      extraData: {
+
+      },
+      envVersion: 'release',
+      success(res) {
+        // 打开成功
+      }
+    })
+
+  },
   cai:function(){
      var that = this;
      that.setData({
@@ -465,7 +482,43 @@ Page({
       ishelp: !that.data.ishelp
     })
   },
-  
+  //广告
+  getadvert(){
+    let that = this;
+    wx.request({
+      url: app.data.urlmall + "appadbrandadvertise/advertise.do",
+      data: {
+
+      },
+      method: 'POST',
+      header: {
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+      dataType: 'json',
+      success: function (res) {
+        console.log(res.data.data)
+        if (res.data.status === 100) {
+          
+          
+             //src:res.data.data.url
+          
+          wx.navigateTo({
+            url: '../e_advert/e_advert?src=' + res.data.data.url,
+          })
+        } else if (res.data.status === 103) {
+          wx.redirectTo({
+            url: '/pages/login/login',
+          })
+
+        } else {
+          wx.showToast({
+            title: res.data.msg,
+            icon: 'none'
+          })
+        }
+      }
+    })
+  },
   //商品切换
   tag: function (e) {
     var that = this;
@@ -500,9 +553,10 @@ Page({
           top_1:'',
           top_2:'',
           top_3:'',
+          allType: "0",
+          competitionName: '全部',
           p_currentPage: 1,
-          competitionAreaId:that.data.p_id,
-          competitionNames:that.data.p_name
+          
          // competitionNames:that.data.competitionName
         })
         that.getranklist();
@@ -645,9 +699,8 @@ Page({
           console.log(that.data.istime)
           that.setData({
             competitionAreaId: res.data.data.competitionAreaId,
-            p_id: res.data.data.competitionAreaId,
-            p_name: res.data.data.competitionAreaName,
-            competitionNames: res.data.data.competitionAreaName,
+            
+            // competitionNames: res.data.data.competitionAreaName,
             qualifiedNumber: res.data.data.areaQualifiedNumber,
             detail:res.data.data,
             photos: res.data.data.posters,
@@ -821,7 +874,9 @@ Page({
   //赛区
   getNarea:function(){
     var that = this;
-    narea = []
+    let narea = [
+      { id: 0, competitionName: '全部', }
+    ];
     console.log(narea)
     wx.request({
       url: app.data.urlmall + "/appcompetition/competitionarea.do",
@@ -838,10 +893,8 @@ Page({
         console.log(res.data.data)
         if (res.data.status === 100) {
           narea.push(...res.data.data)
-          if(that.data.tab == 1){
-            let res = { id: 0, competitionName: '全部', }
-            narea.push(res)
-          }
+          
+          
           that.setData({
             narea: narea
           })
@@ -899,7 +952,7 @@ Page({
 
     })
      var index = e.currentTarget.dataset.index;
-     if(index == that.data.narea.length - 1){
+     if(index == 0){
        that.setData({
          allType: 0
        })
@@ -921,7 +974,7 @@ Page({
      } else if (that.data.tab == 2){
        ranklist = [];
        that.setData({
-         competitionNames: competitionName,
+         competitionName: competitionName,
          top_1:'',
          top_2:'',
          top_3:'',
@@ -946,7 +999,8 @@ Page({
         id: that.data.id,
         token: wx.getStorageSync('etoken'),
         currentPage: that.data.p_currentPage,
-        competitionAreaId: that.data.competitionAreaId
+        competitionAreaId: that.data.competitionAreaId,
+        type:that.data.allType
       },
       method: 'POST',
       header: {
@@ -1279,19 +1333,21 @@ Page({
       success: function (res) {
         console.log(res.data.data)
         if (res.data.status === 100) {
+         // that.getadvert();
           wx.showToast({
             title: res.data.msg,
             icon: 'none',
-            duration:2000
+            duration:1500
           })
           setTimeout(function(){
             play = [];
             that.setData({
-              players: []
+             
+              x_currentPage:1
             })
             that.getplayer();
             // that.getdetail();
-          },2000)
+          },1500)
         }
         //  else if (res.data.status === 101){
         //   wx.showToast({
@@ -1509,17 +1565,18 @@ Page({
    
   },
   // //刷新报名
-  // changeData: function () {
-  //   play = [];
-  //   this.setData({
-  //     ranklist: [],
-  //     players:[]
-  //   })
-  //   //var options = { 'id': this.data.id }
-  //   //this.onLoad(options);//最好是只写需要刷新的区域的代码，onload也可，效率低，有点low
-  //   this.getplayer();
-  //   this.getranklist();
-  // },
+  changeData: function () {
+    play = [];
+    ranklist = [];
+    this.setData({
+      x_currentPage:1,
+      p_currentPage:1
+    })
+    //var options = { 'id': this.data.id }
+    //this.onLoad(options);//最好是只写需要刷新的区域的代码，onload也可，效率低，有点low
+    this.getplayer();
+    this.getranklist();
+  },
   // //报名弹窗
   // cance:function(){
   //   var that = this;

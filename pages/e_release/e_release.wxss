@@ -102,7 +102,7 @@ page{
 }
 .evedetil{
   width: 100%;
-  height: 130rpx;
+  height: 200rpx;
   line-height: 40rpx!important;
   overflow-x:visible;
   z-index: 1;

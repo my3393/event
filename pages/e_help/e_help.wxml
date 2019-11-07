@@ -28,7 +28,7 @@
       +
       <text class="gift-nums">{{item.voteNumber}}</text>票
     </view>
-    <view class="pice">
+    <view class="pice" title="艺呗支付">
       <text >{{item.name}}</text>
       <text></text>
       <text>{{item.price}}</text>艺呗

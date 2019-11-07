@@ -11,7 +11,7 @@
     <view class='inforin'> <input maxlength='11' type='number' placeholder='请输入联系方式'bindinput='scope'></input>  </view>
   </view>
   <view class='infor' bindtap="diz">
-    <view class='inform'>地 址  </view>
+    <view class='inform'>地  址</view>
     <view class='inforin '>
       <input disabled='true' type='text' value='{{addres}}' placeholder= '请选择机构所在地' bindtap='showlabel'></input>
     </view>
