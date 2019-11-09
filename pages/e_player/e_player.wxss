@@ -15,6 +15,14 @@ page{
 	box-sizing: border-box;
 	
 }
+.fenl{
+  display: flex;
+  justify-content: space-between;
+  padding: 20rpx;
+  box-sizing: border-box;
+  color: #ccc;
+  
+}
 .ntops{
 	color: #000000;
 	font-size: 32rpx;

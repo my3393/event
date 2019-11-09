@@ -19,7 +19,7 @@
 </view>
 <view class="nav">
   <view class="nav-list {{choo == index?'active':''}}" wx:for="{{gift}}" data-index='{{index}}' 
-  id='{{item.id}}' data-price='{{item.price}}' data-name='{{item.name}}'  bindtap='choose'>
+  id='{{item.id}}' data-price='{{item.price}}' data-name='{{item.name}}' data-giftType='{{item.giftType}}' data-url='{{item.url}}'  bindtap='choose'>
 
     <view class="gift-fig">
       <image src='{{item.photoOssPath}}'></image>

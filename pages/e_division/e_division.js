@@ -44,11 +44,11 @@ Page({
        art:options.art,
        type: options.type,
      })
-    if (options.num == 1) {
+    
       that.setData({
         isdai: !that.data.isdai
       })
-    }
+    
     that.getorganization();
     that.getdetail();
      if(options.type == 0){

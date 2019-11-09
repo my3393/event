@@ -33,6 +33,7 @@ let playerId;
 let tsvides='';
 let phone = '';
 let saiId = '';
+var photos = '';
 Page({
 
   /**
@@ -670,7 +671,7 @@ Page({
     })
   },
   subnotice: function (e) {
-    var photos = '';
+    
     // var lid;
     //console.log(ids)
     wx.getStorage({
@@ -795,12 +796,13 @@ Page({
  
   benren(){
     let that = this;
+    console.log(photos)
     wx.showLoading();
     if (that.data.npay == 0) {
       wx.request({
         url: app.data.urlmall + "/apppcompetitionsignup/averageuserjoin.do",
         data: {
-          token: tokenn,
+          token: wx.getStorageSync('etoken'),
           id: that.data.id,
           userName: title,
           provinceId: province_id,
@@ -808,12 +810,14 @@ Page({
           areaId: area_id,
           townId: area_id,
           artistIntroduce: person,
-          artistLabel: lid,
+          artistLabel: artistId,
           personalPhoto: photos,
           authorizedVideo: that.data.tsvides,
           organizationId: organizationId,
           playerType: playerType,
           playerId: playerId,
+          signUpType: that.data.signUpType,
+          signUpPhone: phone
 
         },
         method: 'POST',
@@ -867,7 +871,7 @@ Page({
       wx.request({
         url: app.data.urlmall + "/apppcompetitionsignup/averageuserjoin/xcxpay.do",
         data: {
-          token: tokenn,
+          token: wx.getStorageSync('etoken'),
           id: that.data.id,
           userName: title,
           provinceId: province_id,

@@ -229,6 +229,8 @@ page{
 .rankhead image{
   width: 80rpx;
   height: 80rpx;
+  border-radius: 50%;
+  overflow: hidden;
 }
 .rankhead{
   display: inline-block;
@@ -347,6 +349,7 @@ page{
 }
 .dynam{
   background: #fff;
+  margin-bottom: 10rpx;
 }
 .jies{
   padding: 20rpx 20rpx;

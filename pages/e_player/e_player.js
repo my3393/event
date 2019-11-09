@@ -234,7 +234,43 @@ Page({
       isyds: !that.data.isyds
     })
   },
-  
+  //广告
+  getadvert() {
+    let that = this;
+    wx.request({
+      url: app.data.urlmall + "appadbrandadvertise/xcxadvertise.do",
+      data: {
+
+      },
+      method: 'POST',
+      header: {
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+      dataType: 'json',
+      success: function (res) {
+        console.log(res.data.data)
+        if (res.data.status === 100) {
+
+
+          //src:res.data.data.url
+
+          wx.navigateTo({
+            url: '../e_advert/e_advert?src=' + res.data.data.url,
+          })
+        } else if (res.data.status === 103) {
+          wx.redirectTo({
+            url: '/pages/login/login',
+          })
+
+        } else {
+          wx.showToast({
+            title: res.data.msg,
+            icon: 'none'
+          })
+        }
+      }
+    })
+  },
   //查看作品
   hidevideo: function (e) {
     var that = this;
@@ -363,7 +399,7 @@ Page({
         that.getdetailss();
         that.getrefue();
         that.getvote();
-
+      
        // that.getplayer();
         if (res.data.status === 100) {
         var  before = res.data.data.beforeStarValue - res.data.data.starValue;
@@ -381,6 +417,8 @@ Page({
             before:before,
             group: res.data.data.users
           })
+          console.log(res.data.data)
+          console.log(that.data.detail.competitionAreaName )
           if(res.data.data.playerType == 1){
             that.getphoto();
             that.getvideo();
@@ -542,6 +580,7 @@ Page({
       success: function (res) {
         console.log(res.data.data)
         if (res.data.status === 100) {
+          
           that.setData({
             votelist: res.data.data.data,
             
@@ -613,6 +652,7 @@ Page({
             icon: 'none',
             duration:2000
           })
+          that.getadvert();
           that.getdetail();
           that.getvote();
         } else if (res.data.status === 103) {
@@ -701,45 +741,13 @@ Page({
   sai: function (e){
     wx.redirectTo({
       url: '../e_detail/e_detail?id=' + this.data.saiId,
+      
     })
   },
   //报名
   subm: function (e){
     var that = this; 
-    // wx.request({
-    //   url: app.data.urlmall + "apppcompetitionsignup/isjoin.do",
-    //   data: {
-    //     id: that.data.event.competitionAreaId,
-    //     token: wx.getStorageSync('etoken'),
-    //   },
-    //   method: 'POST',
-    //   header: {
-    //     'content-type': 'application/x-www-form-urlencoded'
-    //   },
-    //   dataType: 'json',
-    //   success: function (res) {
-    //     console.log(res.data.data)
-    //     if (res.data.status === 100) {
-    //       wx.navigateTo({
-    //         url: '../e_division/e_division?id=' + that.data.saiId + '&num=' + that.data.event.isNewUserPay + '&art=' + that.data.event.isArtistUserPay + '&type=' + that.data.event.isOrganization,
-    //       })
-    //     } else if (res.data.status === 103) {
-    //       wx.showToast({
-    //         title: res.data.msg,
-    //         icon: 'none'
-    //       })
-    //       wx.navigateTo({
-    //         url: '/pages/login/login',
-    //       })
-
-    //     } else {
-    //       wx.showToast({
-    //         title: res.data.msg,
-    //         icon: 'none'
-    //       })
-    //     }
-    //   }
-    // })
+    
     if (that.data.user.phone == null || that.data.user.phone == '') {
 
           wx.showToast({

@@ -1,5 +1,6 @@
 // pages/e_help/e_help.js
 var app = getApp();
+let url = '';
 Page({
 
   /**
@@ -110,9 +111,15 @@ Page({
   },
   que: function () {
     var that = this;
+    if(url != ''){
+      wx.navigateTo({
+        url: '../e_advert/e_advert?src=' + url,
+      })
+    }
     this.setData({
       isgift: !that.data.isgift,
     })
+    url = '';
     //that.getuser();
   },
   cance: function () {
@@ -247,12 +254,19 @@ Page({
   },
   choose:function(e){
     console.log(e)
+   
+    if (e.currentTarget.dataset.url != '' && e.currentTarget.dataset.url != null){
+      url = e.currentTarget.dataset.url
+    }
     this.setData({
       chooid:e.currentTarget.id,
       choo: e.currentTarget.dataset.index,
       price: e.currentTarget.dataset.price,
       name: e.currentTarget.dataset.name,
     })
+    if (e.currentTarget.dataset.gifttype == 2) {
+      this.pay();
+    }
   },
   //支付
   pay: function (e) {

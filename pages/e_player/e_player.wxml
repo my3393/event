@@ -88,9 +88,13 @@
   </view>
 </view>
 <view class="te-t">
+  <view class="fenl">
+     <view>当前排名情况</view>
+     <view>所属分类:{{detail.competitionName}}</view>
+  </view>
   <view class="te-top">
     <view class="te-tps">
-      <view>{{detail.currentRank}}</view>
+      <view>{{detail.currentRank}} </view>
       <view>当前排名</view>
     </view>
     <view class="te-tps">

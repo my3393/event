@@ -486,7 +486,7 @@ Page({
   getadvert(){
     let that = this;
     wx.request({
-      url: app.data.urlmall + "appadbrandadvertise/advertise.do",
+      url: app.data.urlmall + "appadbrandadvertise/xcxadvertise.do",
       data: {
 
       },
@@ -1333,7 +1333,7 @@ Page({
       success: function (res) {
         console.log(res.data.data)
         if (res.data.status === 100) {
-         // that.getadvert();
+          that.getadvert();
           wx.showToast({
             title: res.data.msg,
             icon: 'none',
